@@ -1,0 +1,210 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 2rem;
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+.hero {
+  width: 100%;
+  max-width: 1000px;
+  padding: 4rem 2rem;
+  background-color: #f8657a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%23ffffff' fill-opacity='0.25'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E");
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-sizing: border-box;
+}
+
+.heroBox {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #0e2d50;
+  text-align: center;
+  box-shadow: 0 0 16px rgba(255, 68, 102, 0.5), inset 0 0 24px rgba(255, 68, 102, 0.3);
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.title {
+  margin: 1rem;
+  font-size: 3rem;
+  border-radius: 12px;
+  display: inline-block;
+  color: rgba(14, 45, 80, 0.753);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.subtitle {
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  color: rgba(14, 45, 80, 0.753);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+}
+
+.ctaButtons button {
+  margin: 0 0.5rem;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+
+  width: auto;
+  align-self: flex-start;
+}
+
+.primaryBtn {
+  background-color: #ff4466;
+  color: white;
+}
+
+.primaryBtn:hover {
+  transform: scale(1.05);
+}
+
+.secondaryBtn {
+  background-color: white;
+  color: #ff4466;
+  border: 2px solid #ff4466;
+}
+
+.secondaryBtn:hover {
+  transform: scale(1.05);
+}
+
+.linkBox {
+  margin-top: 1rem;
+}
+
+.howItWorks {
+  margin-bottom: 3rem;
+  width: 100%;
+  max-width: 900px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.steps {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.step {
+  flex: 1 1 250px;
+  background: #f7f7f7;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-sizing: border-box;
+    box-shadow:
+      0 0 4px rgba(255, 68, 102, 0.5),
+      inset 0 0 20px rgba(255, 68, 102, 0.5);
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 0 16px rgba(255, 68, 102, 0.8),
+    0 0 24px rgba(102, 204, 255, 0.6),
+    0 8px 20px rgba(0,0,0,0.3);
+
+}
+
+.testimonials {
+  margin-bottom: 3rem;
+  width: 100%;
+  max-width: 900px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.testimonialCards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.testimonialCard {
+  flex: 1 1 250px;
+  background: #fff0f5;
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 250px;
+  box-sizing: border-box;
+
+      box-shadow:
+    0 0 4px rgba(255, 68, 102, 0.5),
+	inset 0 0 20px rgba(255, 68, 102, 0.5);
+
+	  transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.testimonialCard:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 0 16px rgba(255, 68, 102, 0.8),  /* stronger pink neon */
+    0 0 24px rgba(102, 204, 255, 0.6), /* stronger cyan */
+    0 8px 20px rgba(0,0,0,0.3);        /* lifted shadow */
+}
+
+.finalCTA {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: 2rem;
+  }
+
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .ctaButtons button {
+    margin: 0.5rem 0;
+    width: 100%;
+    padding: 0.8rem 1rem;
+  }
+
+  .steps, .testimonialCards {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step, .testimonialCard {
+    max-width: 100%;
+  }
+}

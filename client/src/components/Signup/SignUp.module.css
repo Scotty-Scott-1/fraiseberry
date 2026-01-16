@@ -1,0 +1,187 @@
+/* --------------Global container---------------- */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;       /* desktop limit */
+  margin: 0 auto;
+  align-items: center;
+  gap: 3rem;
+  box-sizing: border-box;
+  padding: 2rem;           /* small padding for breathing room */
+}
+
+/* ---------- Sign Up Section ---------- */
+.signUpSection {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 500px;        /* desktop card width */
+  padding: 2.5rem 2rem;
+  gap: 1.5rem;
+  border-radius: 16px;
+  color: #0e2d50;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow:
+    0 0 16px rgba(255, 68, 102, 0.5),
+    inset 0 0 24px rgba(255, 68, 102, 0.3);
+  background-color: #fff;   /* optional: makes inputs pop */
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;            /* space between icon and text */
+  background: none;
+  border: none;
+  color: #ff4466;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;    /* spacing before title */
+  transition: color 0.2s ease, transform 0.2s ease;
+  align-self: flex-start;
+  padding: 0%;
+}
+
+.backBtn:hover {
+  color: #e03555;         /* hover color */
+  transform: translateX(-2px); /* subtle movement */
+}
+
+.backIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* ------- Title and Subtitle --------- */
+.signUpTitle {
+  font-size: 3rem;
+  margin: 0 0 1rem 0;
+  border-radius: 12px;
+  display: inline-block;
+  color: rgba(14, 45, 80, 0.85);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.signUpSubtitle {
+  font-size: 1.3rem;
+  margin: 0 0 2rem 0;
+  border-radius: 12px;
+  padding: 0.5rem 1.2rem;
+  display: inline-block;
+  color: rgba(14, 45, 80, 0.75);
+  font-weight: 700;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+}
+
+/* -------- Form -------------- */
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: none;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+/* -------- Form inputs -------------- */
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 68, 102, 0.5);
+  background-color: rgba(255, 255, 255, 0.15);
+  font-size: 1rem;
+  box-shadow: 0 0 4px rgba(255, 68, 102, 0.5);
+  box-sizing: border-box;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.input::placeholder {
+  color: rgba(100, 85, 85, 0.7);
+}
+
+.input:focus {
+  outline: none;
+  border-color: #ff4466;
+  box-shadow: 0 0 10px rgba(255, 68, 102, 0.6);
+  background-color: rgba(92, 87, 87, 0.08);
+}
+
+/* ---------- Button ---------- */
+.primaryBtn {
+  margin-top: 1rem;
+  background-color: #ff4466;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.primaryBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 68, 102, 0.6);
+}
+
+/* ---------- Responsive ---------- */
+
+/* Medium screens (tablet) */
+@media (max-width: 1024px) {
+  .signUpSection {
+    max-width: 720px;
+    padding: 2rem 2rem;
+  }
+  .signUpForm {
+    max-width: 600px;
+  }
+  .signUpTitle {
+    font-size: 2.8rem;
+  }
+  .signUpSubtitle {
+    font-size: 1.2rem;
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 768px) {
+  .signUpSection {
+    width: 100%;
+    padding: 1rem 1.5rem;   /* more vertical padding for taller section */
+    gap: 1.5rem;
+    min-height: 80vh;       /* ensures section grows to most of the viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical centering inside section */
+  }
+
+  .signUpForm {
+    max-width: 100%;
+  }
+
+  .signUpTitle {
+    font-size: 2rem;
+  }
+
+  .signUpSubtitle {
+    font-size: 1rem;
+  }
+
+    .backBtn {
+    font-size: 0.9rem;     /* slightly smaller on mobile */
+    margin-top: -22rem;
+    margin-bottom: 0.5rem;
+
+  }
+  .backIcon {
+    width: 1rem;
+    height: 1rem;
+  }
+}

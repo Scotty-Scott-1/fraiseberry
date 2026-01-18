@@ -1,0 +1,245 @@
+/* ----------------- Global Container ----------------- */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2.5rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* ----------------- Header ----------------- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.backBox {
+  flex: 0 0 auto;
+}
+
+.headerTitle {
+  flex: 1 1 auto;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0e2d50;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subTitle {
+  color: #555;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+  text-align: center;
+}
+
+.notificationBtn {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+}
+
+.notificationIcon {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: #ff4466;
+  transition: color 0.2s ease;
+}
+
+.notificationBtn:hover .notificationIcon {
+  color: #e03555;
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.actionBtn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.primaryAction {
+  background-color: #ff4466;
+  color: white;
+}
+
+.primaryAction:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 68, 102, 0.5);
+}
+
+.secondaryAction {
+  background-color: #f2f2f2;
+  color: #0e2d50;
+}
+
+.secondaryAction:hover {
+  background-color: #e0e0e0;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background-color: #fff;
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
+  box-shadow:
+    0 0 12px rgba(255, 68, 102, 0.2),
+    inset 0 0 8px rgba(255, 68, 102, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cardLabel {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.cardValue {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0e2d50;
+  margin-top: 0.2rem;
+}
+
+.matchImg {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 0.5rem;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.quickLinkBtn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  background-color: #ff4466;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.quickLinkBtn:hover {
+  transform: scale(1.05);
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.activitySection, .quickLinksSection {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  box-shadow:
+    0 0 16px rgba(255, 68, 102, 0.2),
+    inset 0 0 8px rgba(255, 68, 102, 0.05);
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #0e2d50;
+}
+
+.activityList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activityItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255,68,102,0.2);
+  font-size: 0.95rem;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .headerTop {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .headerTitle {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .subTitle {
+    font-size: 0.9rem;
+  }
+
+  .matchImg {
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .headerTitle {
+    font-size: 1.6rem;
+    text-align: left;
+  }
+
+  .subTitle {
+    text-align: left;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,25 @@
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #ff4466;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+  align-self: flex-start;
+  padding: 0%;
+}
+
+.backBtn:hover {
+  color: #e03555;
+  transform: translateX(-2px);
+}
+
+.backIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+}

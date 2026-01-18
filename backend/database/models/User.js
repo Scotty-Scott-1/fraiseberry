@@ -2,7 +2,7 @@
 import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
 // local files
-import { sequelize } from "../connect.js";
+import { sequelize } from "../config.js";
 
 const SALT_ROUNDS = 10;
 
@@ -14,20 +14,11 @@ export const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isEmail: true,
-      },
+      unique: true,
+      validate: { isEmail: true },
     },
     password: {
       type: DataTypes.STRING,
@@ -52,7 +43,7 @@ export const User = sequelize.define(
     },
     mfaSecret: {
       type: DataTypes.STRING,
-      allowNull: true, // user may not enable MFA yet
+      allowNull: true,
     },
     mfaEnabled: {
       type: DataTypes.BOOLEAN,
@@ -76,7 +67,8 @@ export const User = sequelize.define(
   }
 );
 
-// instance method for checking password
 User.prototype.checkPassword = async function (inputPassword) {
   return await bcrypt.compare(inputPassword, this.password);
 };
+
+console.log("✅ [MariaDB]: User model defined");

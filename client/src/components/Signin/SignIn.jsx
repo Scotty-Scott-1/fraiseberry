@@ -11,8 +11,9 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
-  const { loginUser, loading, error } = useLoginUser();
+  const { loginUser, loading } = useLoginUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,16 +23,20 @@ const SignIn = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const result = await loginUser(formData);
 
-    try {
-      await loginUser(formData);
-      navigate("/dashboard");
-    } catch(err) {
-		console.log("AAAAAA: ", error);
-    }
-  };
+    console.log(result)
+    if (result?.tempToken) return; // MFA
+
+    navigate("/dashboard"); // normal login
+  } catch (err) {
+    setError(err.message);
+    console.error(err.message); // log error
+  }
+};
 
   return (
     <div className={styles.container}>
@@ -77,7 +82,7 @@ const SignIn = () => {
           </button>
         </form>
 
-        error && <p className={styles.error}>{error}</p>
+        { error && <p className={styles.error}>{error}</p> }
       </section>
     </div>
   );

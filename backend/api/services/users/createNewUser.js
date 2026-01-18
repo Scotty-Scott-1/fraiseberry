@@ -47,7 +47,7 @@ const userSchema = Joi.object({
 
 export const createNewUser = async (userData) => {
 
-  const baseUrl = "http://localhost";
+  const baseUrl = "http://localhost:5173";
 
   // Validate input
   const { error } = userSchema.validate(userData);
@@ -86,7 +86,7 @@ Thanks for signing up to fraiseberry.
 
 Please verify your account by clicking the link below:
 
-${baseUrl}/emailverify?token=${verificationToken}
+${baseUrl}/email?token=${verificationToken}
 
 Kind regards,
 Simulator
@@ -95,7 +95,7 @@ Simulator
 <p>Hello ${user.firstName} ${user.lastName},</p>
 <p>Thanks for signing up to fraiseberry.</p>
 <p>Please verify your account by clicking the link below:</p>
-<p><a href="${baseUrl}/emailverify?token=${verificationToken}">Verify your account</a></p>
+<p><a href="${baseUrl}/email?token=${verificationToken}">Verify your account</a></p>
 <p>Kind regards,<br/>Simulator</p>
       `,
     });

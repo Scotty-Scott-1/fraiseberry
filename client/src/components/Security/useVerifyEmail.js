@@ -7,7 +7,7 @@ export const useVerifyEmail = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/email", {
+      const res = await fetch("/api/email", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),

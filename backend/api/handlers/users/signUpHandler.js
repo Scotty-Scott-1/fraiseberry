@@ -4,9 +4,11 @@ export const signUpHandler = async (req, res) => {
   console.log("Incoming signup:", req.body);
   try {
     const result = await signUpController(req.body);
+    console.log(result);
     return res.status(result.status).json({ status: result.status, message : result.message });
 
   } catch (err) {
+    console.error("Hi: ",err);
     const error400 = [
       "Invalid email format",
       "Email is required",
@@ -17,12 +19,11 @@ export const signUpHandler = async (req, res) => {
       "Failed to create user in db",
       "Email verification email failed to send",
       "Failed to create user in db",
-      "Email verification email failed to send"
+      "Email verification email failed to send",
+      '"password" length must be at least 8 characters long'
     ].includes(err.message);
     if (error400) return res.status(400).json({ message: err.message });
 
-        // Fallback for unknown/unexpected errors
-    console.error(err); // log stack trace
     return res.status(500).json({ message: "Internal server error" });
   }
 };

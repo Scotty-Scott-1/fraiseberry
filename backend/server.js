@@ -1,24 +1,14 @@
 import express from "express";
-import cors from "cors";
 import { initDB } from "./database/initDB.js";
 import routes from "./api/routes/routes.js";
 
 const app = express();
-const a = "http://localhost:5173"
-
-// cors
-app.use(cors({
-  origin: a,
-  credentials: true
-}));
 
 // Middleware
 app.use(express.json());
 
 // Routes
 app.use("/api", routes);
-
-
 
 const startServer = async () => {
   try {

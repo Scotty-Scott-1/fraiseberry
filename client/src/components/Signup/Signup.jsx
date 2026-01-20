@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, } from 'react';
 import { useCreateUser } from "./useCreateUser";
 import styles from "./SignUp.module.css";
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
     agree: false,
@@ -27,9 +25,9 @@ const SignUp = () => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-
   try {
     const msg = await createUser(formData);
+    console.log(msg);
     navigate("/signin");
   } catch {
 
@@ -49,27 +47,8 @@ const handleSubmit = async (e) => {
           <ArrowLeftIcon className={styles.backIcon} />
           Back
         </button>
-
-
-
         <h2 className={styles.signUpTitle}>Join Now</h2>
         <form className={styles.signUpForm} onSubmit={handleSubmit}>
-          <input
-            name="firstName"
-            type="text"
-            placeholder="First Name"
-            className={styles.input}
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          <input
-            name="lastName"
-            type="text"
-            placeholder="Last Name"
-            className={styles.input}
-            value={formData.lastName}
-            onChange={handleChange}
-          />
           <input
             name="email"
             type="email"

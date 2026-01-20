@@ -7,7 +7,7 @@ export const useLoginUser = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/auth", {
+      const res = await fetch("/api/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

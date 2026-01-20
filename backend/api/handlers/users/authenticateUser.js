@@ -3,6 +3,7 @@ import { authenticateUser } from "../../services/users/authenticateUser.js";
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 
 export const authenticateUserHandler = async (req, res) => {
+  console.log("hi");
   try {
     const { email, password } = req.body;
     const result = await authenticateUser(email, password);

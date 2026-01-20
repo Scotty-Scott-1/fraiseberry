@@ -1,6 +1,6 @@
 import express from "express";
 import { signUpHandler } from "../handlers/users/signUpHandler.js";
-import { authenticateUserHandler } from "../handlers/users/authenticateUser.js";
+//import { authenticateUserHandler } from "../handlers/users/authenticateUser.js";
 import { verifyEmailHandler } from "../handlers/users/verifyEmail.js";
 import { testHandler } from "../handlers/test/test.js";
 
@@ -9,7 +9,7 @@ import { testHandler } from "../handlers/test/test.js";
 const router = express.Router();
 
 router.post("/users", signUpHandler);
-router.post("/auth", authenticateUserHandler);
+//router.post("/auth", authenticateUserHandler);
 router.put("/email", verifyEmailHandler);
 router.get("/test", testHandler);
 

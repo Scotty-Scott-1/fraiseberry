@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import styles from "./SignIn.module.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Security/authContext";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { login, accessToken } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,10 +24,20 @@ const SignIn = () => {
     }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-    await loginUser(formData);
-};
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const result = await loginUser(formData);
+      if (result.status === 200 && result.message === "normal login") {
+        navigate("/dashboard")
+      } else if (result.message === "mfa required") {
+        navigate("/mfa");
+      }
+    } catch(err) {
+      console.error(err.message);
+    }
+  };
+
 
   return (
     <div className={styles.container}>

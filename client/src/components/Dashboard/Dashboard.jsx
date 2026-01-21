@@ -1,10 +1,11 @@
-import React from "react";
+import { useAuth } from "../Security/authContext";
 import styles from "./Dashboard.module.css";
 import { BellIcon } from "@heroicons/react/24/solid";
 import BackButton from "../Utils/BackButton/BackButton"
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const { accessToken, logout } = useAuth();
   const matches = [
     { name: "Alice", age: 26, img: "/profiles/alice.jpg" },
     { name: "John", age: 28, img: "/profiles/john.jpg" },
@@ -16,11 +17,14 @@ const Dashboard = () => {
     navigate(-1); // go back
   };
 
+
   return (
     <div className={styles.container}>
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerTop}>
+                <p>Your token: {accessToken}</p>
+      <button onClick={logout}>Logout</button>
           <div className={styles.backBox}>
             <BackButton onClick={goBack} />
           </div>

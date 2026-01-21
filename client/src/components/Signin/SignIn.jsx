@@ -11,9 +11,8 @@ const SignIn = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
 
-  const { loginUser, loading } = useLoginUser();
+  const { loginUser, loading, error } = useLoginUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,17 +24,7 @@ const SignIn = () => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  try {
-    const result = await loginUser(formData);
-
-    console.log(result)
-    if (result?.tempToken) return; // MFA
-
-    navigate("/dashboard"); // normal login
-  } catch (err) {
-    setError(err.message);
-    console.error(err.message); // log error
-  }
+    await loginUser(formData);
 };
 
   return (

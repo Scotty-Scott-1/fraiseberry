@@ -1,13 +1,13 @@
-import { signInController } from "../../services/users/authenticateUser.js";
+import { signInController } from "../../controllers/signIn/signIn.js";
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 
-export const authenticateUserHandler = async (req, res) => {
+export const signInHandler = async (req, res) => {
   console.log("hi");
   try {
     const { email, password } = req.body;
 
-    const result = signInController(email, password);
+    const result = await signInController(email, password);
 
     // MFA flow
     if (result.mfaRequired) {
@@ -28,9 +28,10 @@ export const authenticateUserHandler = async (req, res) => {
 
     return res.status(200).json({
       message: result.message,
-      user: result.user,
       accessToken: result.accessToken,
+      mfaRequired: false,
     });
+
   } catch (err) {
     console.error("Login error:", err);
 
@@ -43,6 +44,6 @@ export const authenticateUserHandler = async (req, res) => {
     ].includes(err.message);
 
     if (error400) return res.status(400).json({ message: err.message });
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ status: 400, message: "Internal server error" });
   }
 };

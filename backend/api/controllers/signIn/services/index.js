@@ -4,3 +4,4 @@ import { mfaRquiredService } from "./mfaRequired.js";
 import { accessTokenService } from "./accessTokens.js";
 
 
+export { authenticateUserService, User, mfaRquiredService, accessTokenService };

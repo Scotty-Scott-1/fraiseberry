@@ -2,22 +2,12 @@ import { User, authenticateUserService, mfaRquiredService, accessTokenService } 
 
 
 export const signInController = async (email, password) => {
-  try {
 
     const user = await authenticateUserService(email, password);
-    const result1 = await mfaRquiredService(user);
+    const result =  mfaRquiredService(user);
 
-    if (result1.mfaRequired) {
-      // mfa flow
-    }
+    if (result.mfaRequired) return result;
 
-    return await accessTokenService(user);
+    return accessTokenService(user);
 
-
-
-
-  } catch {
-
-
-  }
 }

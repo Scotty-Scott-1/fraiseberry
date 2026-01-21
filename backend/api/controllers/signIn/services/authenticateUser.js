@@ -1,4 +1,4 @@
-import { User } from "../../../database/models/User.js";
+import { User } from "../../../../database/models/index.js";
 
 export const authenticateUserService = async (email, password) => {
 try {
@@ -18,7 +18,6 @@ try {
 	return user;
 
 } catch(err) {
-	console.error(err);
     throw new Error(err.message);
 }
 };

@@ -65,7 +65,7 @@
 }
 
 .notificationBtn {
-  flex: 0 0 auto;
+
   background: none;
   border: none;
   cursor: pointer;
@@ -99,26 +99,16 @@
   cursor: pointer;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.3s;
-}
-
-.primaryAction {
   background-color: #ff4466;
   color: white;
 }
 
-.primaryAction:hover {
+
+.actionBtn:hover {
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(255, 68, 102, 0.5);
 }
 
-.secondaryAction {
-  background-color: #f2f2f2;
-  color: #0e2d50;
-}
-
-.secondaryAction:hover {
-  background-color: #e0e0e0;
-}
 
 .cardsGrid {
   display: grid;
@@ -195,12 +185,7 @@
     inset 0 0 8px rgba(255, 68, 102, 0.05);
 }
 
-.sectionTitle {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #0e2d50;
-}
+
 
 
 @media (max-width: 768px) {

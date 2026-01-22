@@ -1,29 +1,30 @@
-import { DataTypes, STRING } from "sequelize";
+import { DataTypes, STRING, INTEGER, TEXT } from "sequelize";
 import { sequelize } from "../config.js";
 
 export const Profile = sequelize.define(
   "Profile",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       allowNull: false,
       unique: true,
     },
-    firstName: { type: DataTypes.STRING, allowNull: true },
-    lastName: { type: DataTypes.STRING, allowNull: true },
+    name: { type: STRING, allowNull: true },
+    age: { type: INTEGER, allowNull: true },
     gender: {
       type: DataTypes.ENUM("male", "female", "non-binary", "other"),
       allowNull: true,
     },
-    dob: { type: DataTypes.DATEONLY, allowNull: true },
-    bio: { type: DataTypes.TEXT, allowNull: true },
-    profilePics: { type: STRING, allowNull: true },
-    location: { type: DataTypes.STRING, allowNull: true },
+    bio: { type: TEXT, allowNull: true },
+    profilePic: { type: STRING, allowNull: true },
+    supportingPic1: { type: STRING, allowNull: true },
+    supportingPic2: { type: STRING, allowNull: true },
+    supportingPic3: { type: STRING, allowNull: true },
   },
   { timestamps: true }
 );

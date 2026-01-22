@@ -8,7 +8,7 @@ export const useHandleSave = () => {
   const { accessToken, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleSave = async (formData) => {
+  const handleSave = async (profileData) => {
     setSaving(true);
     setError(null);
     try {
@@ -19,16 +19,14 @@ export const useHandleSave = () => {
           "Authorization": `Bearer ${accessToken}`
         },
         credentials: "include",
-        body: JSON.stringify(formData)
+        body: JSON.stringify(profileData)
       });
-
-
 
     } catch (err) {
       console.error(err);
       setError(err || "Failed to save profile");
     } finally {
-      setIsSaving(false);
+      setSaving(false);
     }
   };
 

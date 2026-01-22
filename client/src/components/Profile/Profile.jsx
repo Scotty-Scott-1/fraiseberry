@@ -3,28 +3,19 @@ import { useState } from "react";
  import { useHandleSave } from "./useHandleSave";
 
 const Profile = () => {
-  const [formData, setFormData] = useState({
+  const [profileData, setProfileData] = useState({
     name: "Alex",
     age: 27,
     bio: "Coffee lover. Gym enjoyer. Looking for something real.",
-    avatar: "/profiles/default-avatar.jpg",
-    photos: [
-      "/profiles/pic1.jpg",
-      "/profiles/pic2.jpg",
-      "/profiles/pic3.jpg",
-    ],
+    gender: "Male"
   });
-  const { handleSave, saving, error } = useHandleSave();
+
+  const { handleSave, saving, error } = useHandleSave(profileData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setProfileData((prev) => ({ ...prev, [name]: value }));
   };
-
-
-
-
-
 
   return (
     <div className={styles.container}>
@@ -64,6 +55,20 @@ const Profile = () => {
           />
         </label>
         <label className={styles.label}>
+          Gender
+          <ul className={styles.genderList}>
+            {["male", "female", "non-binary", "other"].map((gender) => (
+              <li
+                key={gender}
+                className={`${styles.genderItem} ${formData.gender === gender ? styles.selected : ""}`}
+                onClick={() => handleChange({ target: { name: "gender", value: gender } })}
+              >
+                {gender}
+              </li>
+            ))}
+          </ul>
+        </label>
+        <label className={styles.label}>
           Bio
           <textarea
             name="bio"
@@ -75,15 +80,10 @@ const Profile = () => {
         </label>
       </section>
 
-      {/* Supporting Photos */}
+
       <section className={styles.card}>
         <h2 className={styles.sectionTitle}>Supporting Photos</h2>
         <div className={styles.photoGrid}>
-          {formData.photos.map((photo, idx) => (
-            <div key={idx} className={styles.photoWrapper}>
-              <img src={photo} alt={`Photo ${idx + 1}`} />
-            </div>
-          ))}
           <button className={styles.addPhotoBtn}>+ Add Photo</button>
         </div>
       </section>

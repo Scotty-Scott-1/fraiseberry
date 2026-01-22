@@ -1,4 +1,4 @@
-import { signInController } from "../../controllers/signIn/signIn.js";
+import { signInController } from "../controllers/signIn/signIn.js";
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 

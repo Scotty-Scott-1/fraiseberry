@@ -5,6 +5,7 @@ import PageHome from "./pages/Home";
 import VerifyEmailPage from "./pages/VerifyEmail";
 import DashboardPage from "./pages/Dashboard";
 import ProtectedRoute from "./components/Security/ProtectedRoute";
+import ProfilePage from "./pages/Profile";
 
 
 
@@ -15,6 +16,7 @@ const App = () => (
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/email" element={<VerifyEmailPage />} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
     </Routes>
 );
 

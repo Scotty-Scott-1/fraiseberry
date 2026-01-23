@@ -1,4 +1,4 @@
-import { User, createNewUser, sendVerificationEmail, validateUserSignUp } from "./services/index.js"
+import { User, createNewUser, sendVerificationEmail, validateUserSignUp, createProfileService } from "./services/index.js"
 
 export const signUpController = async (userData) => {
 
@@ -16,6 +16,9 @@ export const signUpController = async (userData) => {
 
   // Step 4: Send verification email
   await sendVerificationEmail(user);
+
+  // Step 4: Create profile linked to this user
+  await createProfileService(user.id);
 
   return { status: 200, message: "New user created and verification email sent" };
 };

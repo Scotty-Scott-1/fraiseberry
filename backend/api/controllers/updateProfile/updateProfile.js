@@ -1,8 +1,9 @@
 import xss from "xss";
-import validateProfileService from "./services/validateProfileData.js";
+import { validateProfileService, updateProfileService } from "./services/index.js";
 
-export const updateProfileController = async (formData) => {
-
+export const updateProfileController = async (userId, formData) => {
+    console.log("Controller:", userId);
+  console.log("Controller:", formData);
   // Validate input
   const validatedData =  await validateProfileService(formData);
 
@@ -14,9 +15,7 @@ export const updateProfileController = async (formData) => {
     age: validatedData.age
   }
 
-  
-
-
+  await updateProfileService(userId, formData);
 
   return { status: 200, message: "profile updated" };
 };

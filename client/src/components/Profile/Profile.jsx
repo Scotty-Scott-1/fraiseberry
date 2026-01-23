@@ -4,13 +4,13 @@ import { useState } from "react";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
-    name: "Alex",
-    age: 27,
-    bio: "Coffee lover. Gym enjoyer. Looking for something real.",
-    gender: "Male"
+    name: "",
+    age: "",
+    bio: "",
+    gender: ""
   });
 
-  const { handleSave, saving, error } = useHandleSave(profileData);
+  const { handleSave, saving, error } = useHandleSave();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +26,7 @@ const Profile = () => {
       <section className={styles.card}>
         <h2 className={styles.sectionTitle}>Profile Picture</h2>
         <div className={styles.avatarSection}>
-          <img src={formData.avatar} alt="Profile" className={styles.avatar} />
+          <img src="Profile" alt="Profile" className={styles.avatar} />
           <button className={styles.photoBtn}>Change Photo</button>
         </div>
       </section>
@@ -38,7 +38,7 @@ const Profile = () => {
           Name
           <input
             name="name"
-            value={formData.name}
+            value={profileData.name}
             onChange={handleChange}
             className={styles.input}
           />
@@ -48,10 +48,10 @@ const Profile = () => {
           <input
             type="number"
             name="age"
-            value={formData.age}
+            value={profileData.age}
             onChange={handleChange}
             className={styles.input}
-             min={18}
+            min={18}
           />
         </label>
         <label className={styles.label}>
@@ -60,7 +60,7 @@ const Profile = () => {
             {["male", "female", "non-binary", "other"].map((gender) => (
               <li
                 key={gender}
-                className={`${styles.genderItem} ${formData.gender === gender ? styles.selected : ""}`}
+                className={`${styles.genderItem} ${profileData.gender === gender ? styles.selected : ""}`}
                 onClick={() => handleChange({ target: { name: "gender", value: gender } })}
               >
                 {gender}
@@ -72,7 +72,7 @@ const Profile = () => {
           Bio
           <textarea
             name="bio"
-            value={formData.bio}
+            value={profileData.bio}
             onChange={handleChange}
             className={styles.textarea}
             rows={4}
@@ -88,7 +88,10 @@ const Profile = () => {
         </div>
       </section>
 
-      <button className={styles.saveBtn} onClick={handleSave}>
+      <button
+        className={styles.saveBtn}
+        onClick={() => handleSave(profileData)}
+      >
         Save Changes
       </button>
     </div>

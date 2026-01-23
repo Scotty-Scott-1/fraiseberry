@@ -11,20 +11,27 @@ export const useHandleSave = () => {
   const handleSave = async (profileData) => {
     setSaving(true);
     setError(null);
+
+    console.log(profileData);
     try {
       const res = await fetch("/api/profile", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${accessToken}`
         },
-        credentials: "include",
+        //credentials: "include",
         body: JSON.stringify(profileData)
       });
-
+      const data = await res.json();
+      console.log(data);
+      if (!res.ok) {
+        console.error("Fetch error:", res.status, text);
+        throw new Error(`Request failed: ${res.status}`);
+      }
     } catch (err) {
       console.error(err);
-      setError(err || "Failed to save profile");
+      setError(err.message);
     } finally {
       setSaving(false);
     }

@@ -1,6 +1,8 @@
 import styles from "./Profile.module.css";
-import { useState } from "react";
- import { useHandleSave } from "./useHandleSave";
+import React, { useState } from "react";
+import { useHandleSave } from "./useHandleSave";
+import { useGetProfile } from "./useGetProfile";
+import { useEffect } from "react";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -9,13 +11,35 @@ const Profile = () => {
     bio: "",
     gender: ""
   });
-
-  const { handleSave, saving, error } = useHandleSave();
+  const [error, setError] = useState("");
+  const { handleSave, saving } = useHandleSave();
+  const { getProfile } = useGetProfile();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfileData((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const data = await getProfile();
+        setProfileData({
+          name: data.name ?? "",
+          age: data.age ?? "",
+          bio: data.bio ?? "",
+          gender: data.gender ?? ""
+        });
+        console.log("profile fetched")
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    loadProfile();
+  }, []);
+
+
 
   return (
     <div className={styles.container}>
@@ -90,11 +114,30 @@ const Profile = () => {
 
       <button
         className={styles.saveBtn}
-        onClick={() => handleSave(profileData)}
+        onClick={() => handleSave(profileData, setError)}
       >
         Save Changes
+
+
       </button>
+
+
+      {error && (
+        <p style={{ color: "red", marginTop: "0.5rem" }}>
+          {error}
+        </p>
+        )
+      };
+
+
+
+
+
     </div>
+
+
+
+
   );
 };
 

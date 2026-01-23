@@ -10,9 +10,12 @@ export const Profile = sequelize.define(
       primaryKey: true,
     },
     userId: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
+      references: {
+        model: "Users",
+        key: "id",
+      },
     },
     name: { type: STRING, allowNull: true },
     age: { type: INTEGER, allowNull: true },

@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 export const useHandleSave = () => {
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState(null);
   const { accessToken, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleSave = async (profileData) => {
+  const handleSave = async (profileData, setError) => {
     setSaving(true);
-    setError(null);
+    setError("");
 
-    console.log(profileData);
     try {
       const res = await fetch("/api/profile", {
         method: "PUT",
@@ -20,7 +18,7 @@ export const useHandleSave = () => {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${accessToken}`
         },
-        //credentials: "include",
+        credentials: "include",
         body: JSON.stringify(profileData)
       });
       const data = await res.json();
@@ -31,11 +29,11 @@ export const useHandleSave = () => {
       }
     } catch (err) {
       console.error(err);
-      setError(err.message);
+      setError(err);
     } finally {
       setSaving(false);
     }
   };
 
-  return { handleSave, saving, error };
+  return { handleSave, saving };
 };

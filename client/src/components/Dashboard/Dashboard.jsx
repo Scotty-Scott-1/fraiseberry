@@ -17,6 +17,9 @@ const Dashboard = () => {
       case "1":
         navigate("/profile");
         break;
+      case "2":
+        navigate("/preferences");
+        break;
       default:
         break;
     }
@@ -40,17 +43,17 @@ const Dashboard = () => {
         <p className={styles.subTitle}>Check your matches and updates</p>
 
         <div className={styles.headerActions}>
-          <button className={styles.actionBtn} onClick={() => handleClick("1")}>
+          <button className={styles.actionBtn}>
             Discover
           </button>
           <button className={styles.actionBtn}>
             Messages
           </button>
-          <button className={styles.actionBtn}>
+          <button className={styles.actionBtn} onClick={() => handleClick("1")}>
             Profile
           </button>
-          <button className={styles.actionBtn}>
-            Matches
+          <button className={styles.actionBtn} onClick={() => handleClick("2")}>
+            Preferences
           </button>
         </div>
 

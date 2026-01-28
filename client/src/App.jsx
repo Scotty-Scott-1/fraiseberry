@@ -6,7 +6,7 @@ import VerifyEmailPage from "./pages/VerifyEmail";
 import DashboardPage from "./pages/Dashboard";
 import ProtectedRoute from "./components/Security/ProtectedRoute";
 import ProfilePage from "./pages/Profile";
-
+import PreferencesPage from "./pages/Preferences";
 
 
 const App = () => (
@@ -17,6 +17,9 @@ const App = () => (
       <Route path="/email" element={<VerifyEmailPage />} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+      <Route path="/preferences" element={<ProtectedRoute><PreferencesPage /></ProtectedRoute>} />
+
+
     </Routes>
 );
 

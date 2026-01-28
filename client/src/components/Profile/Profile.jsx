@@ -1,15 +1,19 @@
 import styles from "./Profile.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHandleSave } from "./useHandleSave";
 import { useGetProfile } from "./useGetProfile";
-import { useEffect } from "react";
+import ProfilePicture from "./ProfilePicSection.jsx";
+import SupportingPhotos from "./PhotoSection";
+import ProfileDetails from "./ProfileDetails";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
     name: "",
     age: "",
     bio: "",
-    gender: ""
+    gender: "",
+    profilePic: null,
+    supportingPics: []
   });
   const [error, setError] = useState("");
   const { handleSave, saving } = useHandleSave();
@@ -20,17 +24,33 @@ const Profile = () => {
     setProfileData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleProfilePicChange = (newPhoto) => {
+    setProfileData((prev) => ({ ...prev, profilePic: newPhoto }));
+  };
+
+  const handleSupportingPhotosChange = (newPhotos) => {
+    setProfileData((prev) => ({ ...prev, supportingPics: newPhotos }));
+  };
+
   useEffect(() => {
     const loadProfile = async () => {
       try {
         const data = await getProfile();
-        setProfileData({
+
+        setProfileData((prev) => ({
+          ...prev,
           name: data.name ?? "",
           age: data.age ?? "",
           bio: data.bio ?? "",
-          gender: data.gender ?? ""
-        });
-        console.log("profile fetched")
+          gender: data.gender ?? "",
+          profilePic: data.profilePic ? { file: null, preview: data.profilePic } : null,
+          supportingPics: (data.supportingPics || []).map((url) => ({
+            file: null,
+            preview: url
+          }))
+        }));
+
+        console.log("Profile fetched");
       } catch (err) {
         console.error(err.message);
       }
@@ -39,105 +59,40 @@ const Profile = () => {
     loadProfile();
   }, []);
 
-
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Your Profile</h1>
       <p className={styles.subTitle}>Be yourself. The right people notice.</p>
 
-      {/* Profile Picture */}
-      <section className={styles.card}>
-        <h2 className={styles.sectionTitle}>Profile Picture</h2>
-        <div className={styles.avatarSection}>
-          <img src="Profile" alt="Profile" className={styles.avatar} />
-          <button className={styles.photoBtn}>Change Photo</button>
-        </div>
-      </section>
+      <ProfilePicture
+        photo={profileData.profilePic}
+        onChange={handleProfilePicChange}
+      />
 
-      {/* About You */}
-      <section className={styles.card}>
-        <h2 className={styles.sectionTitle}>About You</h2>
-        <label className={styles.label}>
-          Name
-          <input
-            name="name"
-            value={profileData.name}
-            onChange={handleChange}
-            className={styles.input}
-          />
-        </label>
-        <label className={styles.label}>
-          Age
-          <input
-            type="number"
-            name="age"
-            value={profileData.age}
-            onChange={handleChange}
-            className={styles.input}
-            min={18}
-          />
-        </label>
-        <label className={styles.label}>
-          Gender
-          <ul className={styles.genderList}>
-            {["male", "female", "non-binary", "other"].map((gender) => (
-              <li
-                key={gender}
-                className={`${styles.genderItem} ${profileData.gender === gender ? styles.selected : ""}`}
-                onClick={() => handleChange({ target: { name: "gender", value: gender } })}
-              >
-                {gender}
-              </li>
-            ))}
-          </ul>
-        </label>
-        <label className={styles.label}>
-          Bio
-          <textarea
-            name="bio"
-            value={profileData.bio}
-            onChange={handleChange}
-            className={styles.textarea}
-            rows={4}
-          />
-        </label>
-      </section>
+      <ProfileDetails
+        profileData={profileData}
+        onChange={handleChange}
+      />
 
-
-      <section className={styles.card}>
-        <h2 className={styles.sectionTitle}>Supporting Photos</h2>
-        <div className={styles.photoGrid}>
-          <button className={styles.addPhotoBtn}>+ Add Photo</button>
-        </div>
-      </section>
+      <SupportingPhotos
+        photos={profileData.supportingPics}
+        onChange={handleSupportingPhotosChange}
+      />
 
       <button
         className={styles.saveBtn}
         onClick={() => handleSave(profileData, setError)}
+        disabled={saving}
       >
-        Save Changes
-
-
+        {saving ? "Saving..." : "Save Changes"}
       </button>
-
 
       {error && (
         <p style={{ color: "red", marginTop: "0.5rem" }}>
           {error}
         </p>
-        )
-      };
-
-
-
-
-
+      )}
     </div>
-
-
-
-
   );
 };
 

@@ -24,10 +24,6 @@ export const Profile = sequelize.define(
       allowNull: true,
     },
     bio: { type: TEXT, allowNull: true },
-    profilePic: { type: STRING, allowNull: true },
-    supportingPic1: { type: STRING, allowNull: true },
-    supportingPic2: { type: STRING, allowNull: true },
-    supportingPic3: { type: STRING, allowNull: true },
   },
   { timestamps: true }
 );

@@ -1,22 +1,36 @@
 import xss from "xss";
 import { validateProfileService, updateProfileService } from "./services/index.js";
 
-export const updateProfileController = async (userId, formData) => {
-    console.log("Controller:", userId);
-  console.log("Controller:", formData);
-  // Validate input
-  const validatedData =  await validateProfileService(formData);
+export const updateProfileController = async (
+  userId,
+  formData,
+  profilePicFile,
+  supportingPicsFiles = []
+) => {
 
-  // sanitise input
+
+  // 1. Validate text fields
+  const validatedData = await validateProfileService(formData);
+
+  // 2. Sanitize
   const safeData = {
     name: xss(validatedData.name),
     gender: xss(validatedData.gender),
     bio: xss(validatedData.bio),
     age: validatedData.age
+  };
+
+  if (profilePicFile) {
+    safeData.profilePic = `/uploads/${profilePicFile.filename}`;
   }
 
-  await updateProfileService(userId, formData);
+  if (supportingPicsFiles.length > 0) {
+    safeData.supportingPics = supportingPicsFiles.map(
+      (file) => `/uploads/${file.filename}`
+    );
+  }
 
-  return { status: 200, message: "profile updated" };
+  await updateProfileService(userId, safeData);
+
+  return { status: 200, message: "Profile updated" };
 };
-

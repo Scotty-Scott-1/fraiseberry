@@ -2,8 +2,14 @@ import express from "express";
 import { initDB } from "./database/initDB.js";
 import routes from "./api/routes/routes.js";
 import cors from "cors";
+import path from "path";
 
 const app = express();
+
+app.use(
+  "/uploads",
+  express.static(path.join(process.cwd(), "uploads"))
+);
 
 app.use(cors({
   origin: "http://localhost:3000",

@@ -1,4 +1,4 @@
-import { User } from "../../../database/models/User.js";
+import { User } from "../../database/models/index.js";
 
 export const verifyEmail = async (token) => {
 

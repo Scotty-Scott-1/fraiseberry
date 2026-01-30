@@ -1,4 +1,4 @@
-import { signUpController } from "../controllers/signUp/signUp.js";
+import { signUpController } from "../controllers/signUp/signUpController.js";
 
 export const signUpHandler = async (req, res) => {
   console.log("Incoming signup:", req.body);

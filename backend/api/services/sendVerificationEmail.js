@@ -1,4 +1,4 @@
-import { sendMail } from "../../../../email/resendMailer.js";
+import { sendMail } from "../../email/resendMailer.js";
 
 export const sendVerificationEmail = async (user) => {
 
@@ -11,16 +11,16 @@ export const sendVerificationEmail = async (user) => {
       subject: "Verify your account",
       text:`
         Hello,
-        Thanks for signing up to Fraiseberry.
+        Thanks for signing up to commit.
         Please verify your account: ${verificationLink}
         Kind regards,
-        Fraiseberry`,
+        commit`,
       html: `
         <p>Hello,</p>
-        <p>Thanks for signing up to Fraiseberry.</p>
+        <p>Thanks for signing up to commit.</p>
         <p>Please verify your account: ${verificationLink}</p>
         <p>Kind regards,</p>
-        <p>Fraiseberry</p>`
+        <p>commit</p>`
       });
 
   } catch (err) {

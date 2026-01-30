@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { User } from "../../../../database/models/index.js";
+import { User } from "../../database/models/index.js";
 
 export const createNewUser = async (userData) => {
   try {

@@ -1,4 +1,4 @@
-import { Profile } from "./index.js";
+import { Profile } from "../../database/models/index.js";
 
 export const createProfileService = async (userId) => {
   try {

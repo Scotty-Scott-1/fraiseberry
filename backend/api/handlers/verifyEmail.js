@@ -1,4 +1,4 @@
-import { verifyEmail } from "../services/users/verifyEmail.js";
+import { verifyEmail } from "../services/verifyEmail.js";
 
 export const verifyEmailHandler = async (req, res) => {
   try {

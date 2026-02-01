@@ -9,18 +9,26 @@ export const updateProfileHandler = async (req, res) => {
     // Multer parses files into req.files
     const files = req.files || {};
 
-    // get profile pic (single) and supporting pics (array)
+    // Get each file individually
     const profilePicFile = files.profilePic ? files.profilePic[0] : null;
-    const supportingPicsFiles = files.supportingPics || [];
+    const supportingPic1File = files.supportingPic1 ? files.supportingPic1[0] : null;
+    const supportingPic2File = files.supportingPic2 ? files.supportingPic2[0] : null;
+    const supportingPic3File = files.supportingPic3 ? files.supportingPic3[0] : null;
 
     console.log("profilePicFile:", profilePicFile);
-    console.log("supportingPicsFiles:", supportingPicsFiles);
+    console.log("supportingPic1File:", supportingPic1File);
+    console.log("supportingPic2File:", supportingPic2File);
+    console.log("supportingPic3File:", supportingPic3File);
 
     const result = await updateProfileController(
       req.userId,
       req.body,
-      profilePicFile,
-      supportingPicsFiles
+      {
+        profilePic: profilePicFile,
+        supportingPic1: supportingPic1File,
+        supportingPic2: supportingPic2File,
+        supportingPic3: supportingPic3File,
+      }
     );
 
     return res.status(200).json(result);

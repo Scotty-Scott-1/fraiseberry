@@ -13,8 +13,11 @@ const Profile = () => {
     bio: "",
     gender: "",
     profilePic: null,
-    supportingPics: []
+    supportingPic1: null,
+    supportingPic2: null,
+    supportingPic3: null,
   });
+
   const [error, setError] = useState("");
   const { handleSave, saving } = useHandleSave();
   const { getProfile } = useGetProfile();
@@ -28,10 +31,14 @@ const Profile = () => {
     setProfileData((prev) => ({ ...prev, profilePic: newPhoto }));
   };
 
-  const handleSupportingPhotosChange = (newPhotos) => {
-    setProfileData((prev) => ({ ...prev, supportingPics: newPhotos }));
+  const handleSupportingPhotoChange = (key, newPhoto) => {
+    setProfileData((prev) => ({
+      ...prev,
+      [key]: newPhoto,
+    }));
   };
 
+  // Load profile from backend
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -43,11 +50,22 @@ const Profile = () => {
           age: data.age ?? "",
           bio: data.bio ?? "",
           gender: data.gender ?? "",
-          profilePic: data.profilePic ? { file: null, preview: data.profilePic } : null,
-          supportingPics: (data.supportingPics || []).map((url) => ({
-            file: null,
-            preview: url
-          }))
+
+          profilePic: data.profilePic
+            ? { file: null, preview: data.profilePic }
+            : null,
+
+          supportingPic1: data.supportingPic1
+            ? { file: null, preview: data.supportingPic1 }
+            : null,
+
+          supportingPic2: data.supportingPic2
+            ? { file: null, preview: data.supportingPic2 }
+            : null,
+
+          supportingPic3: data.supportingPic3
+            ? { file: null, preview: data.supportingPic3 }
+            : null,
         }));
 
         console.log("Profile fetched");
@@ -62,7 +80,9 @@ const Profile = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Your Profile</h1>
-      <p className={styles.subTitle}>Be yourself. The right people notice.</p>
+      <p className={styles.subTitle}>
+        Be yourself. The right people notice.
+      </p>
 
       <ProfilePicture
         photo={profileData.profilePic}
@@ -75,8 +95,10 @@ const Profile = () => {
       />
 
       <SupportingPhotos
-        photos={profileData.supportingPics}
-        onChange={handleSupportingPhotosChange}
+        supportingPic1={profileData.supportingPic1}
+        supportingPic2={profileData.supportingPic2}
+        supportingPic3={profileData.supportingPic3}
+        onChange={handleSupportingPhotoChange}
       />
 
       <button

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useAuth } from "../Security/authContext";
-import { useNavigate } from "react-router-dom";
-
 
 export const useHandleSave = () => {
   const [saving, setSaving] = useState(false);
@@ -20,25 +18,26 @@ export const useHandleSave = () => {
       formData.append("gender", profileData.gender);
       formData.append("bio", profileData.bio);
 
-      // Append profile pic if there's a new file
+      // Append profile picture if a new file exists
       if (profileData.profilePic?.file) {
         formData.append("profilePic", profileData.profilePic.file);
       }
 
       // Append supporting photos
-      profileData.supportingPics.forEach((photo, idx) => {
-        if (photo.file) {
-          formData.append(`supportingPics`, photo.file); // can use same field name array
+      ["supportingPic1", "supportingPic2", "supportingPic3"].forEach((key) => {
+        const photo = profileData[key];
+        if (photo?.file) {
+          formData.append(key, photo.file);
         }
       });
 
       const res = await fetch("/api/profile", {
         method: "PUT",
         headers: {
-          "Authorization": `Bearer ${accessToken}` // no Content-Type for FormData!
+          Authorization: `Bearer ${accessToken}`,
         },
         credentials: "include",
-        body: formData
+        body: formData,
       });
 
       const data = await res.json();
@@ -58,4 +57,3 @@ export const useHandleSave = () => {
 
   return { handleSave, saving };
 };
-

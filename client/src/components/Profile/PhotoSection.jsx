@@ -1,89 +1,90 @@
 import { useRef, useEffect } from "react";
 import styles from "./PhotoSection.module.css";
 
-const MAX_PHOTOS = 3;
-
-const SupportingPhotos = ({ photos = [], onChange }) => {
+// Individual photo slot component
+const PhotoSlot = ({ title, photo, onChange }) => {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     return () => {
-      photos.forEach((photo) => {
-        if (photo.file && photo.preview) URL.revokeObjectURL(photo.preview);
-      });
+      if (photo?.file && photo?.preview) URL.revokeObjectURL(photo.preview);
     };
-  }, [photos]);
+  }, [photo]);
 
   const handleButtonClick = () => {
-    if (photos.length < MAX_PHOTOS) {
-      fileInputRef.current.click();
-    }
+    fileInputRef.current.click();
   };
 
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    const remainingSlots = MAX_PHOTOS - photos.length;
-    if (remainingSlots <= 0) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-    const acceptedFiles = files.slice(0, remainingSlots);
-    const newPhotos = acceptedFiles.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
-
-    onChange([...photos, ...newPhotos]);
+    const newPhoto = { file, preview: URL.createObjectURL(file) };
+    onChange(newPhoto);
     e.target.value = null;
   };
 
-  const handleRemovePhoto = (index) => {
-    const updatedPhotos = photos.filter((_, i) => i !== index);
-    if (photos[index]?.file && photos[index]?.preview) {
-      URL.revokeObjectURL(photos[index].preview);
-    }
-    onChange(updatedPhotos);
+  const handleRemove = () => {
+    if (photo?.file && photo?.preview) URL.revokeObjectURL(photo.preview);
+    onChange(null);
   };
 
   return (
-    <section className={styles.card}>
-      <h2 className={styles.sectionTitle}>Supporting Photos</h2>
+    <div className={styles.photoSlot}>
+      <h3 className={styles.photoTitle}>{title}</h3>
 
-      <div className={styles.photoGrid}>
-        {photos.map((photo, index) => (
-          <div key={index} className={styles.photoWrapper}>
-            <img
-              src={photo.preview}
-              alt={`supporting-${index}`}
-              className={styles.photo}
-            />
-            <button
-              type="button"
-              className={styles.removePhotoBtn}
-              onClick={() => handleRemovePhoto(index)}
-            >
+      {photo ? (
+        <>
+          <img src={photo.preview} alt={title} className={styles.photoPreview} />
+          <div className={styles.photoButtons}>
+            <button type="button" className={styles.photoBtn} onClick={handleButtonClick}>
+              Change
+            </button>
+            <button type="button" className={styles.removePhotoBtn} onClick={handleRemove}>
               ✕
             </button>
           </div>
-        ))}
-
-        {photos.length < MAX_PHOTOS && (
-          <button
-            type="button"
-            className={styles.addPhotoBtn}
-            onClick={handleButtonClick}
-          >
-            + Add Photo
-          </button>
-        )}
-      </div>
+        </>
+      ) : (
+        <button type="button" className={styles.addPhotoBtn} onClick={handleButtonClick}>
+          + Add {title}
+        </button>
+      )}
 
       <input
         ref={fileInputRef}
         type="file"
         accept="image/*"
-        multiple
         hidden
         onChange={handleFileChange}
       />
+    </div>
+  );
+};
+
+// Main supporting photos section
+const SupportingPhotos = ({ supportingPic1, supportingPic2, supportingPic3, onChange }) => {
+  return (
+    <section className={styles.card}>
+      <h2 className={styles.sectionTitle}>Supporting Photos</h2>
+
+      <div className={styles.photosGrid}>
+        <PhotoSlot
+          title="Photo 1"
+          photo={supportingPic1}
+          onChange={(photo) => onChange("supportingPic1", photo)}
+        />
+        <PhotoSlot
+          title="Photo 2"
+          photo={supportingPic2}
+          onChange={(photo) => onChange("supportingPic2", photo)}
+        />
+        <PhotoSlot
+          title="Photo 3"
+          photo={supportingPic3}
+          onChange={(photo) => onChange("supportingPic3", photo)}
+        />
+      </div>
     </section>
   );
 };

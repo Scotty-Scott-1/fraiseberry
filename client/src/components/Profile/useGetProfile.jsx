@@ -3,7 +3,7 @@ import { useAuth } from "../Security/authContext";
 export const useGetProfile = () => {
   const { accessToken } = useAuth();
 
-  const getProfile = async (setProfileData) => {
+  const getProfile = async () => {
     const res = await fetch("/api/profile", {
       headers: {
         Authorization: `Bearer ${accessToken}`,

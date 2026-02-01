@@ -1,17 +1,17 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config.js";
-import { Profile } from "./index.js";
+import { User } from "./index.js";
 
 export const Preferences = sequelize.define(
   "Preferences",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    profileId: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: true,
       references: {
-        model: Profile,
+        model: User,
         key: "id",
       },
       onDelete: "CASCADE",

@@ -28,10 +28,10 @@ const Preferences = () => {
 
   const handleSave = async () => {
     try {
-      await savePreferences();
-      alert("Preferences saved!");
+      const data = await savePreferences();
+      console.log(data);
     } catch(err) {
-      throw new Error(err);
+      throw new Error(err).message;
     }
   };
 

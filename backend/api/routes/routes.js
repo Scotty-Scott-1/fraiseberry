@@ -6,6 +6,7 @@ import { updateProfileHandler } from "../handlers/updateProfileHandler.js";
 import { getProfileHandler } from "../handlers/getProfileHandler.js";
 import { verifyAccessToken } from "../middleware/verifyAccessToken.js";
 import { uploadProfileFields } from "../middleware/upload.js";
+import { updatePreferencesHandler } from "../handlers/updatePreferencesHandler.js";
 
 const router = express.Router();
 
@@ -16,5 +17,7 @@ router.put("/email", verifyEmailHandler);
 // Profile routes
 router.put("/profile", verifyAccessToken, uploadProfileFields, updateProfileHandler);
 router.get("/profile", verifyAccessToken, getProfileHandler);
+router.put("/preferences", verifyAccessToken, updatePreferencesHandler);
+
 
 export default router;

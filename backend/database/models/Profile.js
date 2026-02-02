@@ -1,10 +1,10 @@
-import { DataTypes, STRING, INTEGER, TEXT } from "sequelize";
+import { DataTypes, STRING, INTEGER, TEXT, DECIMAL } from "sequelize";
 import { sequelize } from "../config.js";
 
 export const Profile = sequelize.define(
   "Profile",
   {
-    id: { type: INTEGER, autoIncrement: true, primaryKey: true, },
+    id: { type: INTEGER, autoIncrement: true, primaryKey: true },
     userId: {
       type: INTEGER,
       allowNull: false,
@@ -23,8 +23,10 @@ export const Profile = sequelize.define(
     supportingPic1: { type: STRING, allowNull: true },
     supportingPic2: { type: STRING, allowNull: true },
     supportingPic3: { type: STRING, allowNull: true },
+    latitude: { type: DECIMAL(10, 7), allowNull: true },
+    longitude: { type: DECIMAL(10, 7), allowNull: true },
   },
   { timestamps: true }
 );
 
-console.log("✅ [MariaDB]: Profile model defined");
+console.log("✅ [MariaDB]: Profile model defined with location columns");

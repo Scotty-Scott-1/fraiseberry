@@ -2,9 +2,11 @@ import { useAuth } from "../Security/authContext";
 import styles from "./Dashboard.module.css";
 import { BellIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { useUpdateLocation } from "./useUpdateLocation";
 
 const Dashboard = () => {
   const { accessToken, logout } = useAuth();
+  useUpdateLocation();
   const navigate = useNavigate();
   const matches = [
     { name: "Alice", age: 26, img: "/profiles/alice.jpg" },

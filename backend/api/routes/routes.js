@@ -8,6 +8,7 @@ import { verifyAccessToken } from "../middleware/verifyAccessToken.js";
 import { uploadProfileFields } from "../middleware/upload.js";
 import { updatePreferencesHandler } from "../handlers/updatePreferencesHandler.js";
 import { getPreferencesHandler } from "../handlers/getPreferencesHandler.js";
+import { updateProfileCoordsHandler } from "../handlers/updateProfileCoordsHandler.js";
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.put("/profile", verifyAccessToken, uploadProfileFields, updateProfileHand
 router.get("/profile", verifyAccessToken, getProfileHandler);
 router.put("/preferences", verifyAccessToken, updatePreferencesHandler);
 router.get("/preferences", verifyAccessToken, getPreferencesHandler);
+router.put("/profile/location", verifyAccessToken, updateProfileCoordsHandler);
 
 export default router;

@@ -13,12 +13,16 @@ const Preferences = () => {
     maxDistanceKm: 50,
   });
   const [error, setError] = useState("");
-
   const { fetchPreferences } = useFetchPreferences(preferences, setPreferences, setError);
   const { savePreferences, saving } = useSetPreferences(preferences, setError);
 
+
   useEffect(() => {
-    fetchPreferences();
+    const load = async () => {
+      const data = await fetchPreferences();
+      console.log(data.message);
+    };
+    load();
   }, []);
 
   const handleChange = (e) => {

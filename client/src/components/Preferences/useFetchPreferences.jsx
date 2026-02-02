@@ -19,6 +19,7 @@ export const useFetchPreferences = (preferences, setPreferences, setError) => {
         ageRangeMax: data.ageRangeMax || 100,
         maxDistanceKm: data.maxDistanceKm || 50,
       });
+      return { message: "loaded preferences"};
     } catch (err) {
       console.error(err);
       setError(err.message);

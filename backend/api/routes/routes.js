@@ -9,7 +9,7 @@ import { uploadProfileFields } from "../middleware/upload.js";
 import { updatePreferencesHandler } from "../handlers/updatePreferencesHandler.js";
 import { getPreferencesHandler } from "../handlers/getPreferencesHandler.js";
 import { updateProfileCoordsHandler } from "../handlers/updateProfileCoordsHandler.js";
-
+import { getDiscoverProfilesHandler } from "../handlers/getDiscoverProfilesHandler.js"
 const router = express.Router();
 
 // Auth routes
@@ -22,5 +22,8 @@ router.get("/profile", verifyAccessToken, getProfileHandler);
 router.put("/preferences", verifyAccessToken, updatePreferencesHandler);
 router.get("/preferences", verifyAccessToken, getPreferencesHandler);
 router.put("/profile/location", verifyAccessToken, updateProfileCoordsHandler);
+router.get("/discover", verifyAccessToken, getDiscoverProfilesHandler);
+
+
 
 export default router;

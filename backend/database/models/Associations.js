@@ -1,4 +1,4 @@
-import { User, Profile, Preferences, Photo } from "./index.js";
+import { User, Profile, Preferences } from "./index.js";
 
 export const associateModels = async () => {
   User.hasOne(Profile, {
@@ -18,12 +18,5 @@ export const associateModels = async () => {
   Preferences.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 
-Profile.hasMany(Photo, {
-  foreignKey: "profileId",
-  as: "photos",
-  onDelete: "CASCADE",
-  hooks: true,
-});
-Photo.belongsTo(Profile, { foreignKey: "profileId", as: "profile" });
 
 };

@@ -7,7 +7,7 @@ import DashboardPage from "./pages/Dashboard";
 import ProtectedRoute from "./components/Security/ProtectedRoute";
 import ProfilePage from "./pages/Profile";
 import PreferencesPage from "./pages/Preferences";
-
+import DiscoverPage from "./pages/Discover";
 
 const App = () => (
     <Routes>
@@ -18,6 +18,7 @@ const App = () => (
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/preferences" element={<ProtectedRoute><PreferencesPage /></ProtectedRoute>} />
+      <Route path="/discover" element={<ProtectedRoute><DiscoverPage /></ProtectedRoute>} />
 
 
     </Routes>

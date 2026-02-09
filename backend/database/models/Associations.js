@@ -1,4 +1,4 @@
-import { User, Profile, Preferences, Like, Match } from "./index.js";
+import { User, Profile, Preferences, Like, Match, Message, Conversation } from "./index.js";
 
 export const associateModels = async () => {
   // Profile
@@ -32,4 +32,30 @@ export const associateModels = async () => {
 
   Match.belongsTo(User, { foreignKey: "userAId", as: "userA" });
   Match.belongsTo(User, { foreignKey: "userBId", as: "userB" });
+
+  // Conversations
+  User.hasMany(Conversation, { foreignKey: "userAId", as: "conversationsA" });
+  User.hasMany(Conversation, { foreignKey: "userBId", as: "conversationsB" });
+
+  Conversation.belongsTo(User, { foreignKey: "userAId", as: "userA" });
+  Conversation.belongsTo(User, { foreignKey: "userBId", as: "userB" });
+
+  // Messages
+  Conversation.hasMany(Message, {
+    foreignKey: "conversationId",
+    as: "messages",
+    onDelete: "CASCADE",
+  });
+
+  Message.belongsTo(Conversation, {
+    foreignKey: "conversationId",
+    as: "conversation",
+  });
+
+  Message.belongsTo(User, {
+    foreignKey: "senderId",
+    as: "sender",
+  });
+
+
 };

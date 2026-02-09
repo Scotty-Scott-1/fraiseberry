@@ -4,10 +4,12 @@ import { BellIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { useUpdateLocation } from "./useUpdateLocation";
 import { useGetMatches } from "./useGetMatches";
+import MatchCard from "../Utils/MatchCard/MatchCard.jsx";
 
 const Dashboard = () => {
-  const { logout } = useAuth();
-  useUpdateLocation();
+  const { accessToken, logout } = useAuth();
+  console.log("Dashboard token:", accessToken);
+  useUpdateLocation(accessToken);
   const navigate = useNavigate();
 
   const { matches, loading } = useGetMatches();
@@ -36,7 +38,9 @@ const Dashboard = () => {
             Logout
           </button>
         </div>
+
         <h1 className={styles.headerTitle}>Welcome Back!</h1>
+
         <div className={styles.headerBell}>
           <button className={styles.notificationBtn}>
             <BellIcon className={styles.notificationIcon} />
@@ -68,19 +72,7 @@ const Dashboard = () => {
 
         {!loading &&
           matches.map((match, idx) => (
-            <div key={idx} className={styles.card}>
-              <img
-                src={match.profilePic}
-                alt={match.name}
-                className={styles.matchImg}
-              />
-              <div className={styles.cardContent}>
-                <span className={styles.cardLabel}>
-                  {match.name}, {match.age}
-                </span>
-                <button className={styles.quickLinkBtn}>View Profile</button>
-              </div>
-            </div>
+            <MatchCard key={idx} match={match} />
           ))}
       </section>
     </div>

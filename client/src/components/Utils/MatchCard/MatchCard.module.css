@@ -1,0 +1,109 @@
+.card {
+  background-color: #fff;
+  padding: 0.6rem;
+  border-radius: 14px;
+  box-shadow:
+    0 0 10px rgba(255, 68, 102, 0.18),
+    inset 0 0 6px rgba(255, 68, 102, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  min-height: 260px;
+  gap: 0.5rem;
+}
+
+.matchImg {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.cardLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+/* Distance row */
+.distanceRow {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: -0.2rem;
+}
+
+.distanceIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #ff4466;
+}
+
+.distanceText {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Action buttons row */
+.cardActions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.quickLinkBtn {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  background-color: #ff4466;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.quickLinkBtn:hover {
+  transform: scale(1.05);
+}
+
+.messageBtn {
+  background-color: #0e2d50;
+  border: none;
+  padding: 0.35rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messageBtn:hover {
+  transform: scale(1.05);
+}
+
+.messageIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 150px;
+    min-height: 260px;
+  }
+}

@@ -1,21 +1,22 @@
 import { useEffect } from "react";
-import { useAuth } from "../Security/authContext";
 
-export const useUpdateLocation = () => {
-  const { accessToken } = useAuth();
+export const useUpdateLocation = (accessToken) => {
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      console.log("Token not ready yet");
+      return;
+    }
 
-    const alreadyUpdated = sessionStorage.getItem("locationUpdated");
-    if (alreadyUpdated) return;
+    console.log("Token ready, trying to get location");
 
     if (!("geolocation" in navigator)) {
       console.warn("Geolocation not available in this browser");
       return;
     }
 
-    const getCurrentPositionAsync = () => new Promise((resolve, reject) => {
+    const getCurrentPositionAsync = () =>
+      new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject, {
           enableHighAccuracy: false,
         });
@@ -23,6 +24,8 @@ export const useUpdateLocation = () => {
 
     const updateLocation = async (coords) => {
       try {
+        console.log("Sending location update to backend...");
+
         await fetch("/api/profile/location", {
           method: "PUT",
           headers: {
@@ -36,7 +39,6 @@ export const useUpdateLocation = () => {
           }),
         });
 
-        sessionStorage.setItem("locationUpdated", "true");
         console.log("Location updated successfully");
       } catch (err) {
         console.error("Location update failed:", err);

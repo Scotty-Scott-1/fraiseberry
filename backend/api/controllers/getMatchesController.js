@@ -1,5 +1,7 @@
 import { getMatchesService } from "../services/getMatches.js";
+import { addDistanceToMatchesService } from "../services/addDistanceToMatches.js";
 
 export const getMatchesController = async (userId) => {
-  return await getMatchesService(userId);
+  const matches = await getMatchesService(userId);
+  return await addDistanceToMatchesService(userId, matches);
 };

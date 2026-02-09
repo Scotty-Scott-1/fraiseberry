@@ -2,10 +2,12 @@ import { Profile } from "../../database/models/index.js";
 import { createProfileService } from "../services/createNewProfile.js";
 
 export const updateProfileCoordsHandler = async (req, res) => {
+
   try {
 	if (!req.userId) {
 	  return res.status(401).json({ message: "Unauthorized" });
 	}
+
 
 	const userId = req.userId;
 

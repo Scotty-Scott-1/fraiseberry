@@ -1,4 +1,6 @@
 import express from "express";
+import http from "http";
+import { Server } from "socket.io";
 import { initDB } from "./database/initDB.js";
 import routes from "./api/routes/routes.js";
 import cors from "cors";
@@ -6,16 +8,11 @@ import path from "path";
 
 const app = express();
 
-app.use(
-  "/uploads",
-  express.static(path.join(process.cwd(), "uploads"))
-);
+// Static uploads folder
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true
-}));
-
+// CORS
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Middleware
 app.use(express.json());
@@ -23,17 +20,53 @@ app.use(express.json());
 // Routes
 app.use("/api", routes);
 
+// Create HTTP server + Socket.IO
+const server = http.createServer(app);
+export const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    credentials: true,
+  },
+  transports: ["websocket", "polling"],
+  pingInterval: 25000,
+  pingTimeout: 60000,
+});
+
+// WebSocket Events
+io.on("connection", (socket) => {
+  console.log("🔥 WebSocket connected:", socket.id);
+
+  socket.on("join_conversation", (conversationId) => {
+    socket.join(`convo_${conversationId}`);
+    console.log(`User ${socket.id} joined convo_${conversationId}`);
+  });
+
+  socket.on("leave_conversation", (conversationId) => {
+    socket.leave(`convo_${conversationId}`);
+    console.log(`User ${socket.id} left convo_${conversationId}`);
+  });
+
+  socket.on("send_message", (msg) => {
+    io.to(`convo_${msg.conversationId}`).emit("new_message", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("❌ WebSocket disconnected:", socket.id);
+  });
+});
+
+
 const startServer = async () => {
   try {
     await initDB();
     const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
+
+    server.listen(PORT, () => {
       console.log(`✅ [Server]: running at http://localhost:${PORT}`);
     });
   } catch (err) {
     console.error(err);
     process.exit(1);
-
   }
 };
 

@@ -12,7 +12,9 @@ import { updateProfileCoordsHandler } from "../handlers/updateProfileCoordsHandl
 import { getDiscoverProfilesHandler } from "../handlers/getDiscoverProfilesHandler.js";
 import { newLikeHandler } from "../handlers/newLikeHandler.js";
 import { getMatchesHandler } from "../handlers/getMatchesHandler.js";
-
+import { getOrCreateConversationHandler } from "../handlers/getOrCreateConversationHandler.js";
+import { getMessagesHandler } from "../handlers/getMessagesHandler.js";
+import { sendMessageHandler } from "../handlers/sendMessageHandler.js";
 
 
 
@@ -31,6 +33,9 @@ router.put("/profile/location", verifyAccessToken, updateProfileCoordsHandler);
 router.get("/discover", verifyAccessToken, getDiscoverProfilesHandler);
 router.post("/like/:likedId", verifyAccessToken, newLikeHandler);
 router.get("/matches", verifyAccessToken, getMatchesHandler);
+router.get("/chat/:otherUserId", verifyAccessToken, getOrCreateConversationHandler);
+router.get("/messages/:conversationId", verifyAccessToken, getMessagesHandler);
+router.post("/messages", verifyAccessToken, sendMessageHandler);
 
 
 export default router;

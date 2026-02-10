@@ -7,7 +7,7 @@ export const getMessagesService = async (conversationId) => {
       {
         model: User,
         as: "sender",
-        attributes: ["id", "email"]
+        attributes: ["id"]
       }
     ],
     order: [["createdAt", "ASC"]],

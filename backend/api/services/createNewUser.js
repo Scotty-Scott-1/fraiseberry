@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { User } from "../../database/models/index.js";
+import { User, Profile } from "../../database/models/index.js";
 
 export const createNewUser = async (userData) => {
   try {
@@ -11,7 +11,12 @@ export const createNewUser = async (userData) => {
       verificationToken,
       tokenExpiry,
     });
-    return (user);
+
+    await Profile.create({
+      userId: user.id,
+    });
+
+    return user;
   } catch(err) {
     console.error(err);
     throw new Error("Failed to create user in db", { cause: err });

@@ -1,14 +1,10 @@
 .messagesContainer {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
 }
-
 
 .messageRow {
   width: 100%;

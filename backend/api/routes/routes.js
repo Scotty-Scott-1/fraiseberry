@@ -16,6 +16,8 @@ import { getOrCreateConversationHandler } from "../handlers/getOrCreateConversat
 import { getMessagesHandler } from "../handlers/getMessagesHandler.js";
 import { sendMessageHandler } from "../handlers/sendMessageHandler.js";
 import { getChatBootstrapHandler } from "../handlers/getChatBootstrapHandler.js";
+import { getAllConversationsHandler } from "../handlers/getAllConversationsHandler.js";
+
 
 
 
@@ -35,20 +37,10 @@ router.put("/profile/location", verifyAccessToken, updateProfileCoordsHandler);
 router.get("/discover", verifyAccessToken, getDiscoverProfilesHandler);
 router.post("/like/:likedId", verifyAccessToken, newLikeHandler);
 router.get("/matches", verifyAccessToken, getMatchesHandler);
-
-
 router.get("/chat/:otherUserId", verifyAccessToken, getOrCreateConversationHandler);
 router.get("/messages/:conversationId", verifyAccessToken, getMessagesHandler);
-
-
 router.get("/chat/bootstrap/:otherUserId", verifyAccessToken, getChatBootstrapHandler);
-
-
-
-
+router.get("/conversations", verifyAccessToken, getAllConversationsHandler);
 router.post("/messages", verifyAccessToken, sendMessageHandler);
-
-
-
 
 export default router;

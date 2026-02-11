@@ -1,8 +1,7 @@
 .inputContainer {
   display: flex;
-  padding: 12px;
   background: white;
-  border-top: 1px solid #ddd;
+  gap: 10px;
 }
 
 .input {
@@ -15,7 +14,6 @@
 }
 
 .sendBtn {
-  margin-left: 10px;
   padding: 10px 18px;
   border-radius: 20px;
   background: #4a90e2;

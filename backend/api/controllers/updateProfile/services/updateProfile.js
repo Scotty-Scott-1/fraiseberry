@@ -1,13 +1,12 @@
-import { Profile } from "./index.js";
-import { createProfileService } from "../../../services/createNewProfile.js";
+import { Profile } from "../../../../database/models/index.js";
 import fs from "fs";
 import path from "path";
 
 export const updateProfileService = async (userId, profileData) => {
   try {
-    let profile = await Profile.findOne({ where: { userId } });
+    const profile = await Profile.findOne({ where: { userId } });
     if (!profile) {
-      profile = await createProfileService(userId);
+      throw new Error("Profile not found for user");
     }
     const projectRoot = process.cwd();
     // 1. Update text fields

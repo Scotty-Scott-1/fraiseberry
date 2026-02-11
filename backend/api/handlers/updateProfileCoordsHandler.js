@@ -1,5 +1,4 @@
 import { Profile } from "../../database/models/index.js";
-import { createProfileService } from "../services/createNewProfile.js";
 
 export const updateProfileCoordsHandler = async (req, res) => {
 
@@ -11,9 +10,9 @@ export const updateProfileCoordsHandler = async (req, res) => {
 
 	const userId = req.userId;
 
-	let profile = await Profile.findOne({ where: { userId } });
+	const profile = await Profile.findOne({ where: { userId } });
 	if (!profile) {
-	  profile = await createProfileService(userId);
+	  return res.status(404).json({ message: "Profile not found" });
 	}
 
 	profile.latitude = req.body.latitude;

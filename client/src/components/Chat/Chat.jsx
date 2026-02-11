@@ -21,7 +21,6 @@ const Chat = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Single bootstrap fetch
   useEffect(() => {
     const loadChat = async () => {
       const res = await fetch(`/api/chat/bootstrap/${otherUserId}`, {
@@ -41,7 +40,6 @@ const Chat = () => {
     if (accessToken) loadChat();
   }, [accessToken, otherUserId]);
 
-  // WebSocket join + listen
   useEffect(() => {
     if (!conversationId) return;
 
@@ -85,13 +83,17 @@ const Chat = () => {
         )}
       </div>
 
-      <ChatMessages
-        messages={messages}
-        bottomRef={bottomRef}
-        currentUserId={currentUserId}
-      />
+      <div className={styles.messagesWrapper}>
+        <ChatMessages
+          messages={messages}
+          bottomRef={bottomRef}
+          currentUserId={currentUserId}
+        />
+      </div>
 
-      <ChatInput onSend={sendMessage} />
+      <div className={styles.chatInputWrapper}>
+        <ChatInput onSend={sendMessage} />
+      </div>
     </div>
   );
 };

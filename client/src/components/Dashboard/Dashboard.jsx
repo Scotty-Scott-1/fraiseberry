@@ -25,6 +25,9 @@ const Dashboard = () => {
       case "3":
         navigate("/discover");
         break;
+      case "4":
+        navigate("/conversationlist");
+        break;
       default:
         break;
     }
@@ -54,7 +57,11 @@ const Dashboard = () => {
         <button className={styles.actionBtn} onClick={() => handleClick("3")}>
           Discover
         </button>
-        <button className={styles.actionBtn}>Messages</button>
+        <button
+          className={styles.actionBtn}
+          onClick={() => handleClick("4")}>
+          Messages
+        </button>
         <button className={styles.actionBtn} onClick={() => handleClick("1")}>
           Profile
         </button>

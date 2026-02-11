@@ -9,6 +9,7 @@ import ProfilePage from "./pages/Profile";
 import PreferencesPage from "./pages/Preferences";
 import DiscoverPage from "./pages/Discover";
 import ChatPage from "./pages/Chat";
+import ConversationnListPage from "./pages/ConversationList";
 
 const App = () => (
     <Routes>
@@ -21,6 +22,7 @@ const App = () => (
       <Route path="/preferences" element={<ProtectedRoute><PreferencesPage /></ProtectedRoute>} />
       <Route path="/discover" element={<ProtectedRoute><DiscoverPage /></ProtectedRoute>} />
       <Route path="/chat/:otherUserId" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+      <Route path="/conversationlist" element={<ProtectedRoute><ConversationnListPage /></ProtectedRoute>} />
     </Routes>
 );
 

@@ -21,6 +21,16 @@ export const Conversation = sequelize.define(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+
+    lastMessageAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+
+    lastBotNudgeAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,

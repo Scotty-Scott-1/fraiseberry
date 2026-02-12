@@ -27,6 +27,12 @@ export const Message = sequelize.define(
       allowNull: false,
     },
 
+    isBot: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+
     readAt: {
       type: DataTypes.DATE,
       allowNull: true,

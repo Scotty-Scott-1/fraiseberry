@@ -48,3 +48,30 @@
   display: block;
   text-align: right;
 }
+
+.botRow {
+  justify-content: flex-start;
+}
+
+.botAvatar {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.botBubble {
+  background: #f3f4f6;
+  color: #111827;
+  font-style: italic;
+  border: 1px solid #e5e7eb;
+  max-width: 65%;
+}
+
+.botText {
+  opacity: 0.95;
+}

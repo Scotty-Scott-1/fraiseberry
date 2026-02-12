@@ -40,7 +40,8 @@ export const signInHandler = async (req, res) => {
       "password not provided",
       "email not found",
       "email not verified",
-      "Invalid password"
+      "Invalid password",
+      "bot account login disabled"
     ].includes(err.message);
 
     if (error400) return res.status(400).json({ message: err.message });

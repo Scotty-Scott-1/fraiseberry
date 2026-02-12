@@ -5,7 +5,9 @@ import { initDB } from "./database/initDB.js";
 import routes from "./api/routes/routes.js";
 import cors from "cors";
 import path from "path";
+import { startNudgeScheduler } from "./api/services/nudgeScheduler.js";
 
+let stopNudgeScheduler;
 const app = express();
 
 // Static uploads folder
@@ -63,6 +65,8 @@ const startServer = async () => {
 
     server.listen(PORT, () => {
       console.log(`✅ [Server]: running at http://localhost:${PORT}`);
+      // start nudge scheduler that will emit AI nudges via socket.io
+      stopNudgeScheduler = startNudgeScheduler(io);
     });
   } catch (err) {
     console.error(err);
@@ -70,4 +74,13 @@ const startServer = async () => {
   }
 };
 
+const shutdown = () => {
+  console.log("Shutting down...");
+  if (stopNudgeScheduler) stopNudgeScheduler();
+  server.close(() => process.exit(0));
+};
+
 startServer();
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
+

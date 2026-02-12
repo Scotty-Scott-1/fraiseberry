@@ -8,6 +8,7 @@ export const createNewUser = async (userData) => {
     const user = await User.create({
       ...userData,
       isVerified: false,
+      isBot: false,
       verificationToken,
       tokenExpiry,
     });

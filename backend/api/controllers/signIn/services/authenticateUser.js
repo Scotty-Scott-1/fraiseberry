@@ -9,7 +9,10 @@ try {
 	const user = await User.findOne({ where: { email } });
 
 	if (!user) throw new Error("email not found");
-	if (!user.isVerified) throw new Error("email not verified");;
+	if (!user.isVerified) throw new Error("email not verified");
+
+	// Prevent bot accounts from signing in
+	if (user.isBot) throw new Error("bot account login disabled");
 
 	const isMatch = await user.checkPassword(password);
 

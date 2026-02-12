@@ -26,6 +26,8 @@
     "sequelize": "^6.37.7",
     "socket.io": "^4.8.3",
     "xss": "^1.0.15"
+    ,
+    "speakeasy": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

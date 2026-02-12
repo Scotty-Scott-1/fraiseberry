@@ -3,7 +3,6 @@ import { signInController } from "../controllers/signIn/signIn.js";
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 
 export const signInHandler = async (req, res) => {
-  console.log("hi");
   try {
     const { email, password } = req.body;
 
@@ -14,6 +13,7 @@ export const signInHandler = async (req, res) => {
       return res.status(200).json({
         message: result.message,
         tempToken: result.tempToken,
+        mfaRequired: true,
       });
     }
 
@@ -33,7 +33,6 @@ export const signInHandler = async (req, res) => {
     });
 
   } catch (err) {
-    console.error("Login error:", err);
 
     const error400 = [
       "email not provided",

@@ -28,6 +28,9 @@ const Dashboard = () => {
       case "4":
         navigate("/conversationlist");
         break;
+      case "5":
+        navigate("/mfa");
+        break;
       default:
         break;
     }
@@ -67,6 +70,9 @@ const Dashboard = () => {
         </button>
         <button className={styles.actionBtn} onClick={() => handleClick("2")}>
           Preferences
+        </button>
+        <button className={styles.actionBtn} onClick={() => handleClick("5")}>
+          MFA
         </button>
       </div>
 

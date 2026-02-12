@@ -5,6 +5,11 @@ import { verifyEmailHandler } from "../handlers/verifyEmail.js";
 import { updateProfileHandler } from "../handlers/updateProfileHandler.js";
 import { getProfileHandler } from "../handlers/getProfileHandler.js";
 import { verifyAccessToken } from "../middleware/verifyAccessToken.js";
+import { mfaSetupHandler } from "../handlers/mfaSetupHandler.js";
+import { mfaEnableHandler } from "../handlers/mfaEnableHandler.js";
+import { mfaVerifyHandler } from "../handlers/mfaVerifyHandler.js";
+import { mfaDisableHandler } from "../handlers/mfaDisableHandler.js";
+import { mfaStatusHandler } from "../handlers/mfaStatusHandler.js";
 import { uploadProfileFields } from "../middleware/upload.js";
 import { updatePreferencesHandler } from "../handlers/updatePreferencesHandler.js";
 import { getPreferencesHandler } from "../handlers/getPreferencesHandler.js";
@@ -27,6 +32,11 @@ const router = express.Router();
 // Auth routes
 router.post("/users", signUpHandler);
 router.post("/auth", signInHandler);
+router.post("/mfa/setup", verifyAccessToken, mfaSetupHandler);
+router.post("/mfa/enable", verifyAccessToken, mfaEnableHandler);
+router.post("/mfa/verify", mfaVerifyHandler);
+router.post("/mfa/disable", verifyAccessToken, mfaDisableHandler);
+router.get("/mfa/status", verifyAccessToken, mfaStatusHandler);
 router.put("/email", verifyEmailHandler);
 // Profile routes
 router.put("/profile", verifyAccessToken, uploadProfileFields, updateProfileHandler);

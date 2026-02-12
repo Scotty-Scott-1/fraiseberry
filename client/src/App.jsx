@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import SignUpPage from "./pages/Signup";
 import SignInPage from "./pages/SignIn";
+import MfaPage from "./pages/MFA";
 import PageHome from "./pages/Home";
 import VerifyEmailPage from "./pages/VerifyEmail";
 import DashboardPage from "./pages/Dashboard";
@@ -18,6 +19,7 @@ const App = () => (
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/email" element={<VerifyEmailPage />} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+      <Route path="/mfa" element={<MfaPage />} />
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/preferences" element={<ProtectedRoute><PreferencesPage /></ProtectedRoute>} />
       <Route path="/discover" element={<ProtectedRoute><DiscoverPage /></ProtectedRoute>} />

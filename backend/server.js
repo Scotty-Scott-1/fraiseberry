@@ -77,6 +77,7 @@ const startServer = async () => {
 const shutdown = () => {
   console.log("Shutting down...");
   if (stopNudgeScheduler) stopNudgeScheduler();
+  io.close();
   server.close(() => process.exit(0));
 };
 

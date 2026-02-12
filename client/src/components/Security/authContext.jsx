@@ -4,6 +4,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
+  const [tempMfaToken, setTempMfaToken] = useState(null);
 
   const login = (token) => {
     setAccessToken(token);
@@ -13,8 +14,17 @@ export const AuthProvider = ({ children }) => {
     setAccessToken(null);
   };
 
+  const clearTempMfaToken = () => setTempMfaToken(null);
+
   return (
-    <AuthContext.Provider value={{ accessToken, login, logout }}>
+    <AuthContext.Provider value={{
+      accessToken,
+      login,
+      logout,
+      tempMfaToken,
+      setTempMfaToken,
+      clearTempMfaToken
+    }}>
       {children}
     </AuthContext.Provider>
   );

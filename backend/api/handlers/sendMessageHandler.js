@@ -9,7 +9,7 @@ export const sendMessageHandler = async (req, res) => {
       return res.status(400).json({ message: "Message content required" });
     }
 
-    const message = await sendMessageService(conversationId, senderId, content);
+    const message = await sendMessageService(conversationId, senderId, content, false);
 
     return res.status(201).json(message);
   } catch (err) {

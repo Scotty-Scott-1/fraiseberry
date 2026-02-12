@@ -32,6 +32,11 @@ export const User = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    isBot: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     verificationToken: {
       type: DataTypes.STRING,
       allowNull: true,

@@ -4,8 +4,7 @@ export const mfaRquiredService = (user) => {
 
   // if MFA enabled: create and return temp jwt
 
-const JWT_SECRET = process.env;
-
+  const { JWT_SECRET } = process.env;
 
   if (user.mfaEnabled) {
     const tempToken = jwt.sign(
@@ -27,6 +26,6 @@ const JWT_SECRET = process.env;
     };
   }
 
-}
+};
 
 

@@ -1,6 +1,7 @@
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
+import cookieParser from "cookie-parser";
 import { initDB } from "./database/initDB.js";
 import routes from "./api/routes/routes.js";
 import cors from "cors";
@@ -18,6 +19,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Middleware
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 app.use("/api", routes);

@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{
       accessToken,
+      setAccessToken,
       login,
       logout,
       tempMfaToken,

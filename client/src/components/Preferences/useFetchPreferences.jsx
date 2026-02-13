@@ -1,13 +1,12 @@
-import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 
 export const useFetchPreferences = (preferences, setPreferences, setError) => {
-  const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
 
   const fetchPreferences = async () => {
     try {
-      const res = await fetch("/api/preferences", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        credentials: "include",
+      const res = await apiCall("/api/preferences", {
+        method: "GET",
       });
 
       const data = await res.json();

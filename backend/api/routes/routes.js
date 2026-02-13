@@ -1,6 +1,7 @@
 import express from "express";
 import { signUpHandler } from "../handlers/signUpHandler.js";
 import { signInHandler } from "../handlers/signInHandler.js";
+import { logoutHandler } from "../handlers/logoutHandler.js";
 import { verifyEmailHandler } from "../handlers/verifyEmail.js";
 import { updateProfileHandler } from "../handlers/updateProfileHandler.js";
 import { getProfileHandler } from "../handlers/getProfileHandler.js";
@@ -32,6 +33,7 @@ const router = express.Router();
 // Auth routes
 router.post("/users", signUpHandler);
 router.post("/auth", signInHandler);
+router.post("/auth/logout", logoutHandler);
 router.post("/mfa/setup", verifyAccessToken, mfaSetupHandler);
 router.post("/mfa/enable", verifyAccessToken, mfaEnableHandler);
 router.post("/mfa/verify", mfaVerifyHandler);

@@ -45,6 +45,7 @@ const SignIn = () => {
   const verifyMfa = async () => {
     try {
       if (!mfaCode) return;
+      // MFA verification during login doesn't use accessToken, so use direct fetch
       const res = await fetch("/api/mfa/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -1,20 +1,17 @@
 // src/hooks/useProfiles.js
 import { useEffect, useState } from "react";
 import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 
 export const useGetProfiles = (setProfiles) => {
   const [loading, setLoading] = useState(true);
   const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
 
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const res = await fetch("/api/discover", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          credentials: "include",
-        });
+        const res = await apiCall("/api/discover", {});
 
         const data = await res.json();
         setProfiles(data.profiles || []);

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 
 export const useHandleSave = () => {
   const [saving, setSaving] = useState(false);
   const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
 
   const handleSave = async (profileData, setError) => {
     setSaving(true);
@@ -31,12 +33,8 @@ export const useHandleSave = () => {
         }
       });
 
-      const res = await fetch("/api/profile", {
+      const res = await apiCall("/api/profile", {
         method: "PUT",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
         body: formData,
       });
 

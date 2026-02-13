@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 
 export const useLike = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
 
   const likeUser = async (likedId) => {
     setLoading(true);
     setError(null);
 
     try {
-      const res = await fetch(`/api/like/${likedId}`, {
+      const res = await apiCall(`/api/like/${likedId}`, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
       });
 
       const data = await res.json();

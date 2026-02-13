@@ -1,15 +1,12 @@
 import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 
 export const useGetProfile = () => {
   const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
 
   const getProfile = async () => {
-    const res = await fetch("/api/profile", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-    });
+    const res = await apiCall("/api/profile", {});
 
     const data = await res.json();
     console.log(data);

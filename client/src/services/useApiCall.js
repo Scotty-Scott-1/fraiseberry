@@ -32,6 +32,7 @@ export const useApiCall = () => {
     // 2. header is non-empty
     // 3. header is different from current token
     if (newToken && newToken.trim() !== "" && newToken !== accessToken) {
+      const newToken = response.headers.get("X-New-Access-Token");
       console.log("apiCall wrapper assigned new access token");
       setAccessToken(newToken);
     }

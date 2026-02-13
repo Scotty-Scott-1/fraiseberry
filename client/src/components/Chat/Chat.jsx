@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 import { socket } from "../Utils/socket.js";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
@@ -9,6 +10,7 @@ import styles from "./Chat.module.css";
 const Chat = () => {
   const { otherUserId } = useParams();
   const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
 
   const [conversationId, setConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -23,9 +25,7 @@ const Chat = () => {
 
   useEffect(() => {
     const loadChat = async () => {
-      const res = await fetch(`/api/chat/bootstrap/${otherUserId}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      const res = await apiCall(`/api/chat/bootstrap/${otherUserId}`, {});
 
       const data = await res.json();
 
@@ -57,12 +57,8 @@ const Chat = () => {
   }, [conversationId]);
 
   const sendMessage = async (content) => {
-    const res = await fetch(`/api/messages`, {
+    const res = await apiCall(`/api/messages`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({ conversationId, content }),
     });
 

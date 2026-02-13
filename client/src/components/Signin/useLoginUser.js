@@ -11,6 +11,8 @@ export const useLoginUser = () => {
     setError("");
 
     try {
+      // Doesn't require authentication
+      // Use direct fetch instead of the apiCall wrapper
       const res = await fetch("/api/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

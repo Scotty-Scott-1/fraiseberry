@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 import styles from "./ConversationList.module.css";
 
 const ConversationList = () => {
   const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
   const navigate = useNavigate();
 
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
     const fetchConversations = async () => {
-      const res = await fetch("/api/conversations", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      const res = await apiCall("/api/conversations", {});
 
       const data = await res.json();
       console.log(data);

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import { useApiCall } from "../../services/useApiCall";
 
 export const useUpdateLocation = (accessToken) => {
+  const { apiCall } = useApiCall();
 
   useEffect(() => {
     if (!accessToken) {
@@ -26,13 +28,8 @@ export const useUpdateLocation = (accessToken) => {
       try {
         console.log("Sending location update to backend...");
 
-        await fetch("/api/profile/location", {
+        await apiCall("/api/profile/location", {
           method: "PUT",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
           body: JSON.stringify({
             latitude: coords.latitude,
             longitude: coords.longitude,

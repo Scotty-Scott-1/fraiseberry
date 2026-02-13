@@ -7,6 +7,8 @@ export const useVerifyEmail = () => {
     setLoading(true);
 
     try {
+      // Doesn't require authentication
+      // Direct fetch instead of apiCall wrapper
       const res = await fetch("/api/email", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

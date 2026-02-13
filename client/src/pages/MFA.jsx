@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import { useAuth } from "../components/Security/authContext";
 import { useNavigate } from "react-router-dom";
+import { useApiCall } from "../services/useApiCall";
 
 const MfaPage = () => {
   const { accessToken, login, tempMfaToken, clearTempMfaToken } = useAuth();
+  const { apiCall } = useApiCall();
   const navigate = useNavigate();
 
   const [mfaEnabled, setMfaEnabled] = useState(false);
@@ -13,16 +15,11 @@ const MfaPage = () => {
   const [mfaCode, setMfaCode] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
   // Fetch MFA status when logged in
   const fetchMfaStatus = async () => {
     try {
-      const res = await fetch("/api/mfa/status", {
+      const res = await apiCall("/api/mfa/status", {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
       });
       if (res.status === 200) {
         const data = await res.json();
@@ -42,13 +39,8 @@ const MfaPage = () => {
   const fetchSetup = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/mfa/setup", {
+      const res = await apiCall("/api/mfa/setup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
       });
       const data = await res.json();
       if (res.status === 200) {
@@ -71,13 +63,8 @@ const MfaPage = () => {
         setMessage("Please enter the code");
         return;
       }
-      const res = await fetch("/api/mfa/enable", {
+      const res = await apiCall("/api/mfa/enable", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
         body: JSON.stringify({ token: mfaCode }),
       });
       const data = await res.json();
@@ -97,13 +84,8 @@ const MfaPage = () => {
 
   const disableMfa = async () => {
     try {
-      const res = await fetch("/api/mfa/disable", {
+      const res = await apiCall("/api/mfa/disable", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
       });
       const data = await res.json();
       if (res.status === 200) {

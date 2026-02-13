@@ -10,8 +10,17 @@ export const AuthProvider = ({ children }) => {
     setAccessToken(token);
   };
 
-  const logout = () => {
-    setAccessToken(null);
+  const logout = async () => {
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Logout API call failed:", err);
+    } finally {
+      setAccessToken(null);
+    }
   };
 
   const clearTempMfaToken = () => setTempMfaToken(null);

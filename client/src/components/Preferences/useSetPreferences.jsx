@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../Security/authContext";
+import { useApiCall } from "../../services/useApiCall";
 
 export const useSetPreferences = (preferences, setError) => {
   const { accessToken } = useAuth();
+  const { apiCall } = useApiCall();
   const [saving, setSaving] = useState(false);
 
   const savePreferences = async () => {
@@ -10,13 +12,8 @@ export const useSetPreferences = (preferences, setError) => {
     setError("");
 
     try {
-      const res = await fetch("/api/preferences", {
+      const res = await apiCall("/api/preferences", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
         body: JSON.stringify(preferences),
       });
 

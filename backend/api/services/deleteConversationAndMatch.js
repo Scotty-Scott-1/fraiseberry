@@ -1,9 +1,6 @@
-import { Conversation, Match, Likes } from "../../database/models/index.js";
+import { Conversation, Match, Like } from "../../database/models/index.js";
+import { Op } from "sequelize";
 
-/**
- * Delete a conversation and its associated match + likes.
- * Called when bot nudges reach a threshold (5 nudges without user engagement).
- */
 export const deleteConversationAndMatch = async (conversationId) => {
   try {
     // Find the conversation to get userAId and userBId
@@ -23,7 +20,7 @@ export const deleteConversationAndMatch = async (conversationId) => {
     // Delete the match record if it exists
     await Match.destroy({
       where: {
-        [require("sequelize").Op.or]: [
+        [Op.or]: [
           { userAId, userBId },
           { userAId: userBId, userBId: userAId },
         ],
@@ -31,11 +28,11 @@ export const deleteConversationAndMatch = async (conversationId) => {
     });
 
     // Delete likes from both directions (userA liked userB, or userB liked userA)
-    await Likes.destroy({
+    await Like.destroy({
       where: {
-        [require("sequelize").Op.or]: [
-          { userId: userAId, likedUserId: userBId },
-          { userId: userBId, likedUserId: userAId },
+        [Op.or]: [
+          { likerId: userAId, likedId: userBId },
+          { likerId: userBId, likedId: userAId },
         ],
       },
     });

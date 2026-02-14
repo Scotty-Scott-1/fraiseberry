@@ -27,7 +27,7 @@ export const generateNudge = async (conversation) => {
     });
 
     const rawMessages = await Message.findAll({
-      where: { conversationId: conversation.id },
+      where: { conversationId: conversation.id, isBot: false },
       include: [
         {
           model: User,
@@ -38,6 +38,9 @@ export const generateNudge = async (conversation) => {
       order: [["createdAt", "DESC"]],
       limit: 5,
     });
+
+
+
 
     const messages = rawMessages.reverse();
 

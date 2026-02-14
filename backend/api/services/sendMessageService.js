@@ -13,12 +13,22 @@ export const sendMessageService = async (
     isBot,
   });
 
-  // Update conversation timestamps
+  // Update conversation timestamps and increment botMessageCount if bot message
   try {
-    await Conversation.update(
-      { lastMessageAt: new Date(), ...(isBot ? { lastBotNudgeAt: new Date() } : {}) },
-      { where: { id: conversationId } }
-    );
+    const updateData = {
+      lastMessageAt: new Date(),
+      ...(isBot ? { lastBotNudgeAt: new Date() } : {})
+    };
+
+    if (isBot) {
+      // Increment botMessageCount by 1 for bot messages
+      await Conversation.increment('botMessageCount', {
+        where: { id: conversationId }
+      });
+    } else {
+      // Regular update for non-bot messages
+      await Conversation.update(updateData, { where: { id: conversationId } });
+    }
   } catch (err) {
     console.error("Failed to update conversation timestamps:", err);
   }

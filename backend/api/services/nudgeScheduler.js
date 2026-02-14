@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import { Conversation } from "../../database/models/index.js";
 import { generateNudge } from "./generateNudge.js";
+import { deleteConversationAndMatch } from "./deleteConversationAndMatch.js";
 
 const NUDGE_INTERVAL_MS = Number(process.env.NUDGE_INTERVAL_MS);
 const SCAN_INTERVAL_MS = Number(process.env.SCAN_INTERVAL_MS);
@@ -29,6 +30,12 @@ export const startNudgeScheduler = (io) => {
       });
 
       for (const convo of convos) {
+        if (convo.botMessageCount >= 5) {
+          console.log(`⚠️ Conversation ${convo.id} reached bot nudge threshold (${convo.botMessageCount}). Deleting match and conversation.`);
+          await deleteConversationAndMatch(convo.id);
+          continue;
+        }
+
         const created = await generateNudge(convo);
         if (created && io) {
           io.to(`convo_${convo.id}`).emit("new_message", created);

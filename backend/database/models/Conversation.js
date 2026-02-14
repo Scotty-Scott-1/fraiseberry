@@ -31,6 +31,12 @@ export const Conversation = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
+
+    botMessageCount: {
+      type: INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+    },
   },
   {
     timestamps: true,

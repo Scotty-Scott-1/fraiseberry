@@ -1,8 +1,16 @@
 import { sendMail } from "../../email/resendMailer.js";
 
 export const sendVerificationEmail = async (user) => {
+  let baseUrl;
+  const myEnv = process.env.MY_ENV;
+  const myUrl = process.env.MY_URL;
 
-  const baseUrl = "http://localhost:5173";
+  if (myEnv === "prod") {
+    baseUrl = myUrl;
+  } else {
+    baseUrl = "http://localhost:5173";
+  }
+
   const verificationLink = `${baseUrl}/email?token=${user.verificationToken}`;
 
   try {

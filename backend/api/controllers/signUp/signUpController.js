@@ -15,7 +15,7 @@ export const signUpController = async (userData) => {
   const user = await createNewUser(userData);
 
   // Step 4: Send verification email
-  // await sendVerificationEmail(user);
+  await sendVerificationEmail(user);
 
   return { status: 200, message: "New user created and verification email sent" };
 };

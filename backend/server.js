@@ -7,6 +7,7 @@ import routes from "./api/routes/routes.js";
 import cors from "cors";
 import path from "path";
 import { startNudgeScheduler } from "./api/services/nudgeScheduler.js";
+import { createBotUser } from "./api/services/createBotUser.js";
 
 let stopNudgeScheduler;
 const app = express();
@@ -68,6 +69,7 @@ const startServer = async () => {
     server.listen(PORT, () => {
       console.log(`✅ [Server]: running at http://localhost:${PORT}`);
       // start nudge scheduler that will emit AI nudges via socket.io
+      createBotUser();
       stopNudgeScheduler = startNudgeScheduler(io);
     });
   } catch (err) {

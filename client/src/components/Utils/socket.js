@@ -1,10 +1,9 @@
 import { io } from "socket.io-client";
 
-// In development, Socket.IO will be proxied through Vite dev server
-// In production, connect directly to the server
-const socketURL = import.meta.env.DEV ? "/" : "http://localhost:3000";
-
-export const socket = io(socketURL, {
+// In dev, Vite proxies "/" to backend
+// In prod, Nginx proxies "/" and "/socket.io" to backend
+const socket = io("/", {
+  path: "/socket.io",
   withCredentials: true,
   transports: ["websocket", "polling"],
   reconnection: true,
@@ -13,6 +12,7 @@ export const socket = io(socketURL, {
   reconnectionAttempts: 5,
 });
 
+// Events
 socket.on("connect", () => {
   console.log("✅ Socket.IO connected:", socket.id);
 });
@@ -25,14 +25,4 @@ socket.on("disconnect", () => {
   console.log("❌ Socket.IO disconnected");
 });
 
-socket.on("connect", () => {
-  console.log("✅ Socket.IO connected:", socket.id);
-});
-
-socket.on("connect_error", (error) => {
-  console.error("❌ Socket.IO connection error:", error);
-});
-
-socket.on("disconnect", () => {
-  console.log("❌ Socket.IO disconnected");
-});
+export { socket };

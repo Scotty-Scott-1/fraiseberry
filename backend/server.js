@@ -12,24 +12,49 @@ import { createBotUser } from "./api/services/createBotUser.js";
 let stopNudgeScheduler;
 const app = express();
 
+// ENV
+const ENV = process.env.MY_ENV || "dev";
+const IS_PROD = ENV === "prod";
+
+// Allowed origins
+const FRONTEND_ORIGIN = IS_PROD
+  ? "https://www.match.fraiseberry.com"
+  : "http://localhost:5173";
+
+// -----------------------------
 // Static uploads folder
+// -----------------------------
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
+// -----------------------------
 // CORS
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+// -----------------------------
+app.use(
+  cors({
+    origin: FRONTEND_ORIGIN,
+    credentials: true,
+  })
+);
 
+// -----------------------------
 // Middleware
+// -----------------------------
 app.use(express.json());
 app.use(cookieParser());
 
+// -----------------------------
 // Routes
+// -----------------------------
 app.use("/api", routes);
 
-// Create HTTP server + Socket.IO
+// -----------------------------
+// HTTP + Socket.IO
+// -----------------------------
 const server = http.createServer(app);
+
 export const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: FRONTEND_ORIGIN,
     credentials: true,
   },
   transports: ["websocket", "polling"],
@@ -37,7 +62,9 @@ export const io = new Server(server, {
   pingTimeout: 60000,
 });
 
+// -----------------------------
 // WebSocket Events
+// -----------------------------
 io.on("connection", (socket) => {
   console.log("🔥 WebSocket connected:", socket.id);
 
@@ -60,15 +87,19 @@ io.on("connection", (socket) => {
   });
 });
 
-
+// -----------------------------
+// Start Server
+// -----------------------------
 const startServer = async () => {
   try {
     await initDB();
-    const PORT = process.env.PORT || 3000;
 
-    server.listen(PORT, () => {
-      console.log(`✅ [Server]: running at http://localhost:${PORT}`);
-      // start nudge scheduler that will emit AI nudges via socket.io
+    const PORT = process.env.PORT || 3000;
+    const HOST = IS_PROD ? "0.0.0.0" : "localhost";
+
+    server.listen(PORT, HOST, () => {
+      console.log(`✅ [Server]: running at http://${HOST}:${PORT}`);
+
       createBotUser();
       stopNudgeScheduler = startNudgeScheduler(io);
     });
@@ -78,6 +109,9 @@ const startServer = async () => {
   }
 };
 
+// -----------------------------
+// Graceful Shutdown
+// -----------------------------
 const shutdown = () => {
   console.log("Shutting down...");
   if (stopNudgeScheduler) stopNudgeScheduler();
@@ -88,4 +122,3 @@ const shutdown = () => {
 startServer();
 process.on("SIGTERM", shutdown);
 process.on("SIGINT", shutdown);
-

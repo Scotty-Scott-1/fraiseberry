@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+p {
+  color: black;
+}
+
 .header {
   display: flex;
   flex-direction: row;

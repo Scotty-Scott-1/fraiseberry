@@ -62,7 +62,8 @@ const Discover = () => {
             onClick={() => handleAction("like")}
             disabled={likeLoading}
           >
-            ❤️ {likeLoading ? "..." : "Like"}
+
+            <div className={styles.loadingText}>❤️ {likeLoading ? "..." : "Like"}</div>
           </button>
         </div>
 

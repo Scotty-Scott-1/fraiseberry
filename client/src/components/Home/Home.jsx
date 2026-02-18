@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./Home.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { steps } from "./steps";
 import { testimonials } from "./testimonials";
+
 
 
 const Signup = () => {
@@ -31,7 +32,7 @@ const Signup = () => {
             <button className={styles.secondaryBtn}>Learn More</button>
           </div>
           <div className={styles.linkBox}>
-            <a href="http://localhost:5173/signin">Already have an account? Sign in.</a>
+            <Link to="/signin">Already have an account? Sign in.</Link>
           </div>
         </div>
       </section>

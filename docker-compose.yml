@@ -51,15 +51,6 @@ services:
     image: ${GHCR_REPO:-ghcr.io/your-github-username/fraiseberry}-frontend:${IMAGE_TAG:-latest}
     container_name: frontend
     restart: always
-    expose:
-      - "80"
-    depends_on:
-      - backend
-
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
-    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -67,7 +58,6 @@ services:
       - ./client/nginx/ssl:/etc/nginx/ssl:ro
       - uploads:/usr/share/nginx/html/uploads
     depends_on:
-      - frontend
       - backend
 
 volumes:

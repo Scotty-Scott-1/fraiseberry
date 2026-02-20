@@ -1,5 +1,9 @@
 version: "3.9"
 
+# Image prefix for GitHub Container Registry.
+# On the server, set in .env:  GHCR_REPO=ghcr.io/your-github-username/fraiseberry
+# Locally you can omit it and just use: docker compose up --build
+
 services:
   db:
     image: mariadb:10.6
@@ -15,6 +19,7 @@ services:
 
   backend:
     build: ./backend
+    image: ${GHCR_REPO:-ghcr.io/your-github-username/fraiseberry}-backend:${IMAGE_TAG:-latest}
     container_name: backend
     restart: always
     environment:
@@ -31,7 +36,7 @@ services:
       SCAN_INTERVAL_MS: ${SCAN_INTERVAL_MS}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       BOT_EMAIL: ${BOT_EMAIL}
-      BOT_PASSWORD: ${BOT_PASSWORD}  
+      BOT_PASSWORD: ${BOT_PASSWORD}
       MY_ENV: ${MY_ENV}
       MY_URL: ${MY_URL}
     depends_on:
@@ -41,10 +46,19 @@ services:
     volumes:
       - uploads:/app/uploads
 
-
   frontend:
     build: ./client
+    image: ${GHCR_REPO:-ghcr.io/your-github-username/fraiseberry}-frontend:${IMAGE_TAG:-latest}
     container_name: frontend
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
     restart: always
     ports:
       - "80:80"
@@ -53,6 +67,7 @@ services:
       - ./client/nginx/ssl:/etc/nginx/ssl:ro
       - uploads:/usr/share/nginx/html/uploads
     depends_on:
+      - frontend
       - backend
 
 volumes:

@@ -60,6 +60,7 @@ jobs:
         with:
           context: ./client
           push: true
+          no-cache: true          # Add this line temporarily
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-frontend:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-frontend:${{ github.sha }}

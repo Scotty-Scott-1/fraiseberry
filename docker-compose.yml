@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  db:
+    image: mariadb:10.6
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: myapp
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_USER: myapp
+      DB_NAME: mydb
+      DB_PASSWORD: ${DB_PASSWORD}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      BOT_USER_ID: ${BOT_USER_ID}
+      NUDGE_INTERVAL_MS: ${NUDGE_INTERVAL_MS}
+      SCAN_INTERVAL_MS: ${SCAN_INTERVAL_MS}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      BOT_EMAIL: ${BOT_EMAIL}
+      BOT_PASSWORD: ${BOT_PASSWORD}  
+      MY_ENV: ${MY_ENV}
+      MY_URL: ${MY_URL}
+    depends_on:
+      - db
+    expose:
+      - "3000"
+    volumes:
+      - uploads:/app/uploads
+
+
+  frontend:
+    build: ./client
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./client/nginx/ssl:/etc/nginx/ssl:ro
+      - uploads:/usr/share/nginx/html/uploads
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
+  uploads:

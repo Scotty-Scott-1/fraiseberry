@@ -8,7 +8,7 @@ env:
   REGISTRY: ghcr.io
   # Results in image names like:
   #   ghcr.io/your-username/fraiseberry-frontend:latest
-  IMAGE_PREFIX: ${{ github.repository_owner }}/fraiseberry
+  IMAGE_PREFIX: ${{ github.repository_owner.toLowerCase() }}/fraiseberry
 
 jobs:
   # ── 1. Tests ────────────────────────────────────────────────────────────────

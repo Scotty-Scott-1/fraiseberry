@@ -1,7 +1,6 @@
 version: "3.9"
 
 # Images are pulled from GitHub Container Registry.
-# Set in .env on the server:  GHCR_REPO=ghcr.io/your-github-username/fraiseberry
 
 services:
   db:
@@ -17,8 +16,7 @@ services:
       - db_data:/var/lib/mysql
 
   backend:
-    build: ./backend
-    image: ${GHCR_REPO:-ghcr.io/your-github-username/fraiseberry}-backend:${IMAGE_TAG:-latest}
+    image: ${GHCR_REPO}-backend:${IMAGE_TAG:-latest}
     container_name: backend
     restart: always
     environment:
@@ -46,8 +44,7 @@ services:
       - uploads:/app/uploads
 
   frontend:
-    build: ./client
-    image: ${GHCR_REPO:-ghcr.io/your-github-username/fraiseberry}-frontend:${IMAGE_TAG:-latest}
+    image: ${GHCR_REPO}-frontend:${IMAGE_TAG:-latest}
     container_name: frontend
     restart: always
     ports:

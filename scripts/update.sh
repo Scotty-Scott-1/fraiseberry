@@ -7,6 +7,8 @@ set -euo pipefail
 
 COMPOSE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
+export $(grep -v '^#' "$COMPOSE_DIR/.env" | xargs)
+
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting update..."
 
 cd "$COMPOSE_DIR"

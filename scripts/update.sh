@@ -11,13 +11,13 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting update..."
 
 cd "$COMPOSE_DIR"
 
-# Pull latest code (gets updated docker-compose.yml if changed)
+# Pull latest code
 git pull --ff-only
 
-# Pull new images from ghcr.io
+# Pull latest images from ghcr.io (frontend + backend)
 docker compose pull
 
-# Restart only containers whose image changed, leave others running
+# Restart everything
 docker compose up -d --remove-orphans
 
 # Clean up dangling images to free disk space

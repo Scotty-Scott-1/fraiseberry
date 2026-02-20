@@ -1,8 +1,7 @@
 version: "3.9"
 
-# Image prefix for GitHub Container Registry.
-# On the server, set in .env:  GHCR_REPO=ghcr.io/your-github-username/fraiseberry
-# Locally you can omit it and just use: docker compose up --build
+# Images are pulled from GitHub Container Registry.
+# Set in .env on the server:  GHCR_REPO=ghcr.io/your-github-username/fraiseberry
 
 services:
   db:

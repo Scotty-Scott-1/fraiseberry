@@ -9,7 +9,6 @@ export const useGetProfile = () => {
     const res = await apiCall("/api/profile", {});
 
     const data = await res.json();
-    console.log(data);
 
     if (!res.ok) {
       throw new Error("Failed to fetch profile");

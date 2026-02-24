@@ -8,11 +8,9 @@ import MatchCard from "../Utils/MatchCard/MatchCard.jsx";
 
 const Dashboard = () => {
   const { accessToken, logout } = useAuth();
-  console.log("Dashboard token:", accessToken);
   useUpdateLocation(accessToken);
   const navigate = useNavigate();
-
-  const { matches, loading } = useGetMatches();
+  const { matches, loading, name } = useGetMatches();
 
   const handleClick = (button) => {
     switch (button) {
@@ -45,7 +43,7 @@ const Dashboard = () => {
           </button>
         </div>
 
-        <h1 className={styles.headerTitle}>Welcome Back!</h1>
+        <h1 className={styles.headerTitle}>Welcome Back { name } !</h1>
 
         <div className={styles.headerBell}>
           <button className={styles.notificationBtn}>

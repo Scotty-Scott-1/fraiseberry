@@ -5,7 +5,6 @@ const BackButton = ({ onClick }) => {
   return (
     <button type="button" className={styles.backBtn} onClick={onClick}>
       <ArrowLeftIcon className={styles.backIcon} />
-      Back
     </button>
   );
 };

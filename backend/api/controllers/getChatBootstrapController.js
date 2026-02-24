@@ -18,7 +18,7 @@ export const getChatBootstrapController = async (userId, otherUserId) => {
     otherUser: {
       id: otherProfile.userId,
       name: otherProfile.name,
-      avatar: otherProfile.avatar || null
+      avatar: otherProfile.profilePic || null
     },
     messages
   };

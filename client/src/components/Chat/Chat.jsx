@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../Security/authContext";
 import { useApiCall } from "../../services/useApiCall";
 import { socket } from "../Utils/socket.js";
+import Header2 from "../Utils/Header copy/Header.jsx";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import styles from "./Chat.module.css";
@@ -28,6 +29,7 @@ const Chat = () => {
       const res = await apiCall(`/api/chat/bootstrap/${otherUserId}`, {});
 
       const data = await res.json();
+      console.log(data);
 
       setConversationId(data.conversationId);
       setCurrentUserId(data.currentUserId);
@@ -68,16 +70,10 @@ const Chat = () => {
 
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.chatHeader}>
-        {otherUser && (
-          <>
-            {otherUser.avatar && (
-              <img src={otherUser.avatar} className={styles.avatar} />
-            )}
-            <h2>{otherUser.name}</h2>
-          </>
-        )}
-      </div>
+<Header2
+  title={otherUser?.name}
+  avatar={otherUser?.avatar}
+/>
 
       <div className={styles.messagesWrapper}>
         <ChatMessages

@@ -1,13 +1,14 @@
 import { useRef, useEffect } from "react";
 import styles from "./PhotoSection.module.css";
 
-// Individual photo slot component
 const PhotoSlot = ({ title, photo, onChange }) => {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     return () => {
-      if (photo?.file && photo?.preview) URL.revokeObjectURL(photo.preview);
+      if (photo?.file && photo?.preview) {
+        URL.revokeObjectURL(photo.preview);
+      }
     };
   }, [photo]);
 
@@ -19,13 +20,19 @@ const PhotoSlot = ({ title, photo, onChange }) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const newPhoto = { file, preview: URL.createObjectURL(file) };
+    const newPhoto = {
+      file,
+      preview: URL.createObjectURL(file),
+    };
+
     onChange(newPhoto);
     e.target.value = null;
   };
 
   const handleRemove = () => {
-    if (photo?.file && photo?.preview) URL.revokeObjectURL(photo.preview);
+    if (photo?.file && photo?.preview) {
+      URL.revokeObjectURL(photo.preview);
+    }
     onChange(null);
   };
 
@@ -33,22 +40,43 @@ const PhotoSlot = ({ title, photo, onChange }) => {
     <div className={styles.photoSlot}>
       <h3 className={styles.photoTitle}>{title}</h3>
 
-      {photo ? (
-        <>
-          <img src={photo.preview} alt={title} className={styles.photoPreview} />
-          <div className={styles.photoButtons}>
-            <button type="button" className={styles.photoBtn} onClick={handleButtonClick}>
-              Change
-            </button>
-            <button type="button" className={styles.removePhotoBtn} onClick={handleRemove}>
+      <div className={styles.photoWrapper}>
+        {photo ? (
+          <>
+            <img
+              src={photo.preview}
+              alt={title}
+              className={styles.photoPreview}
+            />
+            <button
+              type="button"
+              className={styles.removePhotoBtn}
+              onClick={handleRemove}
+            >
               ✕
             </button>
-          </div>
-        </>
-      ) : (
-        <button type="button" className={styles.addPhotoBtn} onClick={handleButtonClick}>
-          + Add {title}
-        </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            className={styles.addPhotoBtn}
+            onClick={handleButtonClick}
+          >
+            + Add {title}
+          </button>
+        )}
+      </div>
+
+      {photo && (
+        <div className={styles.photoButtons}>
+          <button
+            type="button"
+            className={styles.photoBtn}
+            onClick={handleButtonClick}
+          >
+            Change
+          </button>
+        </div>
       )}
 
       <input
@@ -62,8 +90,14 @@ const PhotoSlot = ({ title, photo, onChange }) => {
   );
 };
 
-// Main supporting photos section
-const SupportingPhotos = ({ supportingPic1, supportingPic2, supportingPic3, onChange }) => {
+
+
+const SupportingPhotos = ({
+  supportingPic1,
+  supportingPic2,
+  supportingPic3,
+  onChange,
+}) => {
   return (
     <section className={styles.card}>
       <h2 className={styles.sectionTitle}>Supporting Photos</h2>

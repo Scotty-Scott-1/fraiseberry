@@ -5,7 +5,6 @@ export const getAllConversationsHandler = async (req, res) => {
     const userId = req.userId;
 
     const data = await getAllConversationsController(userId);
-    console.log(data);
 
     return res.json(data);
   } catch (err) {

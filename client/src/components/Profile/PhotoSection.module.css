@@ -21,11 +21,27 @@
   text-align: center;
 }
 
-.photoGrid {
+
+.photosGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 1rem;
   justify-content: center;
+}
+
+.photoSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 140px;
+}
+
+.photoTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0e2d50;
+  text-align: center;
 }
 
 .photoWrapper {
@@ -38,19 +54,63 @@
   box-shadow:
     0 0 16px rgba(255, 68, 102, 0.2),
     inset 0 0 8px rgba(255, 68, 102, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
 }
 
-.photo {
+.photoPreview {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.addPhotoBtn {
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #999;
+  background-color: #f9f9f9;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
   border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.addPhotoBtn:hover {
+  border-color: #666;
+  background-color: #f0f0f0;
+}
+
+.photoButtons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.photoBtn {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #0e2d50;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.photoBtn:hover {
+  background-color: #123d6b;
 }
 
 .removePhotoBtn {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 6px;
+  right: 6px;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
   border: none;
@@ -69,37 +129,12 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.addPhotoBtn {
-  width: 140px;
-  height: 140px;
-  border: 2px dashed #999;
-  background-color: #f9f9f9;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #555;
-  border-radius: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.addPhotoBtn:hover {
-  border-color: #666;
-  background-color: #f0f0f0;
-}
-
-.addPhotoBtn:disabled {
-  cursor: not-allowed;
-  border-color: #ccc;
-  background-color: #eee;
-  color: #aaa;
-}
-
 @media (max-width: 480px) {
-  .photoWrapper,
-  .addPhotoBtn {
+  .photoSlot {
+    width: 120px;
+  }
+
+  .photoWrapper {
     width: 120px;
     height: 120px;
   }

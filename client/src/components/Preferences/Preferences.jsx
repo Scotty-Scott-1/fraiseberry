@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Preferences.module.css";
 import PreferencesFilters from "./PreferencesFilters";
-import { useAuth } from "../Security/authContext";
 import { useFetchPreferences } from "./useFetchPreferences";
 import { useSetPreferences } from "./useSetPreferences";
+import { useNavigate } from "react-router-dom";
 
 const Preferences = () => {
   const [preferences, setPreferences] = useState({
@@ -15,6 +15,8 @@ const Preferences = () => {
   const [error, setError] = useState("");
   const { fetchPreferences } = useFetchPreferences(preferences, setPreferences, setError);
   const { savePreferences, saving } = useSetPreferences(preferences, setError);
+  const navigate = useNavigate();
+
 
 
   useEffect(() => {
@@ -31,12 +33,10 @@ const Preferences = () => {
   };
 
   const handleSave = async () => {
-    try {
-      const data = await savePreferences();
-      console.log(data);
-    } catch(err) {
-      throw new Error(err).message;
-    }
+      const success = await savePreferences();
+      if (success) {
+        navigate("/dashboard");
+      }
   };
 
   return (

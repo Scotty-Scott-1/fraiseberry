@@ -3,7 +3,6 @@ import { useAuth } from "../Security/authContext";
 import { useApiCall } from "../../services/useApiCall";
 
 export const useSetPreferences = (preferences, setError) => {
-  const { accessToken } = useAuth();
   const { apiCall } = useApiCall();
   const [saving, setSaving] = useState(false);
 
@@ -20,11 +19,10 @@ export const useSetPreferences = (preferences, setError) => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to save preferences");
 
-      return data;
+      return true;
     } catch (err) {
-      console.error(err);
       setError(err.message);
-      throw err;
+      return false
     } finally {
       setSaving(false);
     }

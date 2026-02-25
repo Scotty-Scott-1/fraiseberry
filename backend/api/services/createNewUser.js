@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { User, Profile } from "../../database/models/index.js";
+import { User, Profile, Preferences } from "../../database/models/index.js";
 
 export const createNewUser = async (userData) => {
   try {
@@ -16,6 +16,14 @@ export const createNewUser = async (userData) => {
     await Profile.create({
       userId: user.id,
     });
+
+    await Preferences.create({
+      userId: user.id,
+      preferredGender: "any",
+      ageRangeMin: 25,
+      ageRangeMax: 50,
+      maxDistanceKm: 30
+    })
 
     return user;
   } catch(err) {

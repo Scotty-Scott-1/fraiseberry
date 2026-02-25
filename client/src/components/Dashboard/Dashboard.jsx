@@ -1,6 +1,6 @@
 import { useAuth } from "../Security/authContext";
 import styles from "./Dashboard.module.css";
-import { BellIcon } from "@heroicons/react/24/solid";
+import DashboardHeader from "../Utils/DashboardHeader/DashboardHeader.jsx";
 import { useNavigate } from "react-router-dom";
 import { useUpdateLocation } from "./useUpdateLocation";
 import { useGetMatches } from "./useGetMatches";
@@ -34,41 +34,39 @@ const Dashboard = () => {
     }
   };
 
-  return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.headerLogout}>
-          <button className={styles.logoutBtn} onClick={logout}>
-            Logout
-          </button>
-        </div>
+return (
+  <div className={styles.container}>
 
-        <h1 className={styles.headerTitle}>Welcome Back { name } !</h1>
+    {/* Header full width */}
+    <DashboardHeader
+      title={`Welcome Back ${name || ""}!`}
+      onLogout={logout}
+    />
 
-        <div className={styles.headerBell}>
-          <button className={styles.notificationBtn}>
-            <BellIcon className={styles.notificationIcon} />
-          </button>
-        </div>
-      </header>
+    {/* Inner centered dashboard content */}
+    <div className={styles.contentWrapper}>
 
-      <p className={styles.subTitle}>Check your matches and updates</p>
+      <p className={styles.subTitle}>
+        Check your matches and updates
+      </p>
 
       <div className={styles.headerActions}>
         <button className={styles.actionBtn} onClick={() => handleClick("3")}>
           Discover
         </button>
-        <button
-          className={styles.actionBtn}
-          onClick={() => handleClick("4")}>
+
+        <button className={styles.actionBtn} onClick={() => handleClick("4")}>
           Messages
         </button>
+
         <button className={styles.actionBtn} onClick={() => handleClick("1")}>
           Profile
         </button>
+
         <button className={styles.actionBtn} onClick={() => handleClick("2")}>
           Preferences
         </button>
+
         <button className={styles.actionBtn} onClick={() => handleClick("5")}>
           MFA
         </button>
@@ -86,8 +84,9 @@ const Dashboard = () => {
             <MatchCard key={idx} match={match} />
           ))}
       </section>
-    </div>
-  );
-};
 
+    </div>
+  </div>
+);
+}
 export default Dashboard;

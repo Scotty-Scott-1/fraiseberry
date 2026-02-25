@@ -4,7 +4,6 @@ import { useApiCall } from "../../services/useApiCall";
 
 export const useHandleSave = () => {
   const [saving, setSaving] = useState(false);
-  const { accessToken } = useAuth();
   const { apiCall } = useApiCall();
 
   const handleSave = async (profileData, setError) => {
@@ -43,11 +42,11 @@ export const useHandleSave = () => {
       if (!res.ok) {
         throw new Error(data.message || `Request failed: ${res.status}`);
       }
+      return true;
 
-      console.log("Profile saved:", data);
     } catch (err) {
-      console.error(err);
       setError(err.message || "Failed to save profile");
+      return false;
     } finally {
       setSaving(false);
     }

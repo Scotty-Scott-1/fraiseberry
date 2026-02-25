@@ -1,5 +1,6 @@
 import styles from "./Profile.module.css";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useHandleSave } from "./useHandleSave";
 import { useGetProfile } from "./useGetProfile";
 import ProfilePicture from "./ProfilePicSection.jsx";
@@ -21,6 +22,14 @@ const Profile = () => {
   const [error, setError] = useState("");
   const { handleSave, saving } = useHandleSave();
   const { getProfile } = useGetProfile();
+  const navigate = useNavigate();
+
+  const onSave = async () => {
+    const success = await handleSave(profileData, setError);
+    if (success) {
+    navigate("/dashboard");
+  }
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,7 +112,7 @@ const Profile = () => {
 
       <button
         className={styles.saveBtn}
-        onClick={() => handleSave(profileData, setError)}
+        onClick={onSave}
         disabled={saving}
       >
         {saving ? "Saving..." : "Save Changes"}

@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { useAuth } from "../Security/authContext";
-import { useApiCall } from "../../services/useApiCall";
+import { useApiCall } from "../../../services/useApiCall";
+
 
 export const useLike = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { accessToken } = useAuth();
   const { apiCall } = useApiCall();
 
   const likeUser = async (likedId) => {

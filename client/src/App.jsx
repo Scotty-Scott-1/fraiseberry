@@ -11,6 +11,7 @@ import PreferencesPage from "./pages/Preferences";
 import DiscoverPage from "./pages/Discover";
 import ChatPage from "./pages/Chat";
 import ConversationnListPage from "./pages/ConversationList";
+import ViewProfilePage from "./pages/ViewProfile";
 
 const App = () => (
     <Routes>
@@ -25,6 +26,7 @@ const App = () => (
       <Route path="/discover" element={<ProtectedRoute><DiscoverPage /></ProtectedRoute>} />
       <Route path="/chat/:otherUserId" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
       <Route path="/conversationlist" element={<ProtectedRoute><ConversationnListPage /></ProtectedRoute>} />
+      <Route path="/view/:otherUserId" element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
     </Routes>
 );
 

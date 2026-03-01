@@ -23,7 +23,7 @@ import { getMessagesHandler } from "../handlers/getMessagesHandler.js";
 import { sendMessageHandler } from "../handlers/sendMessageHandler.js";
 import { getChatBootstrapHandler } from "../handlers/getChatBootstrapHandler.js";
 import { getAllConversationsHandler } from "../handlers/getAllConversationsHandler.js";
-
+import { getMatchProfileHandler } from "../handlers/getMatchProfileHandler.js"
 
 
 
@@ -54,5 +54,6 @@ router.get("/messages/:conversationId", verifyAccessToken, getMessagesHandler);
 router.get("/chat/bootstrap/:otherUserId", verifyAccessToken, getChatBootstrapHandler);
 router.get("/conversations", verifyAccessToken, getAllConversationsHandler);
 router.post("/messages", verifyAccessToken, sendMessageHandler);
+router.get("/match/profile/:profileUserId", verifyAccessToken, getMatchProfileHandler);
 
 export default router;

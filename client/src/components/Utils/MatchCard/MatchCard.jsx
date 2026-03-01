@@ -9,6 +9,10 @@ const MatchCard = ({ match }) => {
     navigate(`/chat/${match.userId}`);
   };
 
+  const viewProfile = () => {
+    navigate(`/view/${match.userId}`);
+  };
+
   return (
     <div className={styles.card}>
       <img
@@ -30,7 +34,9 @@ const MatchCard = ({ match }) => {
         </div>
 
         <div className={styles.cardActions}>
-          <button className={styles.quickLinkBtn}>View Profile</button>
+          <button className={styles.quickLinkBtn} onClick={viewProfile}>
+            View Profile
+          </button>
 
           <button className={styles.messageBtn} onClick={openChat}>
             <ChatBubbleLeftRightIcon className={styles.messageIcon} />

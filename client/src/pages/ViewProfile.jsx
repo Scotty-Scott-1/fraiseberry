@@ -1,10 +1,11 @@
-import ViewProfile from "../components/Security/EmailVerification"
+import ViewProfile from "../components/ViewProfile/ViewProfile";
 
-const VerifyEmailPage = () => {
+
+const ViewProfilePage = () => {
   return(
     <div>
-      <EmailVerify />
+      <ViewProfile />
     </div>
   );
 }
-export default VerifyEmailPage;
+export default ViewProfilePage;

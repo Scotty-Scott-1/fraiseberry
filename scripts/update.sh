@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# update.sh — pull latest images and restart containers
-# Run this as a cron job on your server, e.g. every 5 minutes:
-#   */5 * * * * /path/to/fraiseberry/scripts/update.sh >> /var/log/fraiseberry-update.log 2>&1
 
 set -euo pipefail
 

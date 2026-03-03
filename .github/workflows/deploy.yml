@@ -6,8 +6,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  # Results in image names like:
-  #   ghcr.io/your-username/fraiseberry-frontend:latest
   IMAGE_PREFIX: scotty-scott-1/fraiseberry
 
 jobs:
@@ -39,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write   # needed to push to ghcr.io
+      packages: write
 
     steps:
       - uses: actions/checkout@v4
@@ -59,9 +57,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./client
-          file: ./client/Dockerfile      
+          file: ./client/Dockerfile
           push: true
-          no-cache: true          # Add this line temporarily
+          no-cache: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-frontend:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-frontend:${{ github.sha }}

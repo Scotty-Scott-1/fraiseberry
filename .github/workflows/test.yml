@@ -1,10 +1,8 @@
 name: Tests
 
 on:
-  # push:
-  #   branches-ignore: [main]  # Run on feature branches as you develop
   pull_request:
-    branches: [main]         # Gate before merging into main
+    branches: [main]
 
 jobs:
   unit-tests:

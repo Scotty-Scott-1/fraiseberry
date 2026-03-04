@@ -17,6 +17,11 @@ const { User, Profile, Preferences } = await import(
 describe("createNewUser", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    console.error.mockRestore();
   });
 
   test("creates user and related profile and preferences", async () => {

@@ -15,7 +15,7 @@ const { JWT_SECRET, JWT_REFRESH_SECRET } = process.env;
   const refreshToken = jwt.sign(
     { id: user.id },
     JWT_REFRESH_SECRET,
-    { expiresIn: "1d" }
+    { expiresIn: "7d" }
    );
 
   return {

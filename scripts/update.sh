@@ -17,7 +17,7 @@ docker compose pull
 # Restart everything
 docker compose up -d --remove-orphans
 
-# Clean up dangling images to free disk space
+# Free disk space
 docker image prune -f
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Done."

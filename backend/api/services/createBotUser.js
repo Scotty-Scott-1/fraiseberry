@@ -26,8 +26,7 @@ export const createBotUser = async () => {
     // Hash password
     const hashedPassword = await bcrypt.hash(botPassword, 10);
 
-    // Idempotent creation
-    const [bot, created] = await User.findOrCreate({
+    const [, created] = await User.findOrCreate({
       where: { id: botId },
       defaults: {
         id: botId,

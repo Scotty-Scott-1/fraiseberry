@@ -13,6 +13,6 @@ export const sendMail = async ({ to, subject, text, html }) => {
     return { status: 200, message: "email sent" };
   } catch (err) {
     console.error(err);
-    throw new Error("Email not sent", { cause: err })
+    throw new Error("Email not sent", { cause: err });
   }
 };

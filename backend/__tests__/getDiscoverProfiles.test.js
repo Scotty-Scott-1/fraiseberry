@@ -86,7 +86,8 @@ describe("getDiscoverProfilesService", () => {
     User.findByPk.mockResolvedValue(
       createMockDiscoverUser({
         prefAgeMin: 18,
-        prefAgeMax: 25
+        prefAgeMax: 25,
+        prefPreferredGender: "female"
       })
     );
 
@@ -95,8 +96,8 @@ describe("getDiscoverProfilesService", () => {
 
     Profile.findAll.mockResolvedValue(
       createMockProfiles([
-        { userId: 2, age: 20 },
-        { userId: 3, age: 40 }
+        { userId: 2, age: 20, gender: "female" },
+        { userId: 3, age: 40, gender: "female" }
       ])
     );
 
@@ -104,7 +105,8 @@ describe("getDiscoverProfilesService", () => {
 
     const result = await getDiscoverProfilesService(1);
 
-    expect(result.every(p => p.age >= 18 && p.age <= 25)).toBe(true);
+    expect(result).toHaveLength(1);
+    expect(result[0].age).toBe(20);
   });
 
   /*
@@ -136,6 +138,7 @@ describe("getDiscoverProfilesService", () => {
     const result = await getDiscoverProfilesService(1);
 
     expect(result.every(p => p.gender === "female")).toBe(true);
+    expect(result).toHaveLength(1);
   });
 
   /*
@@ -157,7 +160,7 @@ describe("getDiscoverProfilesService", () => {
 
     Profile.findAll.mockResolvedValue(
       createMockProfiles([
-        { userId: 2, latitude: 0, longitude: 0 }
+        { userId: 2, gender: "female" }
       ])
     );
 
@@ -192,9 +195,7 @@ describe("getDiscoverProfilesService", () => {
 
     Profile.findAll.mockResolvedValue(
       createMockProfiles([
-        { userId: 2 },
-        { userId: 3 },
-        { userId: 4 }
+        { userId: 4, gender: "female" }
       ])
     );
 
@@ -206,6 +207,7 @@ describe("getDiscoverProfilesService", () => {
 
     expect(returnedIds).not.toContain(2);
     expect(returnedIds).not.toContain(3);
+    expect(result).toHaveLength(1);
   });
 
 });

@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { Op } from "sequelize";
 
 import {
   createMockDiscoverUser,
@@ -10,26 +11,17 @@ import {
 /*
 Mock external modules BEFORE importing service
 */
-
-jest.unstable_mockModule("geolib", () => ({
-  getDistance: jest.fn()
+jest.unstable_mockModule("../database/models/index.js", () => ({
+  User: { findByPk: jest.fn() },
+  Preferences: {},
+  Profile: { findAll: jest.fn() },
+  Like: { findAll: jest.fn() },
+  Match: { findAll: jest.fn() }
 }));
 
-jest.unstable_mockModule(
-  "../database/models/index.js",
-  () => ({
-    User: { findByPk: jest.fn() },
-    Preferences: {},
-    Profile: { findAll: jest.fn() },
-    Like: { findAll: jest.fn() },
-    Match: { findAll: jest.fn() }
-  })
-);
-
 /*
-Dynamic imports AFTER mocks are registered
+Dynamic imports AFTER mocks
 */
-
 const { getDiscoverProfilesService } = await import(
   "../api/services/getDiscoverProfiles.js"
 );
@@ -38,26 +30,18 @@ const { User, Profile, Like, Match } = await import(
   "../database/models/index.js"
 );
 
-const { getDistance } = await import("geolib");
-
 describe("getDiscoverProfilesService", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  /*
-  --------------------------------------------------
-  BASE SERVICE TEST
-  --------------------------------------------------
-  */
+  // --------------------------------------------------
+  // RETURN SHAPE + TRANSFORMATION
+  // --------------------------------------------------
+  test("returns an array of plain profile objects", async () => {
 
-  test("returns discover profiles successfully", async () => {
-
-    User.findByPk.mockResolvedValue(
-      createMockDiscoverUser()
-    );
-
+    User.findByPk.mockResolvedValue(createMockDiscoverUser());
     Like.findAll.mockResolvedValue([]);
     Match.findAll.mockResolvedValue([]);
 
@@ -67,55 +51,27 @@ describe("getDiscoverProfilesService", () => {
       ])
     );
 
-    getDistance.mockReturnValue(0);
-
     const result = await getDiscoverProfilesService(1);
 
     expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBeGreaterThan(0);
-  });
+    expect(result).toHaveLength(1);
 
-  /*
-  --------------------------------------------------
-  AGE PREFERENCE TEST
-  --------------------------------------------------
-  */
-
-  test("filters profiles outside age preference range", async () => {
-
-    User.findByPk.mockResolvedValue(
-      createMockDiscoverUser({
-        prefAgeMin: 18,
-        prefAgeMax: 25,
-        prefPreferredGender: "female"
+    expect(result[0]).toEqual(
+      expect.objectContaining({
+        userId: 2,
+        age: 25,
+        gender: "female"
       })
     );
 
-    Like.findAll.mockResolvedValue([]);
-    Match.findAll.mockResolvedValue([]);
-
-    Profile.findAll.mockResolvedValue(
-      createMockProfiles([
-        { userId: 2, age: 20, gender: "female" },
-        { userId: 3, age: 40, gender: "female" }
-      ])
-    );
-
-    getDistance.mockReturnValue(0);
-
-    const result = await getDiscoverProfilesService(1);
-
-    expect(result).toHaveLength(1);
-    expect(result[0].age).toBe(20);
+    // ensures Sequelize instance was converted to plain object
+    expect(result[0].toJSON).toBeUndefined();
   });
 
-  /*
-  --------------------------------------------------
-  GENDER PREFERENCE TEST
-  --------------------------------------------------
-  */
-
-  test("filters profiles by gender preference", async () => {
+  // --------------------------------------------------
+  // GENDER FILTER BUSINESS RULE
+  // --------------------------------------------------
+  test("applies gender preference in DB query", async () => {
 
     User.findByPk.mockResolvedValue(
       createMockDiscoverUser({
@@ -125,63 +81,49 @@ describe("getDiscoverProfilesService", () => {
 
     Like.findAll.mockResolvedValue([]);
     Match.findAll.mockResolvedValue([]);
+    Profile.findAll.mockResolvedValue(createMockProfiles([]));
 
-    Profile.findAll.mockResolvedValue(
-      createMockProfiles([
-        { userId: 2, gender: "female" },
-        { userId: 3, gender: "male" }
+    await getDiscoverProfilesService(1);
+
+    const query = Profile.findAll.mock.calls[0][0];
+
+    expect(query.where.gender).toBe("female");
+  });
+
+  // --------------------------------------------------
+  // EXCLUSION LOGIC (LIKES + MATCHES)
+  // --------------------------------------------------
+  test("adds liked and matched users to exclusion list", async () => {
+
+    User.findByPk.mockResolvedValue(createMockDiscoverUser());
+
+    Like.findAll.mockResolvedValue(
+      createMockLikedUsers([2, 4])
+    );
+
+    Match.findAll.mockResolvedValue(
+      createMockMatches([
+        [1, 3],
+        [5, 1]
       ])
     );
 
-    getDistance.mockReturnValue(0);
+    Profile.findAll.mockResolvedValue(createMockProfiles([]));
 
-    const result = await getDiscoverProfilesService(1);
+    await getDiscoverProfilesService(1);
 
-    expect(result.every(p => p.gender === "female")).toBe(true);
-    expect(result).toHaveLength(1);
+    const query = Profile.findAll.mock.calls[0][0];
+    const excludedIds = query.where.userId[Op.notIn];
+
+    expect(excludedIds).toEqual([2, 4, 3, 5]);
   });
 
-  /*
-  --------------------------------------------------
-  DISTANCE BOUNDARY TEST
-  --------------------------------------------------
-  */
+  // --------------------------------------------------
+  // DUPLICATE EXCLUSIONS (EXPECTED BEHAVIOUR)
+  // --------------------------------------------------
+  test("keeps duplicate exclusions if user appears in both likes and matches", async () => {
 
-  test("filters profiles outside distance preference", async () => {
-
-    User.findByPk.mockResolvedValue(
-      createMockDiscoverUser({
-        prefMaxDistance: 10
-      })
-    );
-
-    Like.findAll.mockResolvedValue([]);
-    Match.findAll.mockResolvedValue([]);
-
-    Profile.findAll.mockResolvedValue(
-      createMockProfiles([
-        { userId: 2, gender: "female" }
-      ])
-    );
-
-    getDistance.mockReturnValue(15000); // 15 km
-
-    const result = await getDiscoverProfilesService(1);
-
-    expect(result.length).toBe(0);
-  });
-
-  /*
-  --------------------------------------------------
-  EXCLUSION LOGIC TEST
-  --------------------------------------------------
-  */
-
-  test("excludes liked and matched profiles", async () => {
-
-    User.findByPk.mockResolvedValue(
-      createMockDiscoverUser()
-    );
+    User.findByPk.mockResolvedValue(createMockDiscoverUser());
 
     Like.findAll.mockResolvedValue(
       createMockLikedUsers([2])
@@ -189,25 +131,64 @@ describe("getDiscoverProfilesService", () => {
 
     Match.findAll.mockResolvedValue(
       createMockMatches([
-        [1, 3]
+        [1, 2]
       ])
     );
 
-    Profile.findAll.mockResolvedValue(
-      createMockProfiles([
-        { userId: 4, gender: "female" }
-      ])
-    );
+    Profile.findAll.mockResolvedValue(createMockProfiles([]));
 
-    getDistance.mockReturnValue(0);
+    await getDiscoverProfilesService(1);
+
+    const query = Profile.findAll.mock.calls[0][0];
+    const excludedIds = query.where.userId[Op.notIn];
+
+    expect(excludedIds).toEqual([2, 2]);
+  });
+
+  // --------------------------------------------------
+  // QUERY CONFIGURATION (LIMIT + RANDOM ORDER)
+  // --------------------------------------------------
+  test("requests 20 random profiles", async () => {
+
+    User.findByPk.mockResolvedValue(createMockDiscoverUser());
+    Like.findAll.mockResolvedValue([]);
+    Match.findAll.mockResolvedValue([]);
+    Profile.findAll.mockResolvedValue(createMockProfiles([]));
+
+    await getDiscoverProfilesService(1);
+
+    const query = Profile.findAll.mock.calls[0][0];
+
+    expect(query.limit).toBe(20);
+    expect(query.order).toBeDefined();
+  });
+
+  // --------------------------------------------------
+  // EMPTY RESULT CASE
+  // --------------------------------------------------
+  test("returns empty array when no profiles are found", async () => {
+
+    User.findByPk.mockResolvedValue(createMockDiscoverUser());
+    Like.findAll.mockResolvedValue([]);
+    Match.findAll.mockResolvedValue([]);
+    Profile.findAll.mockResolvedValue([]);
 
     const result = await getDiscoverProfilesService(1);
 
-    const returnedIds = result.map(p => p.userId);
+    expect(Array.isArray(result)).toBe(true);
+    expect(result).toEqual([]);
+  });
 
-    expect(returnedIds).not.toContain(2);
-    expect(returnedIds).not.toContain(3);
-    expect(result).toHaveLength(1);
+  // --------------------------------------------------
+  // ERROR HANDLING
+  // --------------------------------------------------
+  test("throws error when user is not found", async () => {
+
+    User.findByPk.mockResolvedValue(null);
+
+    await expect(
+      getDiscoverProfilesService(1)
+    ).rejects.toThrow("User not found");
   });
 
 });

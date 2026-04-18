@@ -12,8 +12,11 @@ import DiscoverPage from "./pages/Discover";
 import ChatPage from "./pages/Chat";
 import ConversationnListPage from "./pages/ConversationList";
 import ViewProfilePage from "./pages/ViewProfile";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => (
+  <>
     <Routes>
       <Route path="/" element={<PageHome />} />
       <Route path="/signup" element={<SignUpPage />} />
@@ -28,6 +31,8 @@ const App = () => (
       <Route path="/conversationlist" element={<ProtectedRoute><ConversationnListPage /></ProtectedRoute>} />
       <Route path="/view/:otherUserId" element={<ProtectedRoute><ViewProfilePage /></ProtectedRoute>} />
     </Routes>
+    <ToastContainer />
+  </>
 );
 
 export default App

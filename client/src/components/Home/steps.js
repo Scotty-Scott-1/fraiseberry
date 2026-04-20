@@ -4,11 +4,11 @@
       desc: "Tell us about yourself and what you’re looking for.",
     },
     {
-      title: "2. Browse Matches",
-      desc: "Swipe, like, or message people who catch your eye.",
+      title: "2. Browse Candiadates",
+      desc: "View candiates that macth your preferences and like people that catch your eye.",
     },
     {
       title: "3. Start Connecting",
-      desc: "Chat, plan dates, and meet your potential partner.",
+      desc: "Match, chat, plan dates, and meet your potential partner.",
     },
   ];

@@ -9,8 +9,8 @@ export const useCreateUser = () => {
     setError("");
 
     try {
-      // Doesn't require authentication
-      // Use direct fetch instead of the apiCall wrapper
+      // Doesn't require authentication.
+      // Direct fetch instead of the apiCall wrapper
       const res = await fetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -3,6 +3,7 @@ import { useCreateUser } from "./useCreateUser";
 import styles from "./SignUp.module.css";
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -27,8 +28,17 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const msg = await createUser(formData);
-    console.log(msg);
     navigate("/signin");
+    toast.success(`A confirmation email has been sent to ${formData.email}.`, {
+      position: "bottom-center",
+      autoClose: 5000
+    });
+    setTimeout(() => {
+      toast.success(`Before logging in click on the verification link.`, {
+        position: "bottom-center",
+        autoClose: 5000
+      });
+    }, 4000);
   } catch {
 
   }

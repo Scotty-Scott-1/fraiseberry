@@ -1,4 +1,4 @@
-import BackButton from "../BackButton/BackButton";
+import BackButton from "../Buttons/BackButton/BackButton";
 import styles from "./Header.module.css";
 import { useNavigate } from "react-router-dom";
 

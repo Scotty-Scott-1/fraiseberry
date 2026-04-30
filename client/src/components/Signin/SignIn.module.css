@@ -1,62 +1,74 @@
-/* --------------Global container---------------- */
 .container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
   align-items: center;
-  gap: 3rem;
-  box-sizing: border-box;
+  gap: 4rem;
+  width: 100%;
+  min-height: 100vh;
   padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top left, rgba(255, 68, 102, 0.16), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(102, 224, 255, 0.12), transparent 35%),
+    linear-gradient(135deg, #081120, #0d1b2a);
 }
 
-/* ---------- Sign In Section ---------- */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(rgba(255, 68, 102, 0.116) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 224, 255, 0.116) 1px, transparent 1px);
+
+  background-size: 40px 40px;
+
+  opacity: 0.55;
+  animation: gridPulse 8s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes gridPulse {
+  0%, 100% {
+    opacity: 0.45;
+    filter: brightness(0.9);
+  }
+  50% {
+    opacity: 0.65;
+    filter: brightness(1.15);
+  }
+}
+
 .signInSection {
   display: flex;
   flex-direction: column;
-  width: 90%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 520px;
   padding: 2.5rem 2rem;
   gap: 1.5rem;
-  border-radius: 16px;
-  color: #0e2d50;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
   text-align: center;
   box-sizing: border-box;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
   box-shadow:
-    0 0 16px rgba(255, 68, 102, 0.5),
-    inset 0 0 24px rgba(255, 68, 102, 0.3);
-  background-color: #fff;
+    0 0 20px rgba(255, 68, 102, 0.18),
+    0 0 40px rgba(102, 224, 255, 0.08),
+    inset 0 0 25px rgba(255,255,255,0.03);
 }
 
-/* Back Button */
-.backBtn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: none;
-  border: none;
-  color: #ff4466;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-bottom: 1rem;
-  transition: color 0.2s ease, transform 0.2s ease;
-  align-self: flex-start;
-  padding: 0%;
-}
-
-.backBtn:hover {
-  color: #e03555;
-  transform: translateX(-2px);
-}
-
-.backIcon {
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-/* Titles */
 .signInTitle {
   font-size: 3rem;
   margin: 0 0 1rem 0;
@@ -66,7 +78,6 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
-/* Form */
 .signInForm {
   display: flex;
   flex-direction: column;
@@ -76,7 +87,6 @@
   gap: 1rem;
 }
 
-/* Inputs */
 .input {
   width: 100%;
   padding: 0.8rem 1rem;
@@ -104,7 +114,6 @@
   background-color: rgba(92, 87, 87, 0.08);
 }
 
-/* Primary Button */
 .primaryBtn {
   margin-top: 1rem;
   background-color: #ff4466;
@@ -122,14 +131,12 @@
   box-shadow: 0 0 12px rgba(255, 68, 102, 0.6);
 }
 
-/* Error Message */
 .error {
   color: #ff4466;
   font-weight: 600;
   margin-top: 0.5rem;
 }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .signInSection {
     max-width: 720px;
@@ -162,11 +169,4 @@
     font-size: 2rem;
   }
 
-  .backBtn {
-    font-size: 0.9rem;
-  }
-  .backIcon {
-    width: 1rem;
-    height: 1rem;
-  }
 }

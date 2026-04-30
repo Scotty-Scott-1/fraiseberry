@@ -3,7 +3,11 @@ import styles from "./BackButton.module.css";
 
 const BackButton = ({ onClick }) => {
   return (
-    <button type="button" className={styles.backBtn} onClick={onClick}>
+    <button
+      type="button"
+      className={styles.backBtn}
+      onClick={onClick}
+    >
       <ArrowLeftIcon className={styles.backIcon} />
     </button>
   );

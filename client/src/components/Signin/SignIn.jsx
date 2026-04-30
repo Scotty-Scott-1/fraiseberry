@@ -1,9 +1,10 @@
 import React, { useState } from "react";
- import { useLoginUser } from "./useLoginUser";
+import { useLoginUser } from "./useLoginUser";
 import styles from "./SignIn.module.css";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Security/authContext";
+import BackButton from "../Utils/Buttons/BackButton/BackButton";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -71,15 +72,7 @@ const SignIn = () => {
     <div className={styles.container}>
       <section className={styles.signInSection}>
 
-        {/* Back Button */}
-        <button
-          type="button"
-          className={styles.backBtn}
-          onClick={() => navigate("/")}
-        >
-          <ArrowLeftIcon className={styles.backIcon} />
-          Back
-        </button>
+        <BackButton onClick={() => navigate("/")} />
 
         <h2 className={styles.signInTitle}>Welcome Back</h2>
 

@@ -4,6 +4,8 @@ import styles from "./SignUp.module.css";
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+import BackButton from "../Utils/Buttons/BackButton/BackButton";
+import PrimaryButton from "../Utils/Buttons/primaryButton/primaryButton";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -12,7 +14,6 @@ const SignUp = () => {
     password: "",
     agree: false,
   });
-
 
   const { createUser, loading, error } = useCreateUser();
 
@@ -24,41 +25,30 @@ const SignUp = () => {
     }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const msg = await createUser(formData);
-    navigate("/signin");
-    toast.success(`A confirmation email has been sent to ${formData.email}.`, {
-      position: "bottom-center",
-      autoClose: 5000
-    });
-    setTimeout(() => {
-      toast.success(`Before logging in click on the verification link.`, {
-        position: "bottom-center",
-        autoClose: 5000
-      });
-    }, 4000);
-  } catch {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  }
-};
+    try {
+      await createUser(formData);
+
+      toast.success(
+        `A confirmation email has been sent to ${formData.email}.`,
+        { position: "bottom-center", autoClose: 4000 }
+      );
+
+      setTimeout(() => {
+        navigate("/signin");
+      }, 1200);
+
+    } catch {};
+  };
 
   return (
     <div className={styles.container}>
-      <section className={styles.signUpSection}>
-
-        {/* Back Button */}
-        <button
-          type="button"
-          className={styles.backBtn}
-          onClick={() => navigate("/")}
-        >
-          <ArrowLeftIcon className={styles.backIcon} />
-          Back
-        </button>
-        <h2 className={styles.signUpTitle}>Join Now</h2>
-        <form className={styles.signUpForm} onSubmit={handleSubmit}>
+      <section className={styles.card}>
+        <BackButton onClick={() => navigate("/")} />
+        <h2 className={styles.title}>Join Now</h2>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <input
             name="email"
             type="email"
@@ -75,7 +65,7 @@ const handleSubmit = async (e) => {
             value={formData.password}
             onChange={handleChange}
           />
-          <label>
+          <label className={styles.checkboxLabel}>
             <input
               name="agree"
               type="checkbox"
@@ -83,9 +73,9 @@ const handleSubmit = async (e) => {
               onChange={handleChange}
             />{" "}Agree to terms
           </label>
-          <button type="submit" className={styles.primaryBtn} disabled={loading}>
-            {loading ? "Creating..." : "Create Account"}
-          </button>
+          <PrimaryButton disabled={loading}>
+            {loading ? "Loading..." : "Create Account"}
+          </PrimaryButton>
         </form>
 
         {error && <p className={styles.error}>{error}</p>}

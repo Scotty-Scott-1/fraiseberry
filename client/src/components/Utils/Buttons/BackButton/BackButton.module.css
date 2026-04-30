@@ -1,0 +1,32 @@
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+
+  color: white;
+  background: linear-gradient(135deg, #ff4466, #ff5f87);
+
+  box-shadow: 0 0 16px rgba(255, 68, 102, 0.4);
+  transition: all 0.25s ease;
+}
+
+.backBtn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 22px rgba(255, 68, 102, 0.55),
+    0 0 30px rgba(255, 68, 102, 0.25);
+}
+
+.backIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}

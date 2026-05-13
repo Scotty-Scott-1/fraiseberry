@@ -5,7 +5,9 @@ import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import BackButton from "../Utils/Buttons/BackButton/BackButton";
-import PrimaryButton from "../Utils/Buttons/primaryButton/primaryButton";
+import { PrimaryButton } from "../Utils/Buttons/primaryButton/primaryButton";
+import { Title, Subtitle } from "../Utils/Title/Title";
+
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ const SignUp = () => {
     <div className={styles.container}>
       <section className={styles.card}>
         <BackButton onClick={() => navigate("/")} />
-        <h2 className={styles.title}>Join Now</h2>
+        <Title>Join Now</Title>
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
             name="email"
@@ -73,7 +75,7 @@ const SignUp = () => {
               onChange={handleChange}
             />{" "}Agree to terms
           </label>
-          <PrimaryButton disabled={loading}>
+          <PrimaryButton type="submit" disabled={loading}>
             {loading ? "Loading..." : "Create Account"}
           </PrimaryButton>
         </form>

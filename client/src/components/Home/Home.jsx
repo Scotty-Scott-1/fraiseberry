@@ -3,7 +3,8 @@ import styles from "./Home.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { steps } from "./steps";
 import { testimonials } from "./testimonials";
-
+import { Title, Subtitle } from "../Utils/Title/Title"
+import { PrimaryButton, SecondaryButton } from "../Utils/Buttons/primaryButton/primaryButton";
 
 
 const Signup = () => {
@@ -46,11 +47,13 @@ const Signup = () => {
       {/* Hero Section */}
       <section className={`${styles.hero} ${styles.reveal}`}>
         <div className={styles.heroBox}>
-          <h1 className={styles.title}>Find Your Perfect Match</h1>
-          <p className={styles.subtitle}>Connect with singles near you and start your love story today.</p>
+          <Title>Find Your Perfect Match</Title>
+          <p className={styles.text}>Connect with singles near you and start your love story today.</p>
+
+
           <div className={styles.ctaButtons}>
-            <button className={styles.primaryBtn} onClick={() => handleClick("1")}>Sign Up</button>
-            <button className={styles.secondaryBtn}>Learn More</button>
+            <PrimaryButton onClick={() => handleClick("1")}>Sign Up</PrimaryButton>
+            <SecondaryButton>Learn More</SecondaryButton>
           </div>
           <div className={styles.linkBox}>
             <Link to="/signin">Already have an account? Sign in.</Link>
@@ -60,12 +63,12 @@ const Signup = () => {
 
       {/* How it Works */}
       <section className={`${styles.howItWorks} ${styles.reveal}`}>
-        <p className={styles.subtitle}>How It Works</p>
+        <Subtitle>How It Works</Subtitle>
         <div className={styles.steps}>
           {steps.map((step, idx) => (
             <div key={idx} className={`${styles.step} ${styles.reveal}`}>
-              <h3>{step.title}</h3>
-              <p>{step.desc}</p>
+              <Subtitle>{step.title}</Subtitle>
+              <p className={styles.text}>{step.desc}</p>
             </div>
           ))}
         </div>
@@ -73,12 +76,12 @@ const Signup = () => {
 
       {/* Testimonials */}
       <section className={`${styles.testimonials} ${styles.reveal}`}>
-        <p className={styles.subtitle}>Success Stories</p>
+        <Subtitle>Success Stories</Subtitle>
         <div className={styles.testimonialCards}>
           {testimonials.map((t, idx) => (
             <div key={idx} className={`${styles.testimonialCard} ${styles.reveal}`}>
-              <p>"{t.message}"</p>
-              <p>- {t.author}</p>
+              <p className={styles.text}>"{t.message}"</p>
+              <p className={styles.text}>- {t.author}</p>
             </div>
           ))}
         </div>
@@ -86,7 +89,7 @@ const Signup = () => {
 
       {/* Call to Action */}
       <section className={`${styles.finalCTA} ${styles.reveal}`}>
-        <p className={styles.subtitle}>Ready to find your match?</p>
+        <Subtitle>Ready to find your match?</Subtitle>
         <button className={styles.primaryBtn}>Sign Up Now</button>
       </section>
     </div>

@@ -5,6 +5,8 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Security/authContext";
 import BackButton from "../Utils/Buttons/BackButton/BackButton";
+import { Title, Subtitle } from "../Utils/Title/Title"
+import { PrimaryButton } from "../Utils/Buttons/primaryButton/primaryButton";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ const SignIn = () => {
       } else if (result && result.message === "mfa required") {
         setMfaMode(true);
       } else {
-      }
+    }
     } catch(err) {
       console.error("handleSubmit: Error caught:", err.message);
     }
@@ -70,13 +72,10 @@ const SignIn = () => {
 
   return (
     <div className={styles.container}>
-      <section className={styles.signInSection}>
-
+      <section className={styles.card}>
         <BackButton onClick={() => navigate("/")} />
-
-        <h2 className={styles.signInTitle}>Welcome Back</h2>
-
-        <form className={styles.signInForm} onSubmit={handleSubmit}>
+        <Title>Welcome Back</Title>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <input
             name="email"
             type="email"
@@ -85,7 +84,6 @@ const SignIn = () => {
             value={formData.email}
             onChange={handleChange}
           />
-
           <input
             name="password"
             type="password"
@@ -94,14 +92,9 @@ const SignIn = () => {
             value={formData.password}
             onChange={handleChange}
           />
-
-          <button
-            type="submit"
-            className={styles.primaryBtn}
-            disabled={loading}
-          >
+          <PrimaryButton type="submit" disabled={loading}>
             {loading ? "Signing in..." : "Sign In"}
-          </button>
+          </PrimaryButton>
         </form>
 
         {mfaMode && (

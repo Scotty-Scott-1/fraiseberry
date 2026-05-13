@@ -1,30 +1,38 @@
-import { useState } from "react";
 import styles from "./primaryButton.module.css";
 
-const PrimaryButton = ({ children, disabled }) => {
-  const [loadingAnim, setLoadingAnim] = useState(false);
-
-  const handleClick = () => {
-    if (disabled) return;
-
-    setLoadingAnim(true);
-
-    setTimeout(() => {
-      setLoadingAnim(false);
-    }, 2000);
-  };
-
+export const PrimaryButton = ({
+  children,
+  disabled,
+  type = "button",
+  ...props
+}) => {
   return (
     <button
-      type="submit"
+      type={type}
       disabled={disabled}
-      onClick={handleClick}
-      className={`${styles.primaryBtn} ${
-        loadingAnim ? styles.loading : ""
-      }`}
+      className={styles.primaryBtn}
+      {...props}
     >
       {children}
     </button>
   );
 };
-export default PrimaryButton;
+
+
+export const SecondaryButton = ({
+  children,
+  disabled,
+  type = "button",
+  ...props
+}) => {
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      className={styles.secondaryBtn}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};

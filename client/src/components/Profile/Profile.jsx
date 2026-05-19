@@ -31,48 +31,12 @@ const Profile = () => {
   }
 };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleProfilePicChange = (newPhoto) => {
-
-  if (!newPhoto?.file) return;
-
-  const file = newPhoto.file;
-
-  console.log("Name:", file.name);
-  console.log("Type:", file.type);
-
-  const formatFileSize = (bytes) => {
-
-  if (bytes < 1024 * 1024) {
-    return (bytes / 1024).toFixed(2) + " KB";
-  }
-
-  return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+const updateProfileField = (key, value) => {
+  setProfileData((prev) => ({
+    ...prev,
+    [key]: value,
+  }));
 };
-
-console.log("Size:", formatFileSize(file.size));
-
-  const maxSize = 5 * 1024 * 1024;
-
-  if (file.size > maxSize) {
-    alert("Profile picture must be under 5MB");
-    return;
-  }
-
-
-    setProfileData((prev) => ({ ...prev, profilePic: newPhoto }));
-  };
-
-  const handleSupportingPhotoChange = (key, newPhoto) => {
-    setProfileData((prev) => ({
-      ...prev,
-      [key]: newPhoto,
-    }));
-  };
 
   // Load profile from backend
   useEffect(() => {
@@ -122,19 +86,23 @@ console.log("Size:", formatFileSize(file.size));
 
       <ProfilePicture
         photo={profileData.profilePic}
-        onChange={handleProfilePicChange}
+        onChange={(photo) => updateProfileField("profilePic", photo)}
       />
 
       <ProfileDetails
         profileData={profileData}
-        onChange={handleChange}
+        onChange={(e) =>
+          updateProfileField(e.target.name, e.target.value)
+        }
       />
 
       <SupportingPhotos
         supportingPic1={profileData.supportingPic1}
         supportingPic2={profileData.supportingPic2}
         supportingPic3={profileData.supportingPic3}
-        onChange={handleSupportingPhotoChange}
+        onChange={(key, photo) =>
+          updateProfileField(key, photo)
+        }
       />
 
       <button

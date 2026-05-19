@@ -6,6 +6,7 @@ import { useGetProfile } from "./useGetProfile";
 import ProfilePicture from "./ProfilePicSection.jsx";
 import SupportingPhotos from "./PhotoSection";
 import ProfileDetails from "./ProfileDetails";
+import imageCompression from "browser-image-compression";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -31,7 +32,50 @@ const Profile = () => {
   }
 };
 
-const updateProfileField = (key, value) => {
+const updateProfileField = async (key, value) => {
+
+  if (
+    value &&
+    typeof value === "object" &&
+    value.file instanceof File
+  ) {
+
+    try {
+      const options = {
+        maxSizeMB: 4,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+
+      const compressedFile = await imageCompression(
+        value.file,
+        options
+      );
+
+      console.log(
+        "Original:",
+        (value.file.size / (1024 * 1024)).toFixed(2),
+        "MB"
+      );
+
+      console.log(
+        "Compressed:",
+        (compressedFile.size / (1024 * 1024)).toFixed(2),
+        "MB"
+      );
+
+      value = {
+        file: compressedFile,
+        preview: URL.createObjectURL(compressedFile),
+      };
+
+    } catch (err) {
+      console.error("Compression failed:", err);
+      setError("Image compression failed");
+      return;
+    }
+  }
+
   setProfileData((prev) => ({
     ...prev,
     [key]: value,

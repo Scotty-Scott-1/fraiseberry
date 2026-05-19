@@ -1,0 +1,179 @@
+.card {
+  width: 90%;
+  max-width: 340px;
+  background: #fff;
+  margin-top: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: contain;
+  object-fit: cover;
+}
+
+/* Arrows */
+
+.leftArrow,
+.rightArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.leftArrow {
+  left: 10px;
+}
+
+.rightArrow {
+  right: 10px;
+}
+
+.leftArrow:hover,
+.rightArrow:hover {
+  background: rgba(0,0,0,0.8);
+}
+/* Dots indicator */
+
+.dots {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+}
+.activeDot {
+  background: white;
+}
+.info {
+
+  color: black;
+}
+
+.info {
+  margin: 8px;
+  padding: 8px;
+}
+
+.info h2 {
+	margin-top: 0;
+}
+
+.distance {
+  font-size: 0.85rem;
+  color: #777;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.pass,
+.like {
+  width: 48%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.pass {
+  background: #dddadab8;
+  color: black;
+}
+.like {
+  background: #ff4d6d;
+  color: white;
+}
+
+.pass:hover,
+.like:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- STATUS ---------- */
+
+.status {
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.loadingText {
+  color: black;
+}
+
+.error {
+  color: red;
+  padding-bottom: 1rem;
+}
+
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 95%;
+  }
+
+  .leftArrow,
+  .rightArrow {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  .pass,
+  .like {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+
+  .info {
+    padding: 0.75rem;
+  }
+}
+@media (max-width: 480px) {
+  .card {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .image {
+    aspect-ratio: 2.8 / 4;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pass,
+  .like {
+    width: 100%;
+  }
+
+
+}

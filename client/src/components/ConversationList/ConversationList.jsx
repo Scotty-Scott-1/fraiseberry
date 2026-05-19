@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Security/authContext";
 import { useApiCall } from "../../services/useApiCall";
 import styles from "./ConversationList.module.css";
+import DashboardHeader from "../Utils/DashboardHeader/DashboardHeader";
+
 
 const ConversationList = () => {
   const { accessToken } = useAuth();
@@ -28,7 +30,8 @@ const ConversationList = () => {
   };
 
   return (
-    <div className={styles.listContainer}>
+    <div className={styles.container}>
+      <DashboardHeader title="Messages" navTo="/dashboard" />
       {conversations.map((c) => (
         <div
           key={c.conversationId}

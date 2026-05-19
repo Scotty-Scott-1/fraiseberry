@@ -41,16 +41,17 @@ return (
     <DashboardHeader
       title={`Welcome Back ${name || ""}!`}
       onLogout={logout}
+      buttonType = "logout"
     />
 
     {/* Inner centered dashboard content */}
     <div className={styles.contentWrapper}>
 
-      <p className={styles.subTitle}>
+      <p className={styles.text}>
         Check your matches and updates
       </p>
 
-      <div className={styles.headerActions}>
+      <div className={styles.actions}>
         <button className={styles.actionBtn} onClick={() => handleClick("3")}>
           Discover
         </button>
@@ -76,7 +77,7 @@ return (
         {loading && <p>Loading matches…</p>}
 
         {!loading && matches.length === 0 && (
-          <p>No matches yet — keep swiping!</p>
+          <p className={styles.text}>No matches yet — keep swiping!</p>
         )}
 
         {!loading &&

@@ -1,20 +1,30 @@
 import NotificationButton from "../NotificationButton/NotificationButton";
+import BackButton from "../Buttons/BackButton/BackButton";
 import styles from "./DashboardHeader.module.css";
+import { useNavigate } from "react-router-dom";
 
-const DashboardHeader = ({ title = "Dashboard", onLogout }) => {
+
+
+const DashboardHeader = ({ title = "Dashboard", onLogout, buttonType = "back", navTo = "/" }) => {
+
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(navTo);
+  };
+  const renderContent = () => {
+    if (buttonType === "back") {
+      return (
+        <BackButton onClick={handleBack} />
+      );
+    }
+    return (
+      <button className={styles.logoutBtn} onClick={onLogout}>Logout</button>
+    );
+  }
   return (
     <header className={styles.header}>
-      {/* Logout Button (Left) */}
-      <div className={styles.headerLeft}>
-        <button className={styles.logoutBtn} onClick={onLogout}>
-          Logout
-        </button>
-      </div>
-
-      {/* Title (Center) */}
+      <div className={styles.headerLeft}>{renderContent()}</div>
       <div className={styles.headerTitle}>{title}</div>
-
-      {/* Notification (Right) */}
       <div className={styles.headerRight}>
         <div className={styles.nb}><NotificationButton /></div>
       </div>

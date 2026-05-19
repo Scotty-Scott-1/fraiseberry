@@ -1,4 +1,4 @@
-import styles from "./Discover.module.css";
+import styles from "./ProfileCard.module.css";
 
 const ProfileCard = ({
   profile,
@@ -49,11 +49,8 @@ const ProfileCard = ({
       </div>
 
       <div className={styles.info}>
-        <h2>
-          {profile.name}, {profile.age}
-        </h2>
-
-        <p>{profile.bio}</p>
+        <h2>{profile.name}, {profile.age}</h2>
+        <p className={styles.bio}>{profile.bio}</p>
 
         <span className={styles.distance}>
           {profile.distanceKm} km away

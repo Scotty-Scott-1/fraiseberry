@@ -20,8 +20,8 @@ const Discover = () => {
   const renderContent = () => {
     if (loading) return <p className={styles.text}>Loading matches...</p>;
     if (!hasMore) return <p className={styles.text}>No more profiles nearby 🔍</p>;
-    return
-     <ProfileCard
+    return (
+      <ProfileCard
         profile={profile}
         photos={photos}
         currentPhotoIndex={currentPhotoIndex}
@@ -30,8 +30,10 @@ const Discover = () => {
         handleAction={handleAction}
         likeLoading={likeLoading}
         error={error}
-      />;
-};
+      />
+    );
+  }
+
 
   return (
     <div className={styles.container}>

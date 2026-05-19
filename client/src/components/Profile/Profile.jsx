@@ -37,6 +37,33 @@ const Profile = () => {
   };
 
   const handleProfilePicChange = (newPhoto) => {
+
+  if (!newPhoto?.file) return;
+
+  const file = newPhoto.file;
+
+  console.log("Name:", file.name);
+  console.log("Type:", file.type);
+
+  const formatFileSize = (bytes) => {
+
+  if (bytes < 1024 * 1024) {
+    return (bytes / 1024).toFixed(2) + " KB";
+  }
+
+  return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+};
+
+console.log("Size:", formatFileSize(file.size));
+
+  const maxSize = 5 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+    alert("Profile picture must be under 5MB");
+    return;
+  }
+
+
     setProfileData((prev) => ({ ...prev, profilePic: newPhoto }));
   };
 

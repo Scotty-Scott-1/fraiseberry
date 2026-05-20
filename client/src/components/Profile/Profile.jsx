@@ -32,61 +32,56 @@ const Profile = () => {
   }
 };
 
-const updateProfileField = async (key, value) => {
-
-  if (
-    value &&
-    typeof value === "object" &&
-    value.file instanceof File
-  ) {
-
-    try {
-      console.log("________________________________________");
-      console.log("Original type:", value.file.type);
-      console.log("Original name:", value.file.name);
-      const options = {
-        maxSizeMB: 4,
-        maxWidthOrHeight: 1920,
-        useWebWorker: true,
-      };
-
-      const compressedFile = await imageCompression(
-        value.file,
-        options
-      );
-
-      console.log(
-        "Original:",
-        (value.file.size / (1024 * 1024)).toFixed(2),
-        "MB"
-      );
-
-      console.log(
-        "Compressed:",
-        (compressedFile.size / (1024 * 1024)).toFixed(2),
-        "MB"
-      );
-
-      value = {
-        file: compressedFile,
-        preview: URL.createObjectURL(compressedFile),
-      };
-      console.log("Compressed type:", compressedFile.type);
-      console.log("Compressed name:", compressedFile.name);
-      console.log("Compressed size:", compressedFile.size);
-      console.log("________________________________________");
-    } catch (err) {
-      console.error("Compression failed:", err);
-      setError("Image compression failed");
-      return;
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 4,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+  
+    return await imageCompression(file, options);
+  };
+  
+  const updateProfileField = async (key, value) => {
+  
+    if (
+      value &&
+      typeof value === "object" &&
+      value.file instanceof File
+    ) {
+  
+      try {
+        console.log(
+          "Original:",
+          (value.file.size / (1024 * 1024)).toFixed(2),
+          "MB"
+        );
+  
+        const compressedFile = await compressImage(value.file);
+  
+        console.log(
+          "Compressed:",
+          (compressedFile.size / (1024 * 1024)).toFixed(2),
+          "MB"
+        );
+  
+        value = {
+          file: compressedFile,
+          preview: URL.createObjectURL(compressedFile),
+        };
+  
+      } catch (err) {
+        console.error("Compression failed:", err);
+        setError("Image compression failed");
+        return;
+      }
     }
-  }
-
-  setProfileData((prev) => ({
-    ...prev,
-    [key]: value,
-  }));
-};
+  
+    setProfileData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   // Load profile from backend
   useEffect(() => {

@@ -34,49 +34,49 @@ const Profile = () => {
 
   const compressImage = async (file) => {
     const options = {
-      maxSizeMB: 4,
+      maxSizeMB: 25,
       maxWidthOrHeight: 1920,
       useWebWorker: true,
     };
-  
+
     return await imageCompression(file, options);
   };
-  
+
   const updateProfileField = async (key, value) => {
-  
+
     if (
       value &&
       typeof value === "object" &&
       value.file instanceof File
     ) {
-  
+
       try {
         console.log(
           "Original:",
           (value.file.size / (1024 * 1024)).toFixed(2),
           "MB"
         );
-  
+
         const compressedFile = await compressImage(value.file);
-  
+
         console.log(
           "Compressed:",
           (compressedFile.size / (1024 * 1024)).toFixed(2),
           "MB"
         );
-  
+
         value = {
           file: compressedFile,
           preview: URL.createObjectURL(compressedFile),
         };
-  
+
       } catch (err) {
         console.error("Compression failed:", err);
         setError("Image compression failed");
         return;
       }
     }
-  
+
     setProfileData((prev) => ({
       ...prev,
       [key]: value,

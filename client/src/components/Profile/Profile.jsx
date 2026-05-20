@@ -41,6 +41,9 @@ const updateProfileField = async (key, value) => {
   ) {
 
     try {
+      console.log("________________________________________");
+      console.log("Original type:", value.file.type);
+      console.log("Original name:", value.file.name);
       const options = {
         maxSizeMB: 4,
         maxWidthOrHeight: 1920,
@@ -68,7 +71,10 @@ const updateProfileField = async (key, value) => {
         file: compressedFile,
         preview: URL.createObjectURL(compressedFile),
       };
-
+      console.log("Compressed type:", compressedFile.type);
+      console.log("Compressed name:", compressedFile.name);
+      console.log("Compressed size:", compressedFile.size);
+      console.log("________________________________________");
     } catch (err) {
       console.error("Compression failed:", err);
       setError("Image compression failed");

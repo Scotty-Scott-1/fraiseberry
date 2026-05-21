@@ -19,7 +19,6 @@ const Profile = () => {
     supportingPic2: null,
     supportingPic3: null,
   });
-
   const [error, setError] = useState("");
   const { handleSave, saving } = useHandleSave();
   const { getProfile } = useGetProfile();
@@ -35,7 +34,7 @@ const Profile = () => {
   const compressImage = async (file) => {
     const options = {
       maxSizeMB: 5,
-      maxWidthOrHeight: 1920,
+      maxWidthOrHeight: 1280,
       useWebWorker: true,
     };
     const result = await imageCompression(file, options);
@@ -53,19 +52,7 @@ const Profile = () => {
   const handleImageChange = async (key, value) => {
   if (value?.file instanceof File) {
     try {
-      console.log(
-        "Original:",
-        (value.file.size / (1024 * 1024)).toFixed(2),
-        "MB"
-      );
-
       const compressedFile = await compressImage(value.file);
-
-      console.log(
-        "Compressed:",
-        (compressedFile.size / (1024 * 1024)).toFixed(2),
-        "MB"
-      );
 
       const updatedValue = {
         file: compressedFile,

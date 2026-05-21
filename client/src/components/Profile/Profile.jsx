@@ -34,54 +34,57 @@ const Profile = () => {
 
   const compressImage = async (file) => {
     const options = {
-      maxSizeMB: 25,
+      maxSizeMB: 5,
       maxWidthOrHeight: 1920,
       useWebWorker: true,
     };
+    const result = await imageCompression(file, options);
 
-    return await imageCompression(file, options);
+    return result;
   };
 
-  const updateProfileField = async (key, value) => {
-
-    if (
-      value &&
-      typeof value === "object" &&
-      value.file instanceof File
-    ) {
-
-      try {
-        console.log(
-          "Original:",
-          (value.file.size / (1024 * 1024)).toFixed(2),
-          "MB"
-        );
-
-        const compressedFile = await compressImage(value.file);
-
-        console.log(
-          "Compressed:",
-          (compressedFile.size / (1024 * 1024)).toFixed(2),
-          "MB"
-        );
-
-        value = {
-          file: compressedFile,
-          preview: URL.createObjectURL(compressedFile),
-        };
-
-      } catch (err) {
-        console.error("Compression failed:", err);
-        setError("Image compression failed");
-        return;
-      }
-    }
-
+  const updateProfileField = (key, value) => {
     setProfileData((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
+
+  const handleImageChange = async (key, value) => {
+  if (value?.file instanceof File) {
+    try {
+      console.log(
+        "Original:",
+        (value.file.size / (1024 * 1024)).toFixed(2),
+        "MB"
+      );
+
+      const compressedFile = await compressImage(value.file);
+
+      console.log(
+        "Compressed:",
+        (compressedFile.size / (1024 * 1024)).toFixed(2),
+        "MB"
+      );
+
+      const updatedValue = {
+        file: compressedFile,
+        preview: URL.createObjectURL(compressedFile),
+      };
+
+      setProfileData((prev) => ({
+        ...prev,
+        [key]: updatedValue,
+      }));
+
+    } catch (err) {
+      console.error("Compression failed:", err);
+      setError("Image compression failed");
+    }
+  } else {
+    updateProfileField(key, value);
+  }
+};
 
   // Load profile from backend
   useEffect(() => {
@@ -131,7 +134,7 @@ const Profile = () => {
 
       <ProfilePicture
         photo={profileData.profilePic}
-        onChange={(photo) => updateProfileField("profilePic", photo)}
+        onChange={(photo) => handleImageChange("profilePic", photo)}
       />
 
       <ProfileDetails
@@ -146,7 +149,7 @@ const Profile = () => {
         supportingPic2={profileData.supportingPic2}
         supportingPic3={profileData.supportingPic3}
         onChange={(key, photo) =>
-          updateProfileField(key, photo)
+          handleImageChange(key, photo)
         }
       />
 

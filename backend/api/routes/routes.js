@@ -58,13 +58,4 @@ router.post("/messages", verifyAccessToken, sendMessageHandler);
 router.get("/match/profile/:profileUserId", verifyAccessToken, getMatchProfileHandler);
 
 
-router.use((err, req, res, next) => {
-  console.log("🔥 Multer error:", err);
-
-  if (err instanceof multer.MulterError) {
-    return res.status(400).json({ error: err.message });
-  }
-
-  next(err);
-});
 export default router;

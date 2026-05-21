@@ -33,7 +33,7 @@ const Profile = () => {
 
   const compressImage = async (file) => {
     const options = {
-      maxSizeMB: 5,
+      maxSizeMB: 50,
       maxWidthOrHeight: 1280,
       useWebWorker: true,
     };

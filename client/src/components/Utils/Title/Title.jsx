@@ -7,3 +7,7 @@ export const Title = ({ children }) => {
 export const Subtitle = ({ children }) => {
   return <h2 className={styles.subtitle}>{children}</h2>;
 };
+
+export const Subtitle2 = ({ children }) => {
+  return <h2 className={styles.subtitle2}>{children}</h2>;
+};

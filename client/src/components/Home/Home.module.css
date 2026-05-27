@@ -49,7 +49,6 @@
   max-width: 1000px;
   padding: 4rem 2rem;
   border-radius: 20px;
-  position: relative;
   z-index: 1;
 
   background: rgba(255,255,255,0.05);
@@ -62,14 +61,14 @@
     0 0 20px rgba(255, 68, 102, 0.18),
     0 0 40px rgba(102, 224, 255, 0.08),
     inset 0 0 25px rgba(255,255,255,0.03);
-}
 
-.heroBox {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-}
+  }
+
+
 
 .text {
   color: rgb(255, 255, 255);

@@ -46,11 +46,8 @@ const Signup = () => {
 
       {/* Hero Section */}
       <section className={`${styles.hero} ${styles.reveal}`}>
-        <div className={styles.heroBox}>
           <Title>Find Your Perfect Match</Title>
           <p className={styles.text}>Connect with singles near you and start your love story today.</p>
-
-
           <div className={styles.ctaButtons}>
             <PrimaryButton onClick={() => handleClick("1")}>Sign Up</PrimaryButton>
             <SecondaryButton>Learn More</SecondaryButton>
@@ -58,7 +55,6 @@ const Signup = () => {
           <div className={styles.linkBox}>
             <Link to="/signin">Already have an account? Sign in.</Link>
           </div>
-        </div>
       </section>
 
       {/* How it Works */}

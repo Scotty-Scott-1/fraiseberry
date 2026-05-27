@@ -1,5 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import styles from "./ProfilePicSection.module.css";
+import { Subtitle2 } from "../Utils/Title/Title";
+import { SecondaryButton } from "../Utils/Buttons/primaryButton/primaryButton";
 
 const ProfilePicture = ({ photo, onChange }) => {
   const fileInputRef = useRef(null);
@@ -23,31 +25,31 @@ const ProfilePicture = ({ photo, onChange }) => {
     e.target.value = null;
   };
 
+  const renderContent = () => {
+    if (photo) return (
+        <>
+          <img src={photo.preview} alt="Profile" className={styles.avatar} />
+          <SecondaryButton onClick={handleButtonClick}>
+            Change Photo
+          </SecondaryButton>
+        </>
+      );
+    return (
+      <button
+        type="button"
+        className={styles.addPhotoBtn}
+        onClick={handleButtonClick}
+      >
+        + Add Photo
+      </button>
+    );
+  }
+
   return (
     <section className={styles.card}>
-      <h2 className={styles.sectionTitle}>Profile Picture</h2>
+      <Subtitle2>Profile Picture</Subtitle2>
       <div className={styles.avatarSection}>
-        {photo ? (
-          <>
-            <img src={photo.preview} alt="Profile" className={styles.avatar} />
-            <button
-              type="button"
-              className={styles.photoBtn}
-              onClick={handleButtonClick}
-            >
-              Change Photo
-            </button>
-          </>
-        ) : (
-          <button
-            type="button"
-            className={styles.addPhotoBtn}
-            onClick={handleButtonClick}
-          >
-            + Add Photo
-          </button>
-        )}
-
+        {renderContent()}
         <input
           ref={fileInputRef}
           type="file"

@@ -7,6 +7,9 @@ import ProfilePicture from "./ProfilePicSection.jsx";
 import SupportingPhotos from "./PhotoSection";
 import ProfileDetails from "./ProfileDetails";
 import imageCompression from "browser-image-compression";
+import DashboardHeader from "../Utils/DashboardHeader/DashboardHeader.jsx";
+import { Subtitle } from "../Utils/Title/Title.jsx";
+
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -114,45 +117,43 @@ const Profile = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Your Profile</h1>
-      <p className={styles.subTitle}>
-        Be yourself. The right people notice.
-      </p>
+      <DashboardHeader title="Profile" navTo="/dashboard" />
+      <div className={styles.contentWrapper}>
+        <ProfilePicture
+          photo={profileData.profilePic}
+          onChange={(photo) => handleImageChange("profilePic", photo)}
+        />
 
-      <ProfilePicture
-        photo={profileData.profilePic}
-        onChange={(photo) => handleImageChange("profilePic", photo)}
-      />
-
-      <ProfileDetails
-        profileData={profileData}
-        onChange={(e) =>
+        <ProfileDetails
+          profileData={profileData}
+          onChange={(e) =>
           updateProfileField(e.target.name, e.target.value)
-        }
-      />
+          }
+        />
 
-      <SupportingPhotos
-        supportingPic1={profileData.supportingPic1}
-        supportingPic2={profileData.supportingPic2}
-        supportingPic3={profileData.supportingPic3}
-        onChange={(key, photo) =>
-          handleImageChange(key, photo)
-        }
-      />
+        <SupportingPhotos
+          supportingPic1={profileData.supportingPic1}
+          supportingPic2={profileData.supportingPic2}
+          supportingPic3={profileData.supportingPic3}
+          onChange={(key, photo) =>
+            handleImageChange(key, photo)
+          }
+        />
 
-      <button
-        className={styles.saveBtn}
-        onClick={onSave}
-        disabled={saving}
-      >
-        {saving ? "Saving..." : "Save Changes"}
-      </button>
+        <button
+          className={styles.saveBtn}
+          onClick={onSave}
+          disabled={saving}
+          >
+          {saving ? "Saving..." : "Save Changes"}
+        </button>
 
-      {error && (
-        <p style={{ color: "red", marginTop: "0.5rem" }}>
-          {error}
-        </p>
-      )}
+        {error && (
+          <p style={{ color: "red", marginTop: "0.5rem" }}>
+            {error}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

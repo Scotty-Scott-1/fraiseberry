@@ -1,9 +1,10 @@
 import styles from "./ProfileDetails.module.css";
+import { Subtitle2 } from "../Utils/Title/Title";
 
 const ProfileDetails = ({ profileData, onChange }) => {
   return (
     <section className={styles.card}>
-      <h2 className={styles.sectionTitle}>About You</h2>
+      <Subtitle2>About You</Subtitle2>
 
       <label className={styles.label}>
         Name

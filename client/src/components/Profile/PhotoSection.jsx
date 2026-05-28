@@ -1,96 +1,8 @@
-import { useRef, useEffect } from "react";
-import styles from "./PhotoSection.module.css";
 
-const PhotoSlot = ({ title, photo, onChange }) => {
-  const fileInputRef = useRef(null);
-
-  useEffect(() => {
-    return () => {
-      if (photo?.file && photo?.preview) {
-        URL.revokeObjectURL(photo.preview);
-      }
-    };
-  }, [photo]);
-
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const newPhoto = {
-      file,
-      preview: URL.createObjectURL(file),
-    };
-
-    onChange(newPhoto);
-    e.target.value = null;
-  };
-
-  const handleRemove = () => {
-    if (photo?.file && photo?.preview) {
-      URL.revokeObjectURL(photo.preview);
-    }
-    onChange(null);
-  };
-
-  return (
-    <div className={styles.photoSlot}>
-      <h3 className={styles.photoTitle}>{title}</h3>
-
-      <div className={styles.photoWrapper}>
-        {photo ? (
-          <>
-            <img
-              src={photo.preview}
-              alt={title}
-              className={styles.photoPreview}
-            />
-            <button
-              type="button"
-              className={styles.removePhotoBtn}
-              onClick={handleRemove}
-            >
-              ✕
-            </button>
-          </>
-        ) : (
-          <button
-            type="button"
-            className={styles.addPhotoBtn}
-            onClick={handleButtonClick}
-          >
-            + Add {title}
-          </button>
-        )}
-      </div>
-
-      {photo && (
-        <div className={styles.photoButtons}>
-          <button
-            type="button"
-            className={styles.photoBtn}
-            onClick={handleButtonClick}
-          >
-            Change
-          </button>
-        </div>
-      )}
-
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        hidden
-        onChange={handleFileChange}
-      />
-    </div>
-  );
-};
-
-
+import PhotoSlot from "./SupportingPhotoSection/PhotoSlot/PhotoSlot";
+import Card from "../Utils/Card/Card";
+import { Subtitle2 } from "../Utils/Title/Title";
+import PhotoGrid from "./SupportingPhotoSection/PhotoGrid/PhotoGrid";
 
 const SupportingPhotos = ({
   supportingPic1,
@@ -99,27 +11,15 @@ const SupportingPhotos = ({
   onChange,
 }) => {
   return (
-    <section className={styles.card}>
-      <h2 className={styles.sectionTitle}>Supporting Photos</h2>
-
-      <div className={styles.photosGrid}>
-        <PhotoSlot
-          title="Photo 1"
-          photo={supportingPic1}
-          onChange={(photo) => onChange("supportingPic1", photo)}
-        />
-        <PhotoSlot
-          title="Photo 2"
-          photo={supportingPic2}
-          onChange={(photo) => onChange("supportingPic2", photo)}
-        />
-        <PhotoSlot
-          title="Photo 3"
-          photo={supportingPic3}
-          onChange={(photo) => onChange("supportingPic3", photo)}
-        />
-      </div>
-    </section>
+    <Card>
+      <Subtitle2>Supporting Photos</Subtitle2>
+      <PhotoGrid
+        supportingPic1={supportingPic1}
+        supportingPic2={supportingPic2}
+        supportingPic3={supportingPic3}
+        onChange={onChange}
+      />
+    </Card>
   );
 };
 

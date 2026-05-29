@@ -49,8 +49,8 @@ const Signup = () => {
           <Title>Find Your Perfect Match</Title>
           <p className={styles.text}>Connect with singles near you and start your love story today.</p>
           <div className={styles.ctaButtons}>
-            <PrimaryButton onClick={() => handleClick("1")}>Sign Up</PrimaryButton>
-            <SecondaryButton>Learn More</SecondaryButton>
+            <div className={styles.ctaButton}><PrimaryButton onClick={() => handleClick("1")}>Sign Up</PrimaryButton></div>
+            <div className={styles.ctaButton}><SecondaryButton>Learn More</SecondaryButton></div>
           </div>
           <div className={styles.linkBox}>
             <Link to="/signin">Already have an account? Sign in.</Link>

@@ -10,7 +10,7 @@ export const PrimaryButton = ({
     <button
       type={type}
       disabled={disabled}
-      className={styles.primaryBtn}
+      className={[styles.buttonBase, styles.primaryBtn].join(" ")}
       {...props}
     >
       {children}
@@ -29,7 +29,7 @@ export const SecondaryButton = ({
     <button
       type={type}
       disabled={disabled}
-      className={styles.secondaryBtn}
+      className={[styles.buttonBase, styles.secondaryBtn].join(" ")}
       {...props}
     >
       {children}

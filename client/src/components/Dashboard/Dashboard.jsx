@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateLocation } from "./useUpdateLocation";
 import { useGetMatches } from "./useGetMatches";
 import MatchCard from "../Utils/MatchCard/MatchCard.jsx";
+import { PrimaryButton } from "../Utils/Buttons/primaryButton/primaryButton.jsx";
 
 const Dashboard = () => {
   const { accessToken, logout } = useAuth();
@@ -12,8 +13,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { matches, loading, name } = useGetMatches();
 
-  const handleClick = (button) => {
-    switch (button) {
+  const handleClick = (id) => {
+    switch (id) {
       case "1":
         navigate("/profile");
         break;
@@ -52,25 +53,45 @@ return (
       </p>
 
       <div className={styles.actions}>
-        <button className={styles.actionBtn} onClick={() => handleClick("3")}>
-          Discover
-        </button>
+        <div className={styles.actionBtn}>
+          <PrimaryButton
+            onClick={() => handleClick("3")}
+          >
+            Discover
+          </PrimaryButton>
+        </div>
 
-        <button className={styles.actionBtn} onClick={() => handleClick("4")}>
-          Messages
-        </button>
+        <div className={styles.actionBtn}>
+          <PrimaryButton
+            onClick={() => handleClick("4")}
+          >
+            Messages
+          </PrimaryButton>
+        </div>
 
-        <button className={styles.actionBtn} onClick={() => handleClick("1")}>
-          Profile
-        </button>
+        <div className={styles.actionBtn}>
+          <PrimaryButton
+            onClick={() => handleClick("1")}
+          >
+            Profile
+          </PrimaryButton>
+        </div>
 
-        <button className={styles.actionBtn} onClick={() => handleClick("2")}>
-          Preferences
-        </button>
+        <div className={styles.actionBtn}>
+          <PrimaryButton
+            onClick={() => handleClick("2")}
+          >
+            Preferences
+          </PrimaryButton>
+        </div>
 
-        <button className={styles.actionBtn} onClick={() => handleClick("5")}>
-          MFA
-        </button>
+        <div className={styles.actionBtn}>
+          <PrimaryButton
+            onClick={() => handleClick("5")}
+          >
+            MFA
+          </PrimaryButton>
+        </div>
       </div>
 
       <section className={styles.cardsGrid}>

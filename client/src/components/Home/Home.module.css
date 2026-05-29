@@ -77,21 +77,18 @@
 }
 
 .ctaButtons {
+  width: 50%;
   display: flex;
+  flex-direction: row;
   gap: 1rem;
-  flex-wrap: wrap;
   justify-content: center;
 }
 
-.ctaButtons button {
-  padding: 0.9rem 2rem;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: all 0.25s ease;
+.ctaButton {
+  width: 180px;
 }
+
+
 
 .linkBox {
   margin-top: 1rem;
@@ -189,9 +186,10 @@
   .ctaButtons {
     flex-direction: column;
     width: 100%;
+    align-items: center;
   }
 
-  .ctaButtons button {
+  .ctaButton {
     width: 100%;
   }
 

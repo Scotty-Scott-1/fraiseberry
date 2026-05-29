@@ -72,40 +72,10 @@
 }
 
 .actionBtn {
-  color: white;
-  background: linear-gradient(135deg, #ff4466, #ff5f87);
-  box-shadow:
-    0 0 15px rgba(255, 68, 102, 0.55),
-    0 0 30px rgba(255, 68, 102, 0.35),
-    0 0 50px rgba(255, 68, 102, 0.18);
-  padding: 10px 24px;
-  width: 130px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
-
+  width: 155px;
 }
 
-.actionBtn:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 22px rgba(255, 68, 102, 0.55),
-    0 0 30px rgba(255, 68, 102, 0.25);
-}
 
-.actionBtn:active {
-  transform: translateY(1px) scale(0.98);
-  background: rgba(236, 70, 100, 0.534);
-}
-
-.actionBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
 
 .cardsGrid {
   display: flex;

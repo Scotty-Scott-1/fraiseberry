@@ -1,0 +1,28 @@
+.text {
+  color: #555;
+  font-size: 14px;
+  text-align: center;
+}
+
+.cardsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: flex-start;
+}
+
+
+@media (max-width: 768px) {
+  .text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardsGrid {
+    justify-content: center;
+  }
+  .text {
+    font-size: 12px;
+  }
+}

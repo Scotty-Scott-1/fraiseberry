@@ -1,0 +1,11 @@
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.actionBtn {
+  width: 155px;
+}

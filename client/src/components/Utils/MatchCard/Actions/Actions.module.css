@@ -1,0 +1,45 @@
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.viewProfileButton {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  background-color: #ff4466;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.viewProfileButton:hover {
+  transform: scale(1.05);
+}
+
+.messageButton {
+  background-color: #0e2d50;
+  border: none;
+  padding: 0.35rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messageButton:hover {
+  transform: scale(1.05);
+}
+
+.messageIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: white;
+}

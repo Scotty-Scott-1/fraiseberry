@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: -0.2rem;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  color: #ff4466;
+}
+
+.text {
+  font-size: 0.8rem;
+  color: #949292;
+}

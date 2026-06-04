@@ -1,29 +1,16 @@
-.card {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow:
-    0 0 16px rgba(255, 68, 102, 0.2),
-    inset 0 0 8px rgba(255, 68, 102, 0.05);
+.gap {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.sectionTitle {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #0e2d50;
-  margin-bottom: 0.5rem;
+  gap: 15px;
 }
 
 .label {
   display: flex;
   flex-direction: column;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #444;
-  gap: 0.5rem;
+  color: #aecce0de;
+  gap: 0.3rem;
 }
 
 .input {
@@ -35,7 +22,7 @@
   color: #0e2d50;
   background-color: #fff;
   transition: all 0.2s ease;
-  appearance: none; /* remove default arrows */
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 
@@ -102,4 +89,33 @@
   margin-bottom: 0.25rem;
   font-size: 0.85rem;
   color: #555;
+}
+
+
+.genderList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.genderItem {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.genderItem:hover {
+  border-color: #ff4466;
+  background-color: rgba(255, 68, 102, 0.1);
+}
+
+.selected {
+  background-color: #ff4466;
+  color: white;
+  border-color: #ff4466;
 }

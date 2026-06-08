@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 export const accessTokenService = (user) => {
-  // Create JWTs
 
 const { JWT_SECRET, JWT_REFRESH_SECRET } = process.env;
 
@@ -25,6 +24,3 @@ const { JWT_SECRET, JWT_REFRESH_SECRET } = process.env;
     message: "access and refresh token created"
   }
 }
-
-
-

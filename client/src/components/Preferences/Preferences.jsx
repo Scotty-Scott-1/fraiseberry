@@ -8,6 +8,7 @@ import Container from "../Utils/Container/Container";
 import DashboardHeader from "../Utils/DashboardHeader/DashboardHeader.jsx";
 import ContentWrapper from "../Utils/ContentWrapper/ContentWrapper.jsx";
 import Card from "../Utils/Card/Card.jsx";
+import { PrimaryButton } from "../Utils/Buttons/primaryButton/primaryButton";
 
 
 const Preferences = () => {
@@ -44,18 +45,19 @@ const Preferences = () => {
       }
   };
 
+
+
   return (
     <Container>
       <DashboardHeader title="Preferences" navTo="/dashboard" />
       <ContentWrapper>
         <Card>
-
           <PreferencesFilters preferences={preferences} onChange={handleChange} />
-          <button className={styles.saveBtn} onClick={handleSave} disabled={saving}>
-            {saving ? "Saving..." : "Save Preferences"}
-          </button>
-          {error && <p className={styles.error}>{error}</p>}
         </Card>
+          <PrimaryButton onClick={handleSave} disabled={saving}>
+            {saving ? "Saving..." : "Save Preferences"}
+          </PrimaryButton>
+          {error && <p className={styles.error}>{error}</p>}
       </ContentWrapper>
     </Container>
   );

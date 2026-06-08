@@ -1,11 +1,18 @@
 .card {
   width: 90%;
   max-width: 340px;
-  background: #fff;
   margin-top: 20px;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 0 20px rgba(255, 68, 102, 0.18),
+    0 0 40px rgba(102, 224, 255, 0.08),
+    inset 0 0 25px rgba(255,255,255,0.03);
+
 }
 
 .imageWrapper {
@@ -48,7 +55,6 @@
 .rightArrow:hover {
   background: rgba(0,0,0,0.8);
 }
-/* Dots indicator */
 
 .dots {
   position: absolute;
@@ -64,21 +70,27 @@
   background: rgba(255,255,255,0.5);
   border-radius: 50%;
 }
+
 .activeDot {
   background: white;
 }
-.info {
 
+.info {
   color: black;
-}
-
-.info {
   margin: 8px;
   padding: 8px;
 }
 
 .info h2 {
 	margin-top: 0;
+  color: #d1d1d1;
+}
+
+.bio {
+  font-size: 0.9rem;
+  color: #d1d1d1;
+
+  margin-top: 4px;
 }
 
 .distance {

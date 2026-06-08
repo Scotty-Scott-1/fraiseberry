@@ -1,4 +1,5 @@
 import styles from "./PreferencesFilters.module.css";
+import { Subtitle2 } from "../Utils/Title/Title";
 
 const PreferencesFilters = ({ preferences = {}, onChange }) => {
   const {
@@ -9,23 +10,27 @@ const PreferencesFilters = ({ preferences = {}, onChange }) => {
   } = preferences;
 
   return (
-    <section className={styles.card}>
-      <h2 className={styles.sectionTitle}>Search Preferences</h2>
+    <div className={styles.gap}>
+      <Subtitle2>Your Preferences</Subtitle2>
+            <label className={styles.label}>
+              Gender
+              <ul className={styles.genderList}>
+                {["male", "female", "non-binary", "any"].map((gender) => (
+                  <li
+                  key={gender}
+                  className={`${styles.genderItem} ${
+                    preferences.preferredGender === gender ? styles.selected : ""
+                  }`}
+                  onClick={() =>
+                    onChange({ target: { name: "preferredGender", value: gender } })
+                  }
+                  >
+                    {gender}
+                  </li>
+                ))}
+              </ul>
+            </label>
 
-      <label className={styles.label}>
-        Preferred Gender
-        <select
-          name="preferredGender"
-          value={preferredGender}
-          onChange={onChange}
-          className={styles.input}
-        >
-          <option value="any">Any</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="non-binary">Non-Binary</option>
-        </select>
-      </label>
 
       <div className={styles.sliderGroup}>
         <label className={styles.label}>Min Age: {ageRangeMin}</label>
@@ -65,7 +70,7 @@ const PreferencesFilters = ({ preferences = {}, onChange }) => {
           className={styles.slider}
         />
       </div>
-    </section>
+    </div>
   );
 };
 

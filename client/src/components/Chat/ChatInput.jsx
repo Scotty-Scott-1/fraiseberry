@@ -12,11 +12,12 @@ const ChatInput = ({ onSend }) => {
 
   return (
     <div className={styles.inputContainer}>
-      <input
+      <textarea
         className={styles.input}
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Type a message..."
+        rows={1}
       />
 
       <button className={styles.sendBtn} onClick={handleSend}>

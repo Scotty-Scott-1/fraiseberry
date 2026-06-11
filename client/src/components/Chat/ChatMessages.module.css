@@ -1,25 +1,33 @@
 .messagesContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   width: 100%;
+  gap: 12px;
   box-sizing: border-box;
 }
 
-.messageRow {
-  width: 100%;
+.botRow {
   display: flex;
-}
-
-.messageSent {
-  justify-content: flex-end;
-}
-
-.messageReceived {
+  width: 100%;
   justify-content: flex-start;
 }
 
-.bubble {
+.sentRow {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.receivedRow {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+
+
+
+.sentBubble {
   max-width: 70%;
   padding: 10px 14px;
   border-radius: 14px;
@@ -27,30 +35,91 @@
   line-height: 1.4;
   position: relative;
   word-break: break-word;
-}
-
-.messageSent .bubble {
+  margin-left: 6px;
+  margin-right: 6px;
   background: #4a90e2;
   color: white;
   border-bottom-right-radius: 4px;
 }
 
-.messageReceived .bubble {
-  background: #e5e7eb;
-  color: #111;
+
+.receivedBubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  position: relative;
+  word-break: break-word;
+  margin-left: 6px;
+  margin-right: 6px;
+  background: #ffffff;
+  color: rgb(255, 255, 255);
   border-bottom-left-radius: 4px;
 }
 
-.timestamp {
+.botBubble {
+  max-width: 65%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  position: relative;
+  word-break: break-word;
+  margin-left: 6px;
+  margin-right: 6px;
+  background: #5854542f;
+  color: rgb(255, 255, 255);
+  border-top-left-radius: 4px;
+}
+
+.sentText {
+  color: white;
+  background: transparent;
+  white-space: pre-wrap; /* keeps line breaks */
+  word-break: break-word;
+}
+
+.receivedText {
+  color: #2b2929;
+  background: transparent;
+  white-space: pre-wrap; /* keeps line breaks */
+  word-break: break-word;
+}
+
+.botText {
+  color: #ffffff;
+  background: transparent;
+  white-space: pre-wrap; /* keeps line breaks */
+  word-break: break-word;
+}
+
+.sentTimestamp {
   font-size: 11px;
   opacity: 0.7;
   margin-top: 4px;
   display: block;
   text-align: right;
+  color: white;
 }
 
-.botRow {
-  justify-content: flex-start;
+.receivedTimestamp {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 4px;
+  display: block;
+  text-align: left;
+  color: #333;
+}
+
+.botTimestamp {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 4px;
+  display: block;
+  text-align: left;
+  color: #c0bdbda9;
+
 }
 
 .botAvatar {
@@ -64,13 +133,6 @@
   opacity: 0.9;
 }
 
-.botBubble {
-  background: #f3f4f6;
-  color: #111827;
-  font-style: italic;
-  border: 1px solid #e5e7eb;
-  max-width: 65%;
-}
 
 .botText {
   opacity: 0.95;

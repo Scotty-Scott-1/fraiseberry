@@ -4,6 +4,9 @@
   width: 100%;
   gap: 12px;
   box-sizing: border-box;
+  overflow-y: scroll;
+  margin-top: 10px;
+  flex: 1;
 }
 
 .botRow {

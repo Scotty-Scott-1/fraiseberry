@@ -8,7 +8,7 @@ import {
   DashboardHeader,
   ChatMessages,
   ChatInput,
-  Container,
+  MessageContainer,
   useLoadChat,
   useChatSocket,
 } from "./index";
@@ -41,7 +41,7 @@ const Chat = () => {
   };
 
   return (
-    <Container>
+    <MessageContainer>
       <DashboardHeader title={otherUser?.name} navTo="/dashboard" />
       <ChatMessages
         messages={messages}
@@ -49,7 +49,7 @@ const Chat = () => {
         currentUserId={currentUserId}
       />
       <ChatInput onSend={sendMessage} />
-    </Container>
+    </MessageContainer>
   );
 };
 

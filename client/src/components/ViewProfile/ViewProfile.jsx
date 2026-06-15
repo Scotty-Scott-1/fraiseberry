@@ -3,7 +3,7 @@ import ProfileCard from "./ProfileCard";
 import styles from "./Discover.module.css";
 import { useParams } from "react-router-dom";
 import Header from "../Utils/Header/Header";
-
+import { DashboardHeader, Container } from "./index.js";
 
 
 const ViewProfile = () => {
@@ -22,9 +22,8 @@ const ViewProfile = () => {
     return <p className={styles.status}>Loading profile…</p>;
 
   return (
-    <div>
-      <Header title={profile.name} />
-      <div className={styles.container}>
+    <Container>
+      <DashboardHeader title={profile.name} navTo="/dashboard" />
         <ProfileCard
           profile={profile}
           photos={photos}
@@ -32,8 +31,7 @@ const ViewProfile = () => {
           nextPhoto={nextPhoto}
           prevPhoto={prevPhoto}
         />
-      </div>
-    </div>
+    </Container>
   );
 };
 

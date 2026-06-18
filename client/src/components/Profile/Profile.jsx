@@ -1,14 +1,16 @@
 import styles from "./Profile.module.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useHandleSave } from "./useHandleSave";
-import { useGetProfile } from "./useGetProfile";
-import ProfilePicture from "./ProfilePicSection.jsx";
-import SupportingPhotos from "./PhotoSection";
-import ProfileDetails from "./ProfileDetails";
 import imageCompression from "browser-image-compression";
-import DashboardHeader from "../Utils/DashboardHeader/DashboardHeader.jsx";
-import { Subtitle } from "../Utils/Title/Title.jsx";
+import {
+  useHandleSave,
+  useGetProfile,
+  ProfilePic,
+  SupportingPhotos,
+  Info,
+  DashboardHeader,
+  Subtitle
+} from "./index.js";
 
 
 const Profile = () => {
@@ -119,12 +121,12 @@ const Profile = () => {
     <div className={styles.container}>
       <DashboardHeader title="Profile" navTo="/dashboard" />
       <div className={styles.contentWrapper}>
-        <ProfilePicture
+        <ProfilePic
           photo={profileData.profilePic}
           onChange={(photo) => handleImageChange("profilePic", photo)}
         />
 
-        <ProfileDetails
+        <Info
           profileData={profileData}
           onChange={(e) =>
           updateProfileField(e.target.name, e.target.value)

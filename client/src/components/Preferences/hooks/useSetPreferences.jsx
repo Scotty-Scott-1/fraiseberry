@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../Security/authContext";
-import { useApiCall } from "../../services/useApiCall";
+import { useApiCall } from "../../../services/useApiCall";
 
 export const useSetPreferences = (preferences, setError) => {
   const { apiCall } = useApiCall();

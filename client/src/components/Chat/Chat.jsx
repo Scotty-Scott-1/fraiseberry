@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -6,8 +6,8 @@ import {
   useApiCall,
   socket,
   DashboardHeader,
-  ChatMessages,
-  ChatInput,
+  Messages,
+  Input,
   MessageContainer,
   useLoadChat,
   useChatSocket,
@@ -43,12 +43,12 @@ const Chat = () => {
   return (
     <MessageContainer>
       <DashboardHeader title={otherUser?.name} navTo="/dashboard" />
-      <ChatMessages
+      <Messages
         messages={messages}
         bottomRef={bottomRef}
         currentUserId={currentUserId}
       />
-      <ChatInput onSend={sendMessage} />
+      <Input onSend={sendMessage} />
     </MessageContainer>
   );
 };

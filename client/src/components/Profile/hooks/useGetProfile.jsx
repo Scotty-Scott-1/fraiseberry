@@ -1,8 +1,6 @@
-import { useAuth } from "../Security/authContext";
-import { useApiCall } from "../../services/useApiCall";
+import { useApiCall } from "../../../services/useApiCall";
 
 export const useGetProfile = () => {
-  const { accessToken } = useAuth();
   const { apiCall } = useApiCall();
 
   const getProfile = async () => {

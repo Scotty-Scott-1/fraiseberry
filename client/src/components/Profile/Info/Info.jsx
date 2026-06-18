@@ -1,7 +1,7 @@
-import styles from "./ProfileDetails.module.css";
-import { Subtitle2 } from "../Utils/Title/Title";
+import styles from "./Info.module.css";
+import { Subtitle2 } from "../../Utils/Title/Title";
 
-const ProfileDetails = ({ profileData, onChange }) => {
+const Info = ({ profileData, onChange }) => {
   return (
     <section className={styles.card}>
       <Subtitle2>About You</Subtitle2>
@@ -61,4 +61,4 @@ const ProfileDetails = ({ profileData, onChange }) => {
   );
 };
 
-export default ProfileDetails;
+export default Info;

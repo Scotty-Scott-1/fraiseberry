@@ -1,8 +1,9 @@
-
-import PhotoSlot from "./SupportingPhotoSection/PhotoSlot/PhotoSlot";
-import Card from "../Utils/Card/Card";
-import { Subtitle2 } from "../Utils/Title/Title";
-import PhotoGrid from "./SupportingPhotoSection/PhotoGrid/PhotoGrid";
+import {
+  PhotoSlot,
+  Card,
+  Subtitle2,
+  PhotoGrid
+ } from "./index.js";
 
 const SupportingPhotos = ({
   supportingPic1,

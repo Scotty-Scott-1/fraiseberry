@@ -1,6 +1,6 @@
-import styles from "./ChatMessages.module.css";
+import styles from "./Messages.module.css";
 
-const ChatMessages = ({ messages, bottomRef, currentUserId }) => {
+const Messages = ({ messages, bottomRef, currentUserId }) => {
   return (
     <div className={styles.messagesContainer}>
       {messages.map((msg) => {
@@ -62,4 +62,4 @@ const ChatMessages = ({ messages, bottomRef, currentUserId }) => {
   );
 };
 
-export default ChatMessages;
+export default Messages;

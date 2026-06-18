@@ -1,4 +1,4 @@
-import { useApiCall } from "../../services/useApiCall";
+import { useApiCall } from "../../../services/useApiCall";
 
 export const useFetchPreferences = (preferences, setPreferences, setError) => {
   const { apiCall } = useApiCall();

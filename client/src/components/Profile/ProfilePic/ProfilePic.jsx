@@ -1,9 +1,9 @@
-import { useRef, useEffect, useState } from "react";
-import styles from "./ProfilePicSection.module.css";
-import { Subtitle2 } from "../Utils/Title/Title";
-import { SecondaryButton } from "../Utils/Buttons/primaryButton/primaryButton";
+import { useRef, useEffect } from "react";
+import styles from "./ProfilePic.module.css";
+import { Subtitle2 } from "../../Utils/Title/Title";
+import { SecondaryButton } from "../../Utils/Buttons/primaryButton/primaryButton";
 
-const ProfilePicture = ({ photo, onChange }) => {
+const ProfilePic = ({ photo, onChange }) => {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -62,5 +62,5 @@ const ProfilePicture = ({ photo, onChange }) => {
   );
 };
 
-export default ProfilePicture;
+export default ProfilePic;
 

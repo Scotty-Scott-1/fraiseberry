@@ -1,7 +1,7 @@
-import styles from "./PreferencesFilters.module.css";
-import { Subtitle2 } from "../Utils/Title/Title";
+import styles from "./Filters.module.css";
+import { Subtitle2 } from "../../Utils/Title/Title";
 
-const PreferencesFilters = ({ preferences = {}, onChange }) => {
+const Filters = ({ preferences = {}, onChange }) => {
   const {
     preferredGender = "any",
     ageRangeMin = 18,
@@ -74,4 +74,4 @@ const PreferencesFilters = ({ preferences = {}, onChange }) => {
   );
 };
 
-export default PreferencesFilters;
+export default Filters;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./ChatInput.module.css";
+import styles from "./Input.module.css";
 
-const ChatInput = ({ onSend }) => {
+const Input = ({ onSend }) => {
   const [text, setText] = useState("");
 
   const handleSend = () => {
@@ -27,4 +27,4 @@ const ChatInput = ({ onSend }) => {
   );
 };
 
-export default ChatInput;
+export default Input;

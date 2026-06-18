@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Preferences.module.css";
-import PreferencesFilters from "./PreferencesFilters";
-import { useFetchPreferences } from "./useFetchPreferences";
-import { useSetPreferences } from "./useSetPreferences";
 import { useNavigate } from "react-router-dom";
-import Container from "../Utils/Container/Container";
-import DashboardHeader from "../Utils/DashboardHeader/DashboardHeader.jsx";
-import ContentWrapper from "../Utils/ContentWrapper/ContentWrapper.jsx";
-import Card from "../Utils/Card/Card.jsx";
-import { PrimaryButton } from "../Utils/Buttons/primaryButton/primaryButton";
-
+import {
+  Filters,
+  useFetchPreferences,
+  useSetPreferences,
+  Container,
+  DashboardHeader,
+  ContentWrapper,
+  Card,
+  PrimaryButton,
+} from "./index";
 
 const Preferences = () => {
   const [preferences, setPreferences] = useState({
@@ -22,8 +23,6 @@ const Preferences = () => {
   const { fetchPreferences } = useFetchPreferences(preferences, setPreferences, setError);
   const { savePreferences, saving } = useSetPreferences(preferences, setError);
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     const load = async () => {
@@ -52,7 +51,7 @@ const Preferences = () => {
       <DashboardHeader title="Preferences" navTo="/dashboard" />
       <ContentWrapper>
         <Card>
-          <PreferencesFilters preferences={preferences} onChange={handleChange} />
+          <Filters preferences={preferences} onChange={handleChange} />
         </Card>
           <PrimaryButton onClick={handleSave} disabled={saving}>
             {saving ? "Saving..." : "Save Preferences"}

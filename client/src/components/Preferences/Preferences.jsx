@@ -20,17 +20,9 @@ const Preferences = () => {
     maxDistanceKm: 50,
   });
   const [error, setError] = useState("");
-  const { fetchPreferences } = useFetchPreferences(preferences, setPreferences, setError);
+  const [loading, setLoading] = useState(false);
   const { savePreferences, saving } = useSetPreferences(preferences, setError);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const load = async () => {
-      const data = await fetchPreferences();
-      console.log(data.message);
-    };
-    load();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,21 +30,24 @@ const Preferences = () => {
   };
 
   const handleSave = async () => {
-      const success = await savePreferences();
-      if (success) {
-        navigate("/dashboard");
-      }
+    const success = await savePreferences();
+    if (success) {
+      navigate("/dashboard");
+    }
   };
 
+  const renderContent = () => {
+    if (loading) return <p>Loading preferences...</p>;
+    return <Filters preferences={preferences} onChange={handleChange} />;
+  };
 
+  useFetchPreferences(setLoading, setPreferences, setError);
 
   return (
     <Container>
       <DashboardHeader title="Preferences" navTo="/dashboard" />
       <ContentWrapper>
-        <Card>
-          <Filters preferences={preferences} onChange={handleChange} />
-        </Card>
+        <Card>{renderContent()}</Card>
           <PrimaryButton onClick={handleSave} disabled={saving}>
             {saving ? "Saving..." : "Save Preferences"}
           </PrimaryButton>

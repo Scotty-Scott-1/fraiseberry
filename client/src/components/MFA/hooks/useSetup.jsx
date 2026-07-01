@@ -1,9 +1,13 @@
+import { useApiCall } from "../../../services/useApiCall";
+
 export const useSetup = ({
   setLoading,
   setQrCode,
   setSecret,
   setMessage
 }) => {
+  const { apiCall } = useApiCall();
+
   const setup = async () => {
     try {
       setLoading(true);
@@ -24,7 +28,7 @@ export const useSetup = ({
         setMessage(data.message || "Error generating secret");
       }
     } catch (err) {
-      setMessage("Server error");
+      setMessage(err.message);
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useApiCall } from "../../../services/useApiCall";
 
-export const useGetStatus = (apiCall, setMfaEnabled) => {
+export const useGetStatus = (setMfaEnabled) => {
+  const { apiCall } = useApiCall();
+
   useEffect(() => {
     const fetchMfaStatus = async () => {
       try {
@@ -18,5 +21,5 @@ export const useGetStatus = (apiCall, setMfaEnabled) => {
     };
 
     fetchMfaStatus();
-  }, []);
+  }, [apiCall, setMfaEnabled]);
 };

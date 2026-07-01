@@ -1,11 +1,14 @@
+import { useApiCall } from "../../../services/useApiCall";
+
 export const useDisable = ({
-  apiCall,
   setMfaEnabled,
   setMessage,
   setQrCode,
   setSecret,
   setMfaCode
 }) => {
+  const { apiCall } = useApiCall();
+
   const disable = async () => {
     try {
       const res = await apiCall("/api/mfa/disable", {

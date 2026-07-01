@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -22,11 +22,16 @@ const Chat = () => {
 
   const bottomRef = useRef(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom =  useCallback(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
-  const { conversationId, messages, currentUserId, otherUser, setMessages } = useLoadChat(otherUserId, apiCall, accessToken, scrollToBottom);
+  const {
+    conversationId,
+    messages,
+    currentUserId,
+    otherUser,
+    setMessages } = useLoadChat({ otherUserId, scrollToBottom });
 
   useChatSocket(conversationId, setMessages, scrollToBottom);
 

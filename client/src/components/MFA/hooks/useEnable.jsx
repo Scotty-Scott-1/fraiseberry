@@ -1,5 +1,6 @@
+import { useApiCall } from "../../../services/useApiCall";
+
 export const useEnable = ({
-  apiCall,
   mfaCode,
   setMfaEnabled,
   setMessage,
@@ -7,6 +8,8 @@ export const useEnable = ({
   setSecret,
   setMfaCode,
 }) => {
+  const { apiCall } = useApiCall();
+
   const enable = async () => {
     try {
       if (!mfaCode) {
@@ -31,9 +34,9 @@ export const useEnable = ({
         setMessage(data.message || "Invalid code");
       }
     } catch (err) {
-      setMessage("Server error");
+      setMessage(err.message);
     }
   };
-
+  
   return { enable };
 };

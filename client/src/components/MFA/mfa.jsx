@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import QRCode from "react-qr-code";
-import { useGetStatus } from "./hooks/useGetStatus";
-import { useSetup } from "./hooks/useSetup";
-import { useEnable } from "./hooks/useEnable";
-import { useDisable } from "./hooks/useDisable";
-import DashboardHeader from "../Utils/DashboardHeader/DashboardHeader";
-import Container from "../Utils/MessageContainer/MessageContainer";
-import ContentWrapper from "../Utils/ContentWrapper/ContentWrapper";
-import Controls from "./Controls/Controls";
+import {
+  useGetStatus,
+  useSetup,
+  useEnable,
+  useDisable,
+  DashboardHeader,
+  Container,
+  ContentWrapper,
+  Controls
+} from "./index.js";
 
 const MFA = () => {
 

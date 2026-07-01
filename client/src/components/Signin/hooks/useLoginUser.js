@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "../Security/authContext";
+import { useAuth } from "../../Security/authContext";
 
-export const useLoginUser = () => {
+export const useLoginUser = (setError) => {
   const { login, setTempMfaToken } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const loginUser = async (credentials) => {
     setLoading(true);
@@ -44,5 +43,5 @@ export const useLoginUser = () => {
   }
 
 
-  return { loginUser, loading, error };
+  return { loginUser, loading };
 };

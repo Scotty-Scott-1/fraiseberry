@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import { useGetProfile } from "./useGetProfile";
 
 export const useViewProfile = (otherUserId) => {

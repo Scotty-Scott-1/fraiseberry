@@ -1,11 +1,14 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { useApiCall } from "../../../services/useApiCall";
 
-const useLoadChat = (otherUserId, apiCall, accessToken, scrollToBottom) => {
+const useLoadChat = ( {otherUserId, scrollToBottom }) => {
 
   const [conversationId, setConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null);
   const [otherUser, setOtherUser] = useState(null);
+  const { apiCall } = useApiCall();
+
 
   useEffect(() => {
     const loadChat = async () => {
@@ -21,8 +24,8 @@ const useLoadChat = (otherUserId, apiCall, accessToken, scrollToBottom) => {
       scrollToBottom();
     };
 
-    if (accessToken) loadChat();
-  }, [accessToken, otherUserId]);
+    loadChat();
+  }, [otherUserId, scrollToBottom, apiCall]);
 
   return { conversationId, messages, currentUserId, otherUser, setMessages };
 };

@@ -6,6 +6,7 @@ export const getAllConversationsHandler = async (req, res) => {
 
     const data = await getAllConversationsController(userId);
 
+
     return res.json(data);
   } catch (err) {
     console.error("Failed to load conversations:", err);

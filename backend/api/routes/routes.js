@@ -29,6 +29,7 @@ import { getMatchProfileHandler } from "../handlers/getMatchProfileHandler.js"
 
 
 
+
 const router = express.Router();
 
 // Auth routes

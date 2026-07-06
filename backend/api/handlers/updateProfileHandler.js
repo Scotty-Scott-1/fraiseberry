@@ -1,6 +1,4 @@
 import { updateProfileController } from "../controllers/updateProfile/updateProfile.js";
-import { fileTypeFromFile } from "file-type";
-
 
 export const updateProfileHandler = async (req, res) => {
   try {
@@ -10,21 +8,6 @@ export const updateProfileHandler = async (req, res) => {
 
     // Multer parses files into req.files
     const files = req.files || {};
-
-    const allFiles = Object.values(files).flat();
-
-    // Validate each uploaded file
-    for (const file of allFiles) {
-      const type = await fileTypeFromFile(file.path);
-      console.log("type:", type);
-
-      // Reject if not real JPEG/PNG
-      if (!type || !["image/jpeg", "image/png"].includes(type.mime)) {
-        console.warn("Deleting invalid file:", file.path);
-        fs.unlinkSync(file.path); // delete the bad file
-        return res.status(400).json({ error: "Invalid image file" });
-      }
-    }
 
     // Get each file individually
     const profilePicFile = files.profilePic ? files.profilePic[0] : null;
